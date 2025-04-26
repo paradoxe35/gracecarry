@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "next-themes";
+import { BRAND_NAME } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,9 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Grace & Carry | Premium Women's Fashion Boutique",
-  description:
-    "Discover curated collections of premium women's fashion, footwear, accessories, and lifestyle products at Grace & Carry.",
+  title: `${BRAND_NAME} | Premium Women's Fashion Boutique`,
+  description: `Discover curated collections of premium women's fashion, footwear, accessories, and lifestyle products at ${BRAND_NAME}.`,
   keywords:
     "women's fashion, premium boutique, accessories, footwear, luxury fashion",
 };
