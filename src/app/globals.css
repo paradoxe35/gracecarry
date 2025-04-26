@@ -16,7 +16,7 @@
 
 /* Remove @theme inline as it's not supported in standard Tailwind v3 */
 
-@media (prefers-color-scheme: dark) {
+html.dark {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +17,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Grace & Carry | Premium Women's Fashion Boutique",
-  description: "Discover curated collections of premium women's fashion, footwear, accessories, and lifestyle products at Grace & Carry.",
-  keywords: "women's fashion, premium boutique, accessories, footwear, luxury fashion",
+  description:
+    "Discover curated collections of premium women's fashion, footwear, accessories, and lifestyle products at Grace & Carry.",
+  keywords:
+    "women's fashion, premium boutique, accessories, footwear, luxury fashion",
 };
 
 export default function RootLayout({
@@ -30,11 +33,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Header />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider
+          enableSystem={true}
+          attribute="class"
+          defaultTheme="light"
+        >
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
