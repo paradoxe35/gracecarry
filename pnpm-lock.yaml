@@ -102,6 +102,9 @@ importers:
       '@headlessui/react':
         specifier: ^2.2.2
         version: 2.2.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@medusajs/js-sdk':
+        specifier: latest
+        version: 2.7.1(awilix@8.0.1)(ioredis@5.6.1)(vite@5.4.18(@types/node@20.17.31))
       next:
         specifier: 15.3.1
         version: 15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)

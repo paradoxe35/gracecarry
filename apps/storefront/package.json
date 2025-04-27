@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
+    "@medusajs/js-sdk": "latest",
     "next": "15.3.1",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
