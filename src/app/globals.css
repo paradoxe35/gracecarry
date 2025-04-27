@@ -15,12 +15,10 @@
 }
 
 html.dark {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --secondary: #303030;
-    --secondary-dark: #252525;
-  }
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --secondary: #303030;
+  --secondary-dark: #252525;
 }
 
 body {
@@ -36,8 +34,7 @@ body {
   }
 
   .g-heading {
-    font-family: "Playfair Display", serif;
-    @apply font-medium tracking-wide;
+    @apply font-medium tracking-wide font-serif;
   }
 
   .g-button-primary {
