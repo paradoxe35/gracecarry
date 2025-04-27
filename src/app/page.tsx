@@ -108,9 +108,13 @@ export default function Home() {
       {/* Categories section */}
       <section className="py-16 bg-neutral-100">
         <div className="g-container">
-          <h2 className="g-heading text-3xl text-center mb-12">
+          <h2 className="g-heading text-3xl text-center mb-4">
             Shop by Category
           </h2>
+          <p className="text-neutral-700 text-center mb-8">
+            Explore our products by category to find exactly what you're looking
+            for.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
               <Link key={category.name} href={category.href} className="group">
