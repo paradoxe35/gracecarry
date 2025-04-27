@@ -3,4 +3,8 @@ packages:
   - packages/*
 
 ignoredBuiltDependencies:
+  - '@medusajs/telemetry'
+  - '@swc/core'
+  - esbuild
+  - msgpackr-extract
   - sharp
