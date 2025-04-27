@@ -37,7 +37,7 @@ export default function RootLayout({
     >
       <body className="antialiased min-h-screen flex flex-col">
         <ThemeProvider
-          enableSystem={true}
+          enableSystem={false}
           attribute="class"
           defaultTheme="light"
         >

@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack --port 8000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start --port 8000",
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "next": "15.3.1",
