@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { BRAND_NAME } from "@/lib/constants";
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/lib/constants";
 
 export default function CustomerServicePage() {
   return (
@@ -38,10 +38,10 @@ export default function CustomerServicePage() {
               Send us an email and we'll respond within 24 hours.
             </p>
             <a
-              href="mailto:support@graceandcarry.com"
+              href={`mailto:${SUPPORT_CONTACT}`}
               className="text-primary hover:underline"
             >
-              support@graceandcarry.com
+              {SUPPORT_CONTACT}
             </a>
           </div>
 

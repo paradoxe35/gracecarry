@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
-import { BRAND_NAME } from "@/lib/constants";
+import { BRAND_NAME, SUPPORT_CONTACT } from "@/lib/constants";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -100,23 +100,14 @@ export default function ContactPage() {
                 </div>
                 <div className="ml-4">
                   <h3 className="font-medium mb-1">Email Us</h3>
-                  <p className="text-neutral-600 mb-1">
-                    For general inquiries:
-                  </p>
-                  <a
-                    href="mailto:info@graceandcarry.com"
-                    className="text-primary hover:underline"
-                  >
-                    info@graceandcarry.com
-                  </a>
                   <p className="text-neutral-600 mt-2 mb-1">
                     For customer support:
                   </p>
                   <a
-                    href="mailto:support@graceandcarry.com"
+                    href={`mailto:${SUPPORT_CONTACT}`}
                     className="text-primary hover:underline"
                   >
-                    support@graceandcarry.com
+                    {SUPPORT_CONTACT}
                   </a>
                 </div>
               </div>
