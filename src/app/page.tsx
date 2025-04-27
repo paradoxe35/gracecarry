@@ -132,7 +132,7 @@ export default function Home() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <div key={product.id} className="g-card group">
+              <Link key={product.id} href={`/product/${product.id}`} className="g-card group">
                 <div className="relative h-80 overflow-hidden">
                   <Image
                     src={product.image}
@@ -161,7 +161,7 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
