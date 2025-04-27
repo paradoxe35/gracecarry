@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "next-themes";
 import { BRAND_NAME } from "@/lib/constants";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,9 +41,11 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
         >
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
+          <Suspense>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

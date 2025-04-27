@@ -6,6 +6,7 @@ import Link from "next/link";
 import ProductCard from "@/components/product/ProductCard";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import React from "react";
 
 // Mock category data
 const getCategoryBySlug = (slug: string) => {
@@ -163,7 +164,13 @@ const sortOptions = [
   { value: "best-selling", label: "Best Selling" },
 ];
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+export default function CategoryPage({
+  params: paramsPromise,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const params = React.use(paramsPromise);
+
   const category = useMemo(() => getCategoryBySlug(params.slug), [params.slug]);
   const allProducts = useMemo(
     () => getProductsByCategory(params.slug),
