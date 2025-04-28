@@ -271,7 +271,10 @@ export default function CategoryPage({
         <nav className="mb-8">
           <ol className="flex text-sm">
             <li className="flex items-center">
-              <LocalizedLink href="/" className="text-neutral-600 hover:text-primary">
+              <LocalizedLink
+                href="/"
+                className="text-neutral-600 hover:text-primary"
+              >
                 Home
               </LocalizedLink>
               <span className="mx-2 text-neutral-400">/</span>
