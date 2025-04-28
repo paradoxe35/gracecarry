@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -54,7 +54,7 @@ const Button = ({
   // If href is provided, render as Link
   if (href) {
     return (
-      <Link 
+      <LocalizedLink 
         href={href} 
         className={classes}
         onClick={onClick as any}
@@ -62,7 +62,7 @@ const Button = ({
         tabIndex={disabled ? -1 : undefined}
       >
         {children}
-      </Link>
+      </LocalizedLink>
     );
   }
   

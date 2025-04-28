@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
 
@@ -68,9 +68,9 @@ export default function WishlistPage() {
               </div>
 
               <div className="p-4">
-                <Link href={`/product/${product.id}`} className="font-medium hover:text-primary transition-colors">
+                <LocalizedLink href={`/product/${product.id}`} className="font-medium hover:text-primary transition-colors">
                   {product.name}
-                </Link>
+                </LocalizedLink>
                 <p className="text-sm text-neutral-600 mt-1">{product.category}</p>
 
                 <div className="flex justify-between items-center mt-3">

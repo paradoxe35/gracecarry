@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import ProductCard from '@/components/product/ProductCard';
 import Button from '@/components/ui/Button';
 

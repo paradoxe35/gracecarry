@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
 
@@ -115,9 +115,9 @@ export default function OrdersPage() {
                         />
                       </div>
                       <div className="ml-4 flex-grow">
-                        <Link href={`/product/${item.id}`} className="font-medium hover:text-primary transition-colors">
+                        <LocalizedLink href={`/product/${item.id}`} className="font-medium hover:text-primary transition-colors">
                           {item.name}
-                        </Link>
+                        </LocalizedLink>
                         <p className="text-sm text-neutral-600">Qty: {item.quantity}</p>
                       </div>
                       <div className="text-right">

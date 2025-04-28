@@ -2,7 +2,7 @@
 
 import { use, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 
 // This would normally come from an API or database
@@ -73,18 +73,18 @@ export default function ProductPage({
       <nav className="mb-8">
         <ol className="flex text-sm">
           <li className="flex items-center">
-            <Link href="/" className="text-neutral-600 hover:text-primary">
+            <LocalizedLink href="/" className="text-neutral-600 hover:text-primary">
               Home
-            </Link>
+            </LocalizedLink>
             <span className="mx-2 text-neutral-400">/</span>
           </li>
           <li className="flex items-center">
-            <Link
+            <LocalizedLink
               href={`/category/${product.category.toLowerCase()}`}
               className="text-neutral-600 hover:text-primary"
             >
               {product.category}
-            </Link>
+            </LocalizedLink>
             <span className="mx-2 text-neutral-400">/</span>
           </li>
           <li className="text-neutral-800 font-medium">{product.name}</li>
@@ -238,12 +238,12 @@ export default function ProductPage({
           <div className="mb-6">
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-sm font-medium">Size: {selectedSize}</h3>
-              <Link
+              <LocalizedLink
                 href="/size-guide"
                 className="text-sm text-primary hover:underline"
               >
                 Size Guide
-              </Link>
+              </LocalizedLink>
             </div>
 
             <div className="flex flex-wrap gap-2">

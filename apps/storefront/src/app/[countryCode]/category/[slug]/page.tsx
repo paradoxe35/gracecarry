@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import ProductCard from "@/components/product/ProductCard";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -271,9 +271,9 @@ export default function CategoryPage({
         <nav className="mb-8">
           <ol className="flex text-sm">
             <li className="flex items-center">
-              <Link href="/" className="text-neutral-600 hover:text-primary">
+              <LocalizedLink href="/" className="text-neutral-600 hover:text-primary">
                 Home
-              </Link>
+              </LocalizedLink>
               <span className="mx-2 text-neutral-400">/</span>
             </li>
             <li className="text-neutral-800 font-medium">{category.name}</li>

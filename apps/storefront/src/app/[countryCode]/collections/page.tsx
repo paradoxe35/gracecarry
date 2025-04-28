@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from '@/components/ui/Button';
 
 // Mock collections data
@@ -39,7 +39,7 @@ export default function CollectionsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {collectionsData.map((collection) => (
-          <Link key={collection.id} href={`/collections/${collection.id}`} className="g-card group">
+          <LocalizedLink key={collection.id} href={`/collections/${collection.id}`} className="g-card group">
             <div className="relative h-80 overflow-hidden">
               <Image
                 src={collection.image}
@@ -63,7 +63,7 @@ export default function CollectionsPage() {
               <h3 className="font-medium text-lg mb-2">{collection.name}</h3>
               <p className="text-neutral-600">{collection.description}</p>
             </div>
-          </Link>
+          </LocalizedLink>
         ))}
       </div>
     </div>

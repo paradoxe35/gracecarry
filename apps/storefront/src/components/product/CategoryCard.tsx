@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 
 interface CategoryCardProps {
   category: {
@@ -12,7 +12,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
-    <Link href={category.href} className="group">
+    <LocalizedLink href={category.href} className="group">
       <div className="relative h-80 overflow-hidden rounded-md g-card">
         <Image
           src={category.image}
@@ -36,7 +36,7 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
           </p>
         </div>
       </div>
-    </Link>
+    </LocalizedLink>
   );
 };
 

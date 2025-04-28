@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 
@@ -33,9 +33,9 @@ export default function ForgotPasswordPage() {
     <div className="g-container py-12">
       <div className="max-w-md mx-auto bg-white rounded-md shadow-soft p-8">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block">
+          <LocalizedLink href="/" className="inline-block">
             <h1 className="text-2xl font-serif font-medium text-primary">Grace & Carry</h1>
-          </Link>
+          </LocalizedLink>
           <h2 className="text-2xl font-medium mt-6 mb-2">Forgot Your Password?</h2>
           <p className="text-neutral-600">Enter your email address to reset your password</p>
         </div>
@@ -88,9 +88,9 @@ export default function ForgotPasswordPage() {
         <div className="mt-8 pt-6 border-t border-neutral-200 text-center">
           <p className="text-neutral-600">
             Remember your password?{' '}
-            <Link href="/auth/login" className="text-primary hover:underline">
+            <LocalizedLink href="/auth/login" className="text-primary hover:underline">
               Sign in
-            </Link>
+            </LocalizedLink>
           </p>
         </div>
       </div>

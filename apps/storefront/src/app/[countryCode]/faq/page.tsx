@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME } from "@/lib/constants";
 
@@ -12,9 +12,9 @@ export default function FAQPage() {
           <p className="text-neutral-700 mb-6">
             Find answers to our most commonly asked questions below. If you
             can't find what you're looking for, please don't hesitate to{" "}
-            <Link href="/contact" className="text-primary hover:underline">
+            <LocalizedLink href="/contact" className="text-primary hover:underline">
               contact us
-            </Link>
+            </LocalizedLink>
             .
           </p>
 
@@ -94,13 +94,13 @@ export default function FAQPage() {
                   order has been processed, we cannot make changes or cancel it.
                   If your order has already been processed, you can return the
                   items once received following our
-                  <Link
+                  <LocalizedLink
                     href="/shipping"
                     className="text-primary hover:underline"
                   >
                     {" "}
                     return policy
-                  </Link>
+                  </LocalizedLink>
                   .
                 </p>
               </div>
@@ -163,13 +163,13 @@ export default function FAQPage() {
                 </ul>
                 <p className="mt-3">
                   For more detailed information, please visit our
-                  <Link
+                  <LocalizedLink
                     href="/shipping"
                     className="text-primary hover:underline"
                   >
                     {" "}
                     Shipping & Returns page
-                  </Link>
+                  </LocalizedLink>
                   .
                 </p>
               </div>
@@ -198,12 +198,12 @@ export default function FAQPage() {
                 <p>
                   Currently, we ship to the United States and Canada. For
                   international shipping inquiries, please{" "}
-                  <Link
+                  <LocalizedLink
                     href="/contact"
                     className="text-primary hover:underline"
                   >
                     contact us
-                  </Link>{" "}
+                  </LocalizedLink>{" "}
                   directly, and we'll do our best to accommodate your request.
                 </p>
               </div>
@@ -245,13 +245,13 @@ export default function FAQPage() {
                   accessories (jewelry, scarves, etc.) are final sale and cannot
                   be returned unless defective. For more details, please visit
                   our
-                  <Link
+                  <LocalizedLink
                     href="/shipping"
                     className="text-primary hover:underline"
                   >
                     {" "}
                     Shipping & Returns page
-                  </Link>
+                  </LocalizedLink>
                   .
                 </p>
               </div>
@@ -330,12 +330,12 @@ export default function FAQPage() {
                 <p>
                   We provide detailed size guides for all our products. For
                   general sizing information, please visit our{" "}
-                  <Link
+                  <LocalizedLink
                     href="/size-guide"
                     className="text-primary hover:underline"
                   >
                     Size Guide page
-                  </Link>
+                  </LocalizedLink>
                   . Each product page also includes specific sizing information
                   for that item.
                 </p>

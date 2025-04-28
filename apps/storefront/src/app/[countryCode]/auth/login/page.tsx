@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -37,11 +37,11 @@ export default function LoginPage() {
     <div className="g-container py-12">
       <div className="max-w-md mx-auto bg-white rounded-md shadow-soft p-8">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block">
+          <LocalizedLink href="/" className="inline-block">
             <h1 className="text-2xl font-serif font-medium text-primary">
               {BRAND_NAME}
             </h1>
-          </Link>
+          </LocalizedLink>
           <h2 className="text-2xl font-medium mt-6 mb-2">Welcome Back</h2>
           <p className="text-neutral-600">Sign in to your account</p>
         </div>
@@ -85,12 +85,12 @@ export default function LoginPage() {
                 <span className="text-sm text-neutral-700">Remember me</span>
               </label>
 
-              <Link
+              <LocalizedLink
                 href="/auth/forgot-password"
                 className="text-sm text-primary hover:underline"
               >
                 Forgot password?
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
 
@@ -155,9 +155,9 @@ export default function LoginPage() {
         <div className="mt-6 text-center">
           <p className="text-neutral-600">
             Don't have an account?{" "}
-            <Link href="/auth/signup" className="text-primary hover:underline">
+            <LocalizedLink href="/auth/signup" className="text-primary hover:underline">
               Sign up
-            </Link>
+            </LocalizedLink>
           </p>
         </div>
       </div>

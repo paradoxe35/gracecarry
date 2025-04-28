@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from "next/image";
 import { BRAND_NAME } from "@/lib/constants";
 
@@ -57,23 +57,23 @@ const Header = () => {
 
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <LocalizedLink href="/" className="flex items-center">
               <h1 className="text-2xl font-serif font-medium text-primary">
                 {BRAND_NAME}
               </h1>
-            </Link>
+            </LocalizedLink>
           </div>
 
           {/* Desktop navigation */}
           <nav className="hidden lg:flex space-x-8">
             {categories.map((category) => (
-              <Link
+              <LocalizedLink
                 key={category.name}
                 href={category.href}
                 className="text-neutral-800 hover:text-primary transition-colors duration-300"
               >
                 {category.name}
-              </Link>
+              </LocalizedLink>
             ))}
           </nav>
 
@@ -128,37 +128,37 @@ const Header = () => {
               {isAccountMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-medium z-10">
                   <div className="py-1">
-                    <Link
+                    <LocalizedLink
                       href="/account"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
                       My Account
-                    </Link>
-                    <Link
+                    </LocalizedLink>
+                    <LocalizedLink
                       href="/account/orders"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
                       Orders
-                    </Link>
-                    <Link
+                    </LocalizedLink>
+                    <LocalizedLink
                       href="/account/wishlist"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
                       Wishlist
-                    </Link>
-                    <Link
+                    </LocalizedLink>
+                    <LocalizedLink
                       href="/auth/login"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
                       Sign In
-                    </Link>
+                    </LocalizedLink>
                   </div>
                 </div>
               )}
             </div>
 
             {/* Cart */}
-            <Link
+            <LocalizedLink
               href="/cart"
               className="p-2 text-neutral-800 hover:text-primary transition-colors duration-300 relative"
               aria-label="Cart"
@@ -180,7 +180,7 @@ const Header = () => {
               <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 0
               </span>
-            </Link>
+            </LocalizedLink>
           </div>
         </div>
       </div>
@@ -191,14 +191,14 @@ const Header = () => {
           <div className="g-container py-4">
             <nav className="flex flex-col space-y-4">
               {categories.map((category) => (
-                <Link
+                <LocalizedLink
                   key={category.name}
                   href={category.href}
                   className="text-neutral-800 hover:text-primary transition-colors duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {category.name}
-                </Link>
+                </LocalizedLink>
               ))}
             </nav>
           </div>

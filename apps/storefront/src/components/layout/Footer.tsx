@@ -1,5 +1,5 @@
 import { BRAND_NAME } from "@/lib/constants";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 
 const Footer = () => {
   return (
@@ -91,60 +91,60 @@ const Footer = () => {
             <h3 className="g-heading text-lg mb-4">Shop</h3>
             <ul className="space-y-2">
               <li>
-                <Link
+                <LocalizedLink
                   href="/category/new-arrivals"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   New Arrivals
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/category/clothing"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Clothing
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/category/footwear"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Footwear
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/category/accessories"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Accessories
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/category/beauty"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Beauty
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/category/lifestyle"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Lifestyle
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/sale"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Sale
-                </Link>
+                </LocalizedLink>
               </li>
             </ul>
           </div>
@@ -154,44 +154,44 @@ const Footer = () => {
             <h3 className="g-heading text-lg mb-4">Help</h3>
             <ul className="space-y-2">
               <li>
-                <Link
+                <LocalizedLink
                   href="/customer-service"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Customer Service
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/shipping"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Shipping & Returns
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/size-guide"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Size Guide
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/faq"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   FAQ
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link
+                <LocalizedLink
                   href="/contact"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
                   Contact Us
-                </Link>
+                </LocalizedLink>
               </li>
             </ul>
           </div>
@@ -230,24 +230,24 @@ const Footer = () => {
               reserved.
             </p>
             <div className="flex space-x-4 text-sm">
-              <Link
+              <LocalizedLink
                 href="/privacy-policy"
                 className="text-neutral-600 hover:text-primary transition-colors"
               >
                 Privacy Policy
-              </Link>
-              <Link
+              </LocalizedLink>
+              <LocalizedLink
                 href="/terms-of-service"
                 className="text-neutral-600 hover:text-primary transition-colors"
               >
                 Terms of Service
-              </Link>
-              <Link
+              </LocalizedLink>
+              <LocalizedLink
                 href="/accessibility"
                 className="text-neutral-600 hover:text-primary transition-colors"
               >
                 Accessibility
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         </div>

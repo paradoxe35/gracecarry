@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME, SUPPORT_CONTACT } from "@/lib/constants";
@@ -423,9 +423,9 @@ export default function ContactPage() {
           </h2>
           <p className="text-neutral-700 mb-6">
             Find quick answers to common questions on our{" "}
-            <Link href="/faq" className="text-primary hover:underline">
+            <LocalizedLink href="/faq" className="text-primary hover:underline">
               FAQ page
-            </Link>
+            </LocalizedLink>
             .
           </p>
 
@@ -438,12 +438,12 @@ export default function ContactPage() {
                 We offer standard, express, and overnight shipping options. Free
                 standard shipping on orders over $100.
               </p>
-              <Link
+              <LocalizedLink
                 href="/shipping"
                 className="text-primary hover:underline text-sm mt-2 inline-block"
               >
                 Learn more
-              </Link>
+              </LocalizedLink>
             </div>
 
             <div className="border border-neutral-200 rounded-md p-4">
@@ -452,12 +452,12 @@ export default function ContactPage() {
                 We offer a 30-day return policy for all unworn items in their
                 original condition with tags attached.
               </p>
-              <Link
+              <LocalizedLink
                 href="/shipping"
                 className="text-primary hover:underline text-sm mt-2 inline-block"
               >
                 Learn more
-              </Link>
+              </LocalizedLink>
             </div>
 
             <div className="border border-neutral-200 rounded-md p-4">
@@ -466,12 +466,12 @@ export default function ContactPage() {
                 We provide detailed size guides for all our products to help you
                 find your perfect fit.
               </p>
-              <Link
+              <LocalizedLink
                 href="/size-guide"
                 className="text-primary hover:underline text-sm mt-2 inline-block"
               >
                 View size guide
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         </div>

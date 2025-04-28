@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 
 interface ProductCardProps {
   product: {
@@ -36,7 +36,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link href={`/product/${product.id}`}>
+      <LocalizedLink href={`/product/${product.id}`}>
         <div className="relative h-80 overflow-hidden">
           <Image
             src={product.image}
@@ -111,7 +111,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             )}
           </div>
         </div>
-      </Link>
+      </LocalizedLink>
     </div>
   );
 };

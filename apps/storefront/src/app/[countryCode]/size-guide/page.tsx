@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME } from "@/lib/constants";
 
@@ -22,12 +22,12 @@ export default function SizeGuidePage() {
             <p className="text-neutral-700">
               Our customer service team is available to help with any sizing
               questions.
-              <Link
+              <LocalizedLink
                 href="/contact"
                 className="text-primary hover:underline ml-1"
               >
                 Contact us
-              </Link>{" "}
+              </LocalizedLink>{" "}
               for personalized assistance.
             </p>
           </div>

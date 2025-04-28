@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME } from "@/lib/constants";
@@ -51,11 +51,11 @@ export default function SignupPage() {
     <div className="g-container py-12">
       <div className="max-w-md mx-auto bg-white rounded-md shadow-soft p-8">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block">
+          <LocalizedLink href="/" className="inline-block">
             <h1 className="text-2xl font-serif font-medium text-primary">
               {BRAND_NAME}
             </h1>
-          </Link>
+          </LocalizedLink>
           <h2 className="text-2xl font-medium mt-6 mb-2">Create an Account</h2>
           <p className="text-neutral-600">
             Join our community of fashion enthusiasts
@@ -133,19 +133,19 @@ export default function SignupPage() {
               />
               <label htmlFor="terms" className="text-sm text-neutral-700">
                 I agree to the{" "}
-                <Link
+                <LocalizedLink
                   href="/terms-of-service"
                   className="text-primary hover:underline"
                 >
                   Terms of Service
-                </Link>{" "}
+                </LocalizedLink>{" "}
                 and{" "}
-                <Link
+                <LocalizedLink
                   href="/privacy-policy"
                   className="text-primary hover:underline"
                 >
                   Privacy Policy
-                </Link>
+                </LocalizedLink>
               </label>
             </div>
           </div>
@@ -211,9 +211,9 @@ export default function SignupPage() {
         <div className="mt-6 text-center">
           <p className="text-neutral-600">
             Already have an account?{" "}
-            <Link href="/auth/login" className="text-primary hover:underline">
+            <LocalizedLink href="/auth/login" className="text-primary hover:underline">
               Sign in
-            </Link>
+            </LocalizedLink>
           </p>
         </div>
       </div>

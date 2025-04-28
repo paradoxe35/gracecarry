@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from '@/components/ui/Button';
 
 export default function ShippingPage() {
@@ -59,7 +59,7 @@ export default function ShippingPage() {
                 </li>
                 <li>
                   We currently ship to the United States and Canada. For international shipping inquiries, please 
-                  <Link href="/contact" className="text-primary hover:underline"> contact us</Link>.
+                  <LocalizedLink href="/contact" className="text-primary hover:underline"> contact us</LocalizedLink>.
                 </li>
                 <li>
                   Shipping times may be affected during peak seasons, holidays, or due to unforeseen circumstances.
@@ -80,10 +80,10 @@ export default function ShippingPage() {
                   Clicking the tracking link in your shipping confirmation email
                 </li>
                 <li>
-                  Visiting the "Order History" section in your <Link href="/account/orders" className="text-primary hover:underline">account</Link>
+                  Visiting the "Order History" section in your <LocalizedLink href="/account/orders" className="text-primary hover:underline">account</LocalizedLink>
                 </li>
                 <li>
-                  Contacting our <Link href="/customer-service" className="text-primary hover:underline">customer service</Link> team with your order number
+                  Contacting our <LocalizedLink href="/customer-service" className="text-primary hover:underline">customer service</LocalizedLink> team with your order number
                 </li>
               </ul>
             </div>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME, SUPPORT_CONTACT } from "@/lib/constants";
 
@@ -102,9 +102,9 @@ export default function CustomerServicePage() {
         <p className="text-neutral-700 mb-6">
           Find quick answers to our most commonly asked questions. For more
           detailed information, please visit our{" "}
-          <Link href="/faq" className="text-primary hover:underline">
+          <LocalizedLink href="/faq" className="text-primary hover:underline">
             FAQ page
-          </Link>
+          </LocalizedLink>
           .
         </p>
 
@@ -118,9 +118,9 @@ export default function CustomerServicePage() {
               (1-2 business days), and overnight shipping. Free standard
               shipping is available on all orders over $100. For more
               information, please visit our{" "}
-              <Link href="/shipping" className="text-primary hover:underline">
+              <LocalizedLink href="/shipping" className="text-primary hover:underline">
                 Shipping & Returns page
-              </Link>
+              </LocalizedLink>
               .
             </p>
           </div>
@@ -131,9 +131,9 @@ export default function CustomerServicePage() {
               We offer a 30-day return policy for all unworn items in their
               original condition with tags attached. For more information,
               please visit our{" "}
-              <Link href="/shipping" className="text-primary hover:underline">
+              <LocalizedLink href="/shipping" className="text-primary hover:underline">
                 Shipping & Returns page
-              </Link>
+              </LocalizedLink>
               .
             </p>
           </div>
@@ -143,9 +143,9 @@ export default function CustomerServicePage() {
             <p className="text-neutral-600">
               We provide detailed size guides for all our products. For general
               sizing information, please visit our{" "}
-              <Link href="/size-guide" className="text-primary hover:underline">
+              <LocalizedLink href="/size-guide" className="text-primary hover:underline">
                 Size Guide page
-              </Link>
+              </LocalizedLink>
               .
             </p>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 

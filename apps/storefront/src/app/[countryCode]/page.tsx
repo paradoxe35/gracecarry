@@ -1,5 +1,5 @@
+import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from "next/image";
-import Link from "next/link";
 
 // Sample featured products data
 const featuredProducts = [
@@ -91,15 +91,18 @@ export default function Home() {
               woman.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/category/new-arrivals" className="g-button-primary">
+              <LocalizedLink
+                href="/category/new-arrivals"
+                className="g-button-primary"
+              >
                 Shop New Arrivals
-              </Link>
-              <Link
+              </LocalizedLink>
+              <LocalizedLink
                 href="/collections"
                 className="bg-transparent text-white border border-white px-6 py-3 rounded-md hover:bg-white hover:text-neutral-900 transition-colors duration-300 font-medium"
               >
                 Explore Collections
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         </div>
@@ -117,7 +120,11 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
-              <Link key={category.name} href={category.href} className="group">
+              <LocalizedLink
+                key={category.name}
+                href={category.href}
+                className="group"
+              >
                 <div className="relative h-80 overflow-hidden rounded-md g-card">
                   <Image
                     src={category.image}
@@ -150,7 +157,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-              </Link>
+              </LocalizedLink>
             ))}
           </div>
         </div>
@@ -161,7 +168,7 @@ export default function Home() {
         <div className="g-container">
           <div className="flex justify-between items-center mb-12">
             <h2 className="g-heading text-3xl">Featured Products</h2>
-            <Link
+            <LocalizedLink
               href="/products"
               className="text-primary hover:text-primary-dark flex items-center"
             >
@@ -180,12 +187,12 @@ export default function Home() {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </Link>
+            </LocalizedLink>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <Link
+              <LocalizedLink
                 key={product.id}
                 href={`/product/${product.id}`}
                 className="g-card group"
@@ -244,7 +251,7 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-              </Link>
+              </LocalizedLink>
             ))}
           </div>
         </div>
@@ -263,12 +270,12 @@ export default function Home() {
                 fabrics, breathable designs, and vibrant colors perfect for the
                 season.
               </p>
-              <Link
+              <LocalizedLink
                 href="/collections/summer"
                 className="g-button-primary inline-block"
               >
                 Explore Collection
-              </Link>
+              </LocalizedLink>
             </div>
             <div className="relative h-96 rounded-md overflow-hidden">
               <Image
