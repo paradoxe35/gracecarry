@@ -217,6 +217,12 @@
     "orderItemsHeading": "Order Items",
     "backToHistoryButton": "Back to Order History"
   },
+  "CollectionsPage": {
+    "pageHeading": "Our Collections",
+    "shopNowLink": "Shop Now",
+    "notFoundHeading": "Collection Not Found",
+    "notFoundDescription": "Sorry, we couldn't find a collection with that ID."
+  },
   "LoginPage": {
     "heading": "Welcome Back",
     "subheading": "Sign in to your account",
