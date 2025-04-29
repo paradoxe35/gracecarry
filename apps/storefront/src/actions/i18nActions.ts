@@ -4,7 +4,7 @@ import { setLocaleCookie } from "@/i18n/selector";
 
 /**
  * Server Action to set the locale cookie.
- * @param locale The locale string to set (e.g., 'en', 'fr').
+ * @param locale The locale string to set
  * @param path The current path to revalidate after setting the cookie.
  */
 export async function switchLocaleAction(locale: string, path: string) {
