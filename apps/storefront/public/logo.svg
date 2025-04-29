@@ -27,10 +27,10 @@
     dominant-baseline="middle" 
     text-anchor="middle" 
     font-family="'Playfair Display', serif" 
-    font-size="48" 
+    font-size="40" 
     fill="url(#textGradShort)" 
     font-weight="600">
-      G<tspan font-family="'Great Vibes', cursive" font-size="42" dy="-3">&amp;</tspan>C
+      G<tspan font-family="'Great Vibes', cursive" font-size="38" dy="-3">&amp;</tspan>C
   </text>
 
 </svg>
