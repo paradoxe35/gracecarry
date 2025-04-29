@@ -6,17 +6,6 @@ import { switchLocaleAction } from "@/actions/i18nActions";
 import { LOCALES } from "@/i18n/constants"; // Assuming LOCALES constant exists
 import { useTranslations } from "next-intl";
 
-type Language = {
-  code: (typeof LOCALES)[number];
-  name: string;
-};
-
-const languages: Language[] = [
-  { code: "en", name: "English" },
-  { code: "fr", name: "Français" },
-  { code: "rw", name: "Kinyarwanda" },
-];
-
 type LanguageSelectorProps = {
   currentLocale: string;
 };
@@ -79,11 +68,6 @@ export default function LanguageSelector({
     });
   };
 
-  // Get current language display name based on prop
-  const currentLanguageDisplay = languages.find(
-    (lang) => lang.code === selectedLang
-  );
-
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Language selector button with globe icon */}
@@ -113,7 +97,7 @@ export default function LanguageSelector({
 
         {/* Only show text on larger screens */}
         <span className="hidden md:inline text-sm font-medium">
-          {currentLanguageDisplay?.code.toUpperCase()}
+          {selectedLang.toUpperCase()}
         </span>
 
         {/* Dropdown arrow */}
@@ -138,21 +122,21 @@ export default function LanguageSelector({
           role="listbox"
         >
           <div className="py-1">
-            {languages.map((lang) => (
+            {LOCALES.map((langCode) => (
               <button
-                key={lang.code}
-                onClick={() => handleLanguageChange(lang.code)}
+                key={langCode}
+                onClick={() => handleLanguageChange(langCode)}
                 className={`w-full text-left px-4 py-2 text-sm hover:bg-neutral-100 transition-colors duration-150 flex items-center justify-between ${
-                  currentLocale === lang.code
+                  currentLocale === langCode
                     ? "text-primary font-medium bg-neutral-50"
                     : "text-neutral-800" // Highlight based on prop
                 }`}
                 role="option"
-                aria-selected={currentLocale === lang.code} // Aria selected based on prop
+                aria-selected={currentLocale === langCode} // Aria selected based on prop
                 disabled={isPending} // Disable options during transition
               >
-                <span>{t(lang.code)}</span>
-                {currentLocale === lang.code &&
+                <span>{t(langCode)}</span>
+                {currentLocale === langCode &&
                   !isPending && ( // Show checkmark based on prop
                     <svg
                       className="h-4 w-4 text-primary"

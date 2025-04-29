@@ -1,10 +1,20 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn more about Grace & Carry, our story, and our mission.",
-};
+// Generate dynamic metadata using translations
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "AboutPage" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  };
+}
 
 // Updated image URLs
 const AUTHOR_IMAGE_URL =
@@ -12,7 +22,9 @@ const AUTHOR_IMAGE_URL =
 const BANNER_IMAGE_URL =
   "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?q=80&w=1920&auto=format&fit=crop"; // New Unsplash image
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const t = await getTranslations("AboutPage");
+
   return (
     <div className="bg-white">
       {/* Hero Banner */}
@@ -20,7 +32,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src={BANNER_IMAGE_URL}
-            alt="Elegant background"
+            alt={t("bannerImageAlt")}
             fill
             style={{ objectFit: "cover" }}
             priority
@@ -29,9 +41,9 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 g-container">
           <h1 className="g-heading text-4xl md:text-5xl lg:text-6xl mb-4">
-            About Grace & Carry
+            {t("heroHeading")}
           </h1>
-          <p className="text-lg md:text-xl">Discover Our Story</p>
+          <p className="text-lg md:text-xl">{t("heroSubheading")}</p>
         </div>
       </section>
 
@@ -41,42 +53,20 @@ export default function AboutPage() {
           {/* Left Column / Main Story */}
           <div className="lg:col-span-2">
             <h2 className="g-heading text-3xl mb-6 text-primary">
-              Our Journey
+              {t("journeyHeading")}
             </h2>
             <div className="prose prose-lg max-w-none text-neutral-700 space-y-4">
-              <p>
-                Welcome to Grace & Carry, your destination for curated elegance
-                and timeless style. Born from a passion for fashion and a desire
-                to empower, our boutique offers a handpicked selection of
-                clothing, footwear, accessories, and lifestyle products.
-              </p>
-              <p>
-                We believe that fashion is more than just clothing; it's a form
-                of self-expression, confidence, and grace. Our collections are
-                thoughtfully chosen to reflect sophisticated femininity with a
-                modern touch, ensuring every piece resonates with quality and
-                style.
-              </p>
-              <p>
-                While our heart lies in celebrating women's fashion, we embrace
-                inclusivity. We are gradually expanding to include curated
-                selections for men, ensuring everyone can find pieces that speak
-                to their unique style. At Grace & Carry, we strive to create an
-                exclusive yet accessible shopping experience, filled with
-                inspiration and personalized touches.
-              </p>
+              <p>{t("journeyParagraph1")}</p>
+              <p>{t("journeyParagraph2")}</p>
+              <p>{t("journeyParagraph3")}</p>
             </div>
 
             {/* Location Section */}
             <div className="mt-12">
               <h3 className="g-heading text-2xl mb-4 text-primary">
-                Visit Us in Kigali
+                {t("visitHeading")}
               </h3>
-              <p className="text-neutral-700 mb-6">
-                Our boutique is proudly based in the vibrant heart of Kigali,
-                Rwanda. We invite you to explore our collections online or
-                connect with us.
-              </p>
+              <p className="text-neutral-700 mb-6">{t("visitParagraph")}</p>
               <div className="aspect-w-16 aspect-h-9 rounded-md overflow-hidden shadow-soft">
                 {/* Replace with a more specific Google Maps embed URL if available */}
                 <iframe
@@ -87,7 +77,7 @@ export default function AboutPage() {
                   allowFullScreen={false}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Kigali Location Map"
+                  title={t("mapTitle")}
                 ></iframe>
               </div>
             </div>
@@ -97,24 +87,19 @@ export default function AboutPage() {
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-neutral-50 p-6 rounded-lg shadow-soft">
               <h3 className="g-heading text-2xl mb-4 text-primary">
-                Meet the Founder
+                {t("founderHeading")}
               </h3>
               <div className="mb-6 relative aspect-[3/4] rounded-md overflow-hidden">
                 <Image
                   src={AUTHOR_IMAGE_URL}
-                  alt="Nelly Claudette, Founder of Grace & Carry"
+                  alt={t("founderImageAlt")}
                   fill
                   style={{ objectFit: "cover" }}
                   sizes="(max-width: 1024px) 100vw, 33vw"
                 />
               </div>
-              <h4 className="text-xl font-semibold mb-2">Nelly Claudette</h4>
-              <p className="text-neutral-600">
-                Nelly founded Grace & Carry with a vision to blend elegance with
-                accessibility, creating a space where style meets substance. Her
-                passion for design and dedication to quality are the
-                cornerstones of our boutique.
-              </p>
+              <h4 className="text-xl font-semibold mb-2">{t("founderName")}</h4>
+              <p className="text-neutral-600">{t("founderBio")}</p>
             </div>
           </div>
         </div>

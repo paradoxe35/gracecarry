@@ -1,7 +1,12 @@
+"use client";
+
 import { BRAND_NAME } from "@/lib/constants";
 import LocalizedLink from "@/components/ui/LocalizedLink";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("Footer");
+
   return (
     <footer className="bg-neutral-100 pt-12 pb-6">
       <div className="g-container">
@@ -10,17 +15,14 @@ const Footer = () => {
           {/* Brand column */}
           <div>
             <h3 className="g-heading text-xl mb-4">{BRAND_NAME}</h3>
-            <p className="text-neutral-700 mb-4">
-              Premium women's fashion boutique featuring curated collections of
-              clothing, footwear, accessories, and lifestyle products.
-            </p>
+            <p className="text-neutral-700 mb-4">{t("brandDescription")}</p>
             <div className="flex space-x-4">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-700 hover:text-primary"
-                aria-label="Instagram"
+                aria-label={t("instagramAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +39,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-700 hover:text-primary"
-                aria-label="Facebook"
+                aria-label={t("facebookAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +56,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-700 hover:text-primary"
-                aria-label="Pinterest"
+                aria-label={t("pinterestAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +73,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-700 hover:text-primary"
-                aria-label="Twitter"
+                aria-label={t("twitterAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -88,14 +90,14 @@ const Footer = () => {
 
           {/* Shop column */}
           <div>
-            <h3 className="g-heading text-lg mb-4">Shop</h3>
+            <h3 className="g-heading text-lg mb-4">{t("shopHeading")}</h3>
             <ul className="space-y-2">
               <li>
                 <LocalizedLink
                   href="/category/new-arrivals"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  New Arrivals
+                  {t("shopNewArrivals")}
                 </LocalizedLink>
               </li>
               <li>
@@ -103,7 +105,7 @@ const Footer = () => {
                   href="/category/clothing"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Clothing
+                  {t("shopClothing")}
                 </LocalizedLink>
               </li>
               <li>
@@ -111,7 +113,7 @@ const Footer = () => {
                   href="/category/footwear"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Footwear
+                  {t("shopFootwear")}
                 </LocalizedLink>
               </li>
               <li>
@@ -119,7 +121,7 @@ const Footer = () => {
                   href="/category/accessories"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Accessories
+                  {t("shopAccessories")}
                 </LocalizedLink>
               </li>
               <li>
@@ -127,7 +129,7 @@ const Footer = () => {
                   href="/category/beauty"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Beauty
+                  {t("shopBeauty")}
                 </LocalizedLink>
               </li>
               <li>
@@ -135,7 +137,7 @@ const Footer = () => {
                   href="/category/lifestyle"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Lifestyle
+                  {t("shopLifestyle")}
                 </LocalizedLink>
               </li>
               <li>
@@ -143,7 +145,7 @@ const Footer = () => {
                   href="/sale"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Sale
+                  {t("shopSale")}
                 </LocalizedLink>
               </li>
             </ul>
@@ -151,14 +153,14 @@ const Footer = () => {
 
           {/* Help column */}
           <div>
-            <h3 className="g-heading text-lg mb-4">Help</h3>
+            <h3 className="g-heading text-lg mb-4">{t("helpHeading")}</h3>
             <ul className="space-y-2">
               <li>
                 <LocalizedLink
                   href="/customer-service"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Customer Service
+                  {t("helpCustomerService")}
                 </LocalizedLink>
               </li>
               <li>
@@ -166,7 +168,7 @@ const Footer = () => {
                   href="/shipping"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Shipping & Returns
+                  {t("helpShippingReturns")}
                 </LocalizedLink>
               </li>
               <li>
@@ -174,7 +176,7 @@ const Footer = () => {
                   href="/size-guide"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Size Guide
+                  {t("helpSizeGuide")}
                 </LocalizedLink>
               </li>
               <li>
@@ -182,7 +184,7 @@ const Footer = () => {
                   href="/faq"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  FAQ
+                  {t("helpFAQ")}
                 </LocalizedLink>
               </li>
               <li>
@@ -190,7 +192,7 @@ const Footer = () => {
                   href="/contact"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  Contact Us
+                  {t("helpContactUs")}
                 </LocalizedLink>
               </li>
               <li>
@@ -198,7 +200,7 @@ const Footer = () => {
                   href="/about"
                   className="text-neutral-700 hover:text-primary transition-colors"
                 >
-                  About Us
+                  {t("helpAboutUs")}
                 </LocalizedLink>
               </li>
             </ul>
@@ -206,16 +208,15 @@ const Footer = () => {
 
           {/* Newsletter column */}
           <div>
-            <h3 className="g-heading text-lg mb-4">Stay Updated</h3>
+            <h3 className="g-heading text-lg mb-4">{t("newsletterHeading")}</h3>
             <p className="text-neutral-700 mb-4">
-              Subscribe to our newsletter for exclusive offers, new arrivals,
-              and style inspiration.
+              {t("newsletterDescription")}
             </p>
             <form className="mb-4">
               <div className="flex">
                 <input
                   type="email"
-                  placeholder="Your email address"
+                  placeholder={t("newsletterPlaceholder")}
                   className="g-input rounded-r-none"
                   required
                 />
@@ -223,7 +224,7 @@ const Footer = () => {
                   type="submit"
                   className="bg-primary text-white px-4 rounded-r-md hover:bg-primary-dark transition-colors"
                 >
-                  Subscribe
+                  {t("newsletterButton")}
                 </button>
               </div>
             </form>
@@ -234,27 +235,29 @@ const Footer = () => {
         <div className="border-t border-neutral-200 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-neutral-600 text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} {BRAND_NAME}. All rights
-              reserved.
+              {t("copyright", {
+                year: new Date().getFullYear(),
+                brandName: BRAND_NAME,
+              })}
             </p>
             <div className="flex space-x-4 text-sm">
               <LocalizedLink
                 href="/privacy-policy"
                 className="text-neutral-600 hover:text-primary transition-colors"
               >
-                Privacy Policy
+                {t("privacyPolicy")}
               </LocalizedLink>
               <LocalizedLink
                 href="/terms-of-service"
                 className="text-neutral-600 hover:text-primary transition-colors"
               >
-                Terms of Service
+                {t("termsOfService")}
               </LocalizedLink>
               <LocalizedLink
                 href="/accessibility"
                 className="text-neutral-600 hover:text-primary transition-colors"
               >
-                Accessibility
+                {t("accessibility")}
               </LocalizedLink>
             </div>
           </div>

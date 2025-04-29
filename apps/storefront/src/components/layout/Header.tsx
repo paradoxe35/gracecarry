@@ -4,10 +4,21 @@ import { useState } from "react";
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import { BRAND_NAME } from "@/lib/constants";
 import LanguageSelector from "./LanguageSelector"; // Import the new component
+import { useTranslations } from "next-intl";
 
 type HeaderProps = {
   currentLocale: string; // Define prop type
 };
+
+// Define categories using translation keys
+const categories = [
+  { key: "categoryNewArrivals", href: "/category/new-arrivals" },
+  { key: "categoryClothing", href: "/category/clothing" },
+  { key: "categoryFootwear", href: "/category/footwear" },
+  { key: "categoryAccessories", href: "/category/accessories" },
+  { key: "categoryBeauty", href: "/category/beauty" },
+  { key: "categoryLifestyle", href: "/category/lifestyle" },
+] as const;
 
 const Header = ({ currentLocale }: HeaderProps) => {
   // Accept prop
@@ -19,20 +30,13 @@ const Header = ({ currentLocale }: HeaderProps) => {
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   const toggleAccountMenu = () => setIsAccountMenuOpen(!isAccountMenuOpen);
 
-  const categories = [
-    { name: "New Arrivals", href: "/category/new-arrivals" },
-    { name: "Clothing", href: "/category/clothing" },
-    { name: "Footwear", href: "/category/footwear" },
-    { name: "Accessories", href: "/category/accessories" },
-    { name: "Beauty", href: "/category/beauty" },
-    { name: "Lifestyle", href: "/category/lifestyle" },
-  ];
+  const t = useTranslations("Header");
 
   return (
     <header className="bg-white shadow-soft">
       {/* Top bar with free shipping message */}
       <div className="bg-primary text-white text-center py-2 text-sm">
-        Free shipping on all orders over $100
+        {t("freeShipping", { amount: "$100" })}
       </div>
 
       {/* Main header */}
@@ -42,7 +46,7 @@ const Header = ({ currentLocale }: HeaderProps) => {
           <button
             className="lg:hidden p-2"
             onClick={toggleMenu}
-            aria-label="Toggle menu"
+            aria-label={t("toggleMenuAriaLabel")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -73,11 +77,11 @@ const Header = ({ currentLocale }: HeaderProps) => {
           <nav className="hidden lg:flex space-x-8">
             {categories.map((category) => (
               <LocalizedLink
-                key={category.name}
+                key={category.key}
                 href={category.href}
                 className="text-neutral-800 hover:text-primary transition-colors duration-300"
               >
-                {category.name}
+                {t(category.key)}
               </LocalizedLink>
             ))}
           </nav>
@@ -91,7 +95,7 @@ const Header = ({ currentLocale }: HeaderProps) => {
             <button
               onClick={toggleSearch}
               className="p-2 text-neutral-800 hover:text-primary transition-colors duration-300"
-              aria-label="Search"
+              aria-label={t("searchAriaLabel")}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +117,7 @@ const Header = ({ currentLocale }: HeaderProps) => {
               <button
                 onClick={toggleAccountMenu}
                 className="p-2 text-neutral-800 hover:text-primary transition-colors duration-300"
-                aria-label="Account"
+                aria-label={t("accountAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,25 +143,25 @@ const Header = ({ currentLocale }: HeaderProps) => {
                       href="/account"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
-                      My Account
+                      {t("accountMyAccount")}
                     </LocalizedLink>
                     <LocalizedLink
                       href="/account/orders"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
-                      Orders
+                      {t("accountOrders")}
                     </LocalizedLink>
                     <LocalizedLink
                       href="/account/wishlist"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
-                      Wishlist
+                      {t("accountWishlist")}
                     </LocalizedLink>
                     <LocalizedLink
                       href="/auth/login"
                       className="block px-4 py-2 text-sm text-neutral-800 hover:bg-neutral-100"
                     >
-                      Sign In
+                      {t("accountSignIn")}
                     </LocalizedLink>
                   </div>
                 </div>
@@ -167,7 +171,7 @@ const Header = ({ currentLocale }: HeaderProps) => {
             <LocalizedLink
               href="/cart"
               className="p-2 text-neutral-800 hover:text-primary transition-colors duration-300 relative"
-              aria-label="Cart"
+              aria-label={t("cartAriaLabel")}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -198,12 +202,12 @@ const Header = ({ currentLocale }: HeaderProps) => {
             <nav className="flex flex-col space-y-4">
               {categories.map((category) => (
                 <LocalizedLink
-                  key={category.name}
+                  key={category.key}
                   href={category.href}
                   className="text-neutral-800 hover:text-primary transition-colors duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {category.name}
+                  {t(category.key)}
                 </LocalizedLink>
               ))}
             </nav>
@@ -216,11 +220,13 @@ const Header = ({ currentLocale }: HeaderProps) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center pt-20">
           <div className="bg-white p-6 rounded-md shadow-strong w-full max-w-2xl mx-4">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-medium">Search</h2>
+              <h2 className="text-xl font-medium">
+                {t("searchOverlayHeading")}
+              </h2>
               <button
                 onClick={toggleSearch}
                 className="text-neutral-500 hover:text-neutral-800"
-                aria-label="Close search"
+                aria-label={t("searchOverlayCloseAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -241,13 +247,13 @@ const Header = ({ currentLocale }: HeaderProps) => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search for products..."
+                placeholder={t("searchPlaceholder")}
                 className="g-input pr-10"
                 autoFocus
               />
               <button
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500 hover:text-primary"
-                aria-label="Submit search"
+                aria-label={t("searchSubmitAriaLabel")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
