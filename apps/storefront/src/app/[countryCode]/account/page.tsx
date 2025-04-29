@@ -5,6 +5,7 @@ import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import { useTranslations } from 'next-intl';
 
 // Mock user data
 const userData = {
@@ -95,6 +96,7 @@ const userData = {
 };
 
 export default function AccountPage() {
+  const t = useTranslations('AccountPage');
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -128,8 +130,8 @@ export default function AccountPage() {
   
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-8">My Account</h1>
-      
+      <h1 className="g-heading text-3xl mb-8">{t('pageHeading')}</h1>
+
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar */}
         <div className="lg:col-span-1">
@@ -157,10 +159,10 @@ export default function AccountPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
-                  Profile
+                  {t('sidebarProfile')}
                 </div>
               </button>
-              
+
               <button
                 onClick={() => setActiveTab('orders')}
                 className={`w-full text-left px-4 py-3 rounded-md transition-colors ${
@@ -171,10 +173,10 @@ export default function AccountPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
-                  Orders
+                  {t('sidebarOrders')}
                 </div>
               </button>
-              
+
               <button
                 onClick={() => setActiveTab('addresses')}
                 className={`w-full text-left px-4 py-3 rounded-md transition-colors ${
@@ -186,10 +188,10 @@ export default function AccountPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  Addresses
+                  {t('sidebarAddresses')}
                 </div>
               </button>
-              
+
               <button
                 onClick={() => setActiveTab('wishlist')}
                 className={`w-full text-left px-4 py-3 rounded-md transition-colors ${
@@ -200,10 +202,10 @@ export default function AccountPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
-                  Wishlist
+                  {t('sidebarWishlist')}
                 </div>
               </button>
-              
+
               <button
                 onClick={handleLogout}
                 className="w-full text-left px-4 py-3 rounded-md hover:bg-neutral-100 transition-colors text-neutral-700"
@@ -212,7 +214,7 @@ export default function AccountPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>
-                  Logout
+                  {t('sidebarLogout')}
                 </div>
               </button>
             </nav>
@@ -226,79 +228,79 @@ export default function AccountPage() {
             {activeTab === 'profile' && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-medium">Profile Information</h2>
+                  <h2 className="text-xl font-medium">{t('profileHeading')}</h2>
                   {!isEditing && (
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => setIsEditing(true)}
                     >
-                      Edit Profile
+                      {t('profileEditButton')}
                     </Button>
                   )}
                 </div>
-                
+
                 {isEditing ? (
                   <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <Input
-                        label="First Name"
+                        label={t('profileFormFirstNameLabel')}
                         name="firstName"
                         type="text"
                         value={formData.firstName}
                         onChange={handleInputChange}
                         required
                       />
-                      
+
                       <Input
-                        label="Last Name"
+                        label={t('profileFormLastNameLabel')}
                         name="lastName"
                         type="text"
                         value={formData.lastName}
                         onChange={handleInputChange}
                         required
                       />
-                      
+
                       <Input
-                        label="Email Address"
+                        label={t('profileFormEmailLabel')}
                         name="email"
                         type="email"
                         value={formData.email}
                         onChange={handleInputChange}
                         required
                       />
-                      
+
                       <Input
-                        label="Phone Number"
+                        label={t('profileFormPhoneLabel')}
                         name="phone"
                         type="tel"
                         value={formData.phone}
                         onChange={handleInputChange}
                       />
                     </div>
-                    
-                    <h3 className="font-medium mb-4 mt-8">Change Password</h3>
+
+                    <h3 className="font-medium mb-4 mt-8">{t('profileFormChangePasswordHeading')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <Input
-                        label="Current Password"
+                        label={t('profileFormCurrentPasswordLabel')}
                         name="currentPassword"
                         type="password"
                         value={formData.currentPassword}
                         onChange={handleInputChange}
                         placeholder="••••••••"
                       />
-                      
+
                       <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <Input
-                          label="New Password"
+                          label={t('profileFormNewPasswordLabel')}
                           name="newPassword"
                           type="password"
                           value={formData.newPassword}
                           onChange={handleInputChange}
                           placeholder="••••••••"
                         />
-                        
+
                         <Input
-                          label="Confirm New Password"
+                          label={t('profileFormConfirmPasswordLabel')}
                           name="confirmPassword"
                           type="password"
                           value={formData.confirmPassword}
@@ -307,19 +309,19 @@ export default function AccountPage() {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="flex justify-end space-x-4 mt-8">
-                      <Button 
-                        variant="secondary" 
+                      <Button
+                        variant="secondary"
                         onClick={() => setIsEditing(false)}
                       >
-                        Cancel
+                        {t('profileFormCancelButton')}
                       </Button>
-                      <Button 
-                        variant="primary" 
+                      <Button
+                        variant="primary"
                         type="submit"
                       >
-                        Save Changes
+                        {t('profileFormSaveChangesButton')}
                       </Button>
                     </div>
                   </form>
@@ -327,22 +329,22 @@ export default function AccountPage() {
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h3 className="text-sm text-neutral-600 mb-1">First Name</h3>
+                        <h3 className="text-sm text-neutral-600 mb-1">{t('profileDisplayFirstNameLabel')}</h3>
                         <p>{userData.firstName}</p>
                       </div>
-                      
+
                       <div>
-                        <h3 className="text-sm text-neutral-600 mb-1">Last Name</h3>
+                        <h3 className="text-sm text-neutral-600 mb-1">{t('profileDisplayLastNameLabel')}</h3>
                         <p>{userData.lastName}</p>
                       </div>
-                      
+
                       <div>
-                        <h3 className="text-sm text-neutral-600 mb-1">Email Address</h3>
+                        <h3 className="text-sm text-neutral-600 mb-1">{t('profileDisplayEmailLabel')}</h3>
                         <p>{userData.email}</p>
                       </div>
-                      
+
                       <div>
-                        <h3 className="text-sm text-neutral-600 mb-1">Phone Number</h3>
+                        <h3 className="text-sm text-neutral-600 mb-1">{t('profileDisplayPhoneLabel')}</h3>
                         <p>{userData.phone}</p>
                       </div>
                     </div>
@@ -354,8 +356,8 @@ export default function AccountPage() {
             {/* Orders tab */}
             {activeTab === 'orders' && (
               <div>
-                <h2 className="text-xl font-medium mb-6">Order History</h2>
-                
+                <h2 className="text-xl font-medium mb-6">{t('ordersHeading')}</h2>
+
                 {userData.orders.length > 0 ? (
                   <div className="space-y-6">
                     {userData.orders.map((order) => (
@@ -370,14 +372,14 @@ export default function AccountPage() {
                                 order.status === 'Shipped' ? 'bg-primary/20 text-primary' :
                                 'bg-neutral-200 text-neutral-700'
                               }`}>
-                                {order.status}
+                                {t(`orderStatus${order.status}` as any)}
                               </span>
                             </div>
                             <p className="text-sm text-neutral-600 mt-1">
-                              Ordered on {new Date(order.date).toLocaleDateString('en-US', { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric' 
+                              {t('orderDatePrefix')} {new Date(order.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
                               })}
                             </p>
                           </div>
@@ -403,7 +405,7 @@ export default function AccountPage() {
                                   <LocalizedLink href={`/product/${item.id}`} className="font-medium hover:text-primary transition-colors">
                                     {item.name}
                                   </LocalizedLink>
-                                  <p className="text-sm text-neutral-600">Qty: {item.quantity}</p>
+                                  <p className="text-sm text-neutral-600">{t('orderQuantityPrefix')} {item.quantity}</p>
                                 </div>
                                 <div className="text-right">
                                   <p className="font-medium">${item.price.toFixed(2)}</p>
@@ -415,10 +417,10 @@ export default function AccountPage() {
                         
                         <div className="bg-neutral-50 p-4 flex justify-between border-t border-neutral-200">
                           <Button variant="outline" href={`/account/orders/${order.id}`}>
-                            View Order Details
+                            {t('orderViewDetailsButton')}
                           </Button>
                           <Button variant="secondary">
-                            Track Package
+                            {t('orderTrackPackageButton')}
                           </Button>
                         </div>
                       </div>
@@ -429,10 +431,10 @@ export default function AccountPage() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-neutral-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
-                    <h3 className="text-lg font-medium mb-2">No orders yet</h3>
-                    <p className="text-neutral-600 mb-6">You haven't placed any orders yet.</p>
+                    <h3 className="text-lg font-medium mb-2">{t('ordersEmptyHeading')}</h3>
+                    <p className="text-neutral-600 mb-6">{t('ordersEmptyText')}</p>
                     <Button variant="primary" href="/category/new-arrivals">
-                      Start Shopping
+                      {t('ordersEmptyButton')}
                     </Button>
                   </div>
                 )}
@@ -443,31 +445,31 @@ export default function AccountPage() {
             {activeTab === 'addresses' && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-medium">My Addresses</h2>
+                  <h2 className="text-xl font-medium">{t('addressesHeading')}</h2>
                   <Button variant="primary">
-                    Add New Address
+                    {t('addressesAddButton')}
                   </Button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {userData.addresses.map((address) => (
                     <div key={address.id} className="border border-neutral-200 rounded-md p-4">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h3 className="font-medium">{address.type} Address</h3>
+                          <h3 className="font-medium">{t(`addressType${address.type}` as any)}</h3>
                           {address.isDefault && (
                             <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">
-                              Default
+                              {t('addressDefaultBadge')}
                             </span>
                           )}
                         </div>
                         <div className="flex space-x-2">
-                          <button className="text-neutral-600 hover:text-primary">
+                          <button className="text-neutral-600 hover:text-primary" aria-label={t('addressEditAriaLabel')}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
                           </button>
-                          <button className="text-neutral-600 hover:text-error">
+                          <button className="text-neutral-600 hover:text-error" aria-label={t('addressDeleteAriaLabel')}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
@@ -490,8 +492,8 @@ export default function AccountPage() {
             {/* Wishlist tab */}
             {activeTab === 'wishlist' && (
               <div>
-                <h2 className="text-xl font-medium mb-6">My Wishlist</h2>
-                
+                <h2 className="text-xl font-medium mb-6">{t('wishlistHeading')}</h2>
+
                 {userData.wishlist.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {userData.wishlist.map((product) => (
@@ -503,7 +505,7 @@ export default function AccountPage() {
                             fill
                             style={{ objectFit: "cover" }}
                           />
-                          <button className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-soft hover:text-error">
+                          <button className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-soft hover:text-error" aria-label={t('wishlistRemoveAriaLabel')}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -531,9 +533,9 @@ export default function AccountPage() {
                                 <span className="font-medium">${product.price.toFixed(2)}</span>
                               )}
                             </div>
-                            
+
                             <Button variant="primary" size="sm">
-                              Add to Cart
+                              {t('wishlistAddToCartButton')}
                             </Button>
                           </div>
                         </div>
@@ -545,10 +547,10 @@ export default function AccountPage() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-neutral-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
-                    <h3 className="text-lg font-medium mb-2">Your wishlist is empty</h3>
-                    <p className="text-neutral-600 mb-6">Save items you love to your wishlist.</p>
+                    <h3 className="text-lg font-medium mb-2">{t('wishlistEmptyHeading')}</h3>
+                    <p className="text-neutral-600 mb-6">{t('wishlistEmptyText')}</p>
                     <Button variant="primary" href="/category/new-arrivals">
-                      Explore Products
+                      {t('wishlistEmptyButton')}
                     </Button>
                   </div>
                 )}
