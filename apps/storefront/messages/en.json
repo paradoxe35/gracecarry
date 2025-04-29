@@ -197,5 +197,29 @@
     "summaryTaxLabel": "Tax",
     "orderDetailsHeading": "Order Details",
     "orderDetailsItemFormat": "{name} x {quantity}"
+  },
+  "ConfirmationPage": {
+    "heading": "Order Confirmed!",
+    "thankYouMessage": "Thank you for your purchase. Your order has been received.",
+    "emailConfirmationMessage": "A confirmation email has been sent to your email address.",
+    "orderNumberPrefix": "Order #",
+    "estimatedDeliveryPrefix": "Estimated delivery:"
+  },
+  "LoginPage": {
+    "heading": "Welcome Back",
+    "subheading": "Sign in to your account",
+    "errorMessage": "Invalid email or password. Please try again.",
+    "passwordLabel": "Password",
+    "emailPlaceholder": "your.email@example.com",
+    "passwordPlaceholder": "••••••••",
+    "rememberMeLabel": "Remember me",
+    "forgotPasswordLink": "Forgot password?",
+    "signInButtonLoading": "Signing in...",
+    "socialLoginSeparator": "Or sign in with",
+    "googleSignInAriaLabel": "Sign in with Google",
+    "facebookSignInAriaLabel": "Sign in with Facebook",
+    "twitterSignInAriaLabel": "Sign in with Twitter",
+    "signUpPrompt": "Don't have an account?",
+    "signUpLink": "Sign up"
   }
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 
 // Mock order data
 const orderData = {
@@ -56,9 +57,13 @@ const orderData = {
 };
 
 export default function OrderConfirmationPage() {
+  const t = useTranslations('ConfirmationPage');
+  const tAccount = useTranslations('AccountPage'); // For shared keys
+  const tCart = useTranslations('CartPage'); // For shared keys
+  const tCheckout = useTranslations('CheckoutPage'); // For shared keys
   const [order, setOrder] = useState(orderData);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     // Simulate loading order data
     const timer = setTimeout(() => {
@@ -91,12 +96,12 @@ export default function OrderConfirmationPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="g-heading text-3xl mb-4">Order Confirmed!</h1>
+          <h1 className="g-heading text-3xl mb-4">{t('heading')}</h1>
           <p className="text-neutral-600 text-lg mb-2">
-            Thank you for your purchase. Your order has been received.
+            {t('thankYouMessage')}
           </p>
           <p className="text-neutral-600">
-            A confirmation email has been sent to your email address.
+            {t('emailConfirmationMessage')}
           </p>
         </div>
         
@@ -104,18 +109,18 @@ export default function OrderConfirmationPage() {
           <div className="bg-neutral-100 p-6 border-b border-neutral-200">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
               <div>
-                <h2 className="font-medium text-xl mb-1">Order #{order.id}</h2>
+                <h2 className="font-medium text-xl mb-1">{t('orderNumberPrefix')}{order.id}</h2>
                 <p className="text-neutral-600">
-                  Placed on {new Date(order.date).toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  {tAccount('orderDatePrefix')} {new Date(order.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </p>
               </div>
               <div className="mt-4 sm:mt-0">
                 <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-                  {order.status}
+                  {tAccount(`orderStatus${order.status}` as any)}
                 </span>
               </div>
             </div>
@@ -124,44 +129,44 @@ export default function OrderConfirmationPage() {
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="font-medium mb-3">Shipping Information</h3>
+                <h3 className="font-medium mb-3">{tCheckout('shippingInfoHeading')}</h3>
                 <div className="text-neutral-700">
                   <p className="font-medium">{order.shippingAddress.name}</p>
                   <p>{order.shippingAddress.street}</p>
                   <p>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zipCode}</p>
                   <p>{order.shippingAddress.country}</p>
                 </div>
-                
+
                 <div className="mt-4">
-                  <h4 className="font-medium mb-1">Shipping Method</h4>
-                  <p className="text-neutral-700">{order.shippingMethod}</p>
+                  <h4 className="font-medium mb-1">{tCheckout('shippingMethodHeading')}</h4>
+                  <p className="text-neutral-700">{tCheckout(`shippingMethod${order.shippingMethod.replace(/\s+/g, '')}Name` as any)}</p>
                   <p className="text-neutral-600 text-sm mt-1">
-                    Estimated delivery: {new Date(order.estimatedDelivery).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
+                    {t('estimatedDeliveryPrefix')} {new Date(order.estimatedDelivery).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
                     })}
                   </p>
                 </div>
               </div>
-              
+
               <div>
-                <h3 className="font-medium mb-3">Payment Information</h3>
+                <h3 className="font-medium mb-3">{tCheckout('paymentInfoHeading')}</h3>
                 <div className="text-neutral-700">
                   <p className="font-medium">{order.billingAddress.name}</p>
                   <p>{order.billingAddress.street}</p>
                   <p>{order.billingAddress.city}, {order.billingAddress.state} {order.billingAddress.zipCode}</p>
                   <p>{order.billingAddress.country}</p>
                 </div>
-                
+
                 <div className="mt-4">
-                  <h4 className="font-medium mb-1">Payment Method</h4>
-                  <p className="text-neutral-700">{order.paymentMethod}</p>
+                  <h4 className="font-medium mb-1">{tCheckout('paymentMethodHeading')}</h4>
+                  <p className="text-neutral-700">{order.paymentMethod}</p> {/* Assuming paymentMethod string is already formatted */}
                 </div>
               </div>
             </div>
-            
-            <h3 className="font-medium mb-4">Order Items</h3>
+
+            <h3 className="font-medium mb-4">{tCheckout('reviewItemsHeading')}</h3>
             <div className="border border-neutral-200 rounded-md overflow-hidden mb-6">
               {order.items.map((item, index) => (
                 <div 
@@ -182,8 +187,8 @@ export default function OrderConfirmationPage() {
                   <div className="ml-4 flex-grow">
                     <h4 className="font-medium">{item.name}</h4>
                     <div className="text-sm text-neutral-600">
-                      <p>Color: {item.color} | Size: {item.size}</p>
-                      <p>Qty: {item.quantity}</p>
+                      <p>{tCheckout('reviewItemDetails', { color: item.color, size: item.size })}</p>
+                      <p>{tAccount('orderQuantityPrefix')} {item.quantity}</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -196,25 +201,25 @@ export default function OrderConfirmationPage() {
             <div className="bg-neutral-50 p-4 rounded-md">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Subtotal</span>
+                  <span className="text-neutral-600">{tCart('summarySubtotalLabel')}</span>
                   <span className="font-medium">${order.subtotal.toFixed(2)}</span>
                 </div>
-                
+
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Shipping</span>
+                  <span className="text-neutral-600">{tCart('summaryShippingLabel')}</span>
                   <span className="font-medium">
-                    {order.shipping === 0 ? 'Free' : `$${order.shipping.toFixed(2)}`}
+                    {order.shipping === 0 ? tCart('summaryShippingFree') : `$${order.shipping.toFixed(2)}`}
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Tax</span>
+                  <span className="text-neutral-600">{tCheckout('summaryTaxLabel')}</span>
                   <span className="font-medium">${order.tax.toFixed(2)}</span>
                 </div>
-                
+
                 <div className="border-t border-neutral-200 pt-2 mt-2">
                   <div className="flex justify-between">
-                    <span className="font-medium">Total</span>
+                    <span className="font-medium">{tCart('summaryTotalLabel')}</span>
                     <span className="font-medium">${order.total.toFixed(2)}</span>
                   </div>
                 </div>
@@ -225,10 +230,10 @@ export default function OrderConfirmationPage() {
         
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button variant="primary" href="/account/orders">
-            View Order History
+            {tAccount('orderViewDetailsButton')}
           </Button>
           <Button variant="secondary" href="/">
-            Continue Shopping
+            {tCart('continueShoppingLink')}
           </Button>
         </div>
       </div>

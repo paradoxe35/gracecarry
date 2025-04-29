@@ -6,8 +6,12 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 
 export default function LoginPage() {
+  const t = useTranslations("LoginPage");
+  const tAccount = useTranslations("AccountPage"); // For shared keys
+  const tHeader = useTranslations("Header"); // For shared keys
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -27,7 +31,7 @@ export default function LoginPage() {
       // For demo purposes, let's just redirect to the account page
       window.location.href = "/account";
     } catch (err) {
-      setError("Invalid email or password. Please try again.");
+      setError(t("errorMessage"));
     } finally {
       setIsLoading(false);
     }
@@ -42,8 +46,8 @@ export default function LoginPage() {
               {BRAND_NAME}
             </h1>
           </LocalizedLink>
-          <h2 className="text-2xl font-medium mt-6 mb-2">Welcome Back</h2>
-          <p className="text-neutral-600">Sign in to your account</p>
+          <h2 className="text-2xl font-medium mt-6 mb-2">{t("heading")}</h2>
+          <p className="text-neutral-600">{t("subheading")}</p>
         </div>
 
         {error && (
@@ -55,21 +59,21 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 mb-6">
             <Input
-              label="Email Address"
+              label={tAccount("profileFormEmailLabel")}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your.email@example.com"
+              placeholder={t("emailPlaceholder")}
               required
               fullWidth
             />
 
             <Input
-              label="Password"
+              label={t("passwordLabel")}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
+              placeholder={t("passwordPlaceholder")}
               required
               fullWidth
             />
@@ -82,14 +86,14 @@ export default function LoginPage() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="rounded text-primary focus:ring-primary mr-2"
                 />
-                <span className="text-sm text-neutral-700">Remember me</span>
+                <span className="text-sm text-neutral-700">{t("rememberMeLabel")}</span>
               </label>
 
               <LocalizedLink
                 href="/auth/forgot-password"
                 className="text-sm text-primary hover:underline"
               >
-                Forgot password?
+                {t("forgotPasswordLink")}
               </LocalizedLink>
             </div>
           </div>
@@ -100,15 +104,15 @@ export default function LoginPage() {
             fullWidth
             disabled={isLoading}
           >
-            {isLoading ? "Signing in..." : "Sign In"}
+            {isLoading ? t("signInButtonLoading") : tHeader("accountSignIn")}
           </Button>
         </form>
 
         <div className="mt-8 pt-6 border-t border-neutral-200 text-center">
-          <p className="text-neutral-600 mb-4">Or sign in with</p>
+          <p className="text-neutral-600 mb-4">{t("socialLoginSeparator")}</p>
 
           <div className="flex justify-center space-x-4">
-            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors">
+            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors" aria-label={t("googleSignInAriaLabel")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -124,7 +128,7 @@ export default function LoginPage() {
               </svg>
             </button>
 
-            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors">
+            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors" aria-label={t("facebookSignInAriaLabel")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -137,7 +141,7 @@ export default function LoginPage() {
               </svg>
             </button>
 
-            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors">
+            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors" aria-label={t("twitterSignInAriaLabel")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -154,9 +158,9 @@ export default function LoginPage() {
 
         <div className="mt-6 text-center">
           <p className="text-neutral-600">
-            Don't have an account?{" "}
+            {t("signUpPrompt")}{" "}
             <LocalizedLink href="/auth/signup" className="text-primary hover:underline">
-              Sign up
+              {t("signUpLink")}
             </LocalizedLink>
           </p>
         </div>
