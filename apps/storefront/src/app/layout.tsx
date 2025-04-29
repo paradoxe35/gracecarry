@@ -47,7 +47,7 @@ export default async function RootLayout({
         >
           <NextIntlClientProvider>
             <Suspense>
-              <Header />
+              <Header currentLocale={locale} />
               <main className="flex-grow">{children}</main>
               <Footer />
             </Suspense>

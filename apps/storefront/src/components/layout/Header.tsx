@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import LocalizedLink from "@/components/ui/LocalizedLink";
-import Image from "next/image";
 import { BRAND_NAME } from "@/lib/constants";
 import LanguageSelector from "./LanguageSelector"; // Import the new component
 
-const Header = () => {
+type HeaderProps = {
+  currentLocale: string; // Define prop type
+};
+
+const Header = ({ currentLocale }: HeaderProps) => {
+  // Accept prop
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
@@ -81,8 +85,8 @@ const Header = () => {
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
             {/* Language Selector */}
-            <LanguageSelector />
-
+            <LanguageSelector currentLocale={currentLocale} />{" "}
+            {/* Pass prop down */}
             {/* Search */}
             <button
               onClick={toggleSearch}
@@ -104,7 +108,6 @@ const Header = () => {
                 />
               </svg>
             </button>
-
             {/* Account */}
             <div className="relative">
               <button
@@ -160,7 +163,6 @@ const Header = () => {
                 </div>
               )}
             </div>
-
             {/* Cart */}
             <LocalizedLink
               href="/cart"

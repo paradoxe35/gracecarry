@@ -1,13 +1,11 @@
 "use client";
 
-import { useParams, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, useRef, useTransition } from "react";
-import { switchLocaleAction } from "@/actions/i18nActions"; // Import the Server Action
-import { LOCALES } from "@/i18n/constants";
+import { switchLocaleAction } from "@/actions/i18nActions";
+import { LOCALES } from "@/i18n/constants"; // Assuming LOCALES constant exists
 
-// Define available languages (adjust as needed)
 type ValueOf<T> = Required<T>[keyof T] & string;
-
 type Language = {
   code: ValueOf<typeof LOCALES>;
   name: string;
@@ -19,18 +17,20 @@ const languages: Language[] = [
   { code: "rw", name: "Kinyarwanda" },
 ];
 
-export default function LanguageSelector() {
+type LanguageSelectorProps = {
+  currentLocale: string;
+};
+
+export default function LanguageSelector({
+  currentLocale,
+}: LanguageSelectorProps) {
+  const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isPending, startTransition] = useTransition(); // For loading state
 
-  // Infer current language from the URL parameter (e.g., /en/about -> 'en')
-  // Note: This might need adjustment if locale comes purely from cookie via middleware
-  const currentLang =
-    typeof params.countryCode === "string" ? params.countryCode : "en"; // Default to 'en'
-
-  const [selectedLang, setSelectedLang] = useState(currentLang);
+  // Use the prop for initial state and current display
+  const [selectedLang, setSelectedLang] = useState(currentLocale);
   const [isOpen, setIsOpen] = useState(false);
 
   // Close dropdown when clicking outside
@@ -48,13 +48,14 @@ export default function LanguageSelector() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Update selectedLang if the currentLang derived from URL changes
+  // Update selectedLang state if the prop changes (e.g., after navigation)
   useEffect(() => {
-    setSelectedLang(currentLang);
-  }, [currentLang]);
+    setSelectedLang(currentLocale);
+  }, [currentLocale]);
 
   const handleLanguageChange = (langCode: string) => {
-    if (langCode === selectedLang || isPending) {
+    // Use currentLocale prop for comparison
+    if (langCode === currentLocale || isPending) {
       setIsOpen(false);
       return;
     }
@@ -66,14 +67,21 @@ export default function LanguageSelector() {
       if (result?.error) {
         // Handle error (e.g., show a toast notification)
         console.error("Language switch error:", result.error);
-        // Optionally reset selectedLang visually if the switch failed
-        // setSelectedLang(currentLang);
+        // Reset selectedLang visually if the switch failed
+        setSelectedLang(currentLocale);
+      } else {
+        // Update selectedLang state to reflect the new language
+        setSelectedLang(langCode);
+        // Optionally, you can also update the router or perform other actions here
+        router.refresh(); // Refresh the page to apply the new locale
       }
     });
   };
 
-  // Get current language display name
-  const currentLanguage = languages.find((lang) => lang.code === selectedLang);
+  // Get current language display name based on prop
+  const currentLanguageDisplay = languages.find(
+    (lang) => lang.code === selectedLang
+  );
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -104,7 +112,7 @@ export default function LanguageSelector() {
 
         {/* Only show text on larger screens */}
         <span className="hidden md:inline text-sm font-medium">
-          {currentLanguage?.code.toUpperCase()}
+          {currentLanguageDisplay?.code.toUpperCase()}
         </span>
 
         {/* Dropdown arrow */}
@@ -134,17 +142,17 @@ export default function LanguageSelector() {
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
                 className={`w-full text-left px-4 py-2 text-sm hover:bg-neutral-100 transition-colors duration-150 flex items-center justify-between ${
-                  selectedLang === lang.code
+                  currentLocale === lang.code
                     ? "text-primary font-medium bg-neutral-50"
-                    : "text-neutral-800"
+                    : "text-neutral-800" // Highlight based on prop
                 }`}
                 role="option"
-                aria-selected={selectedLang === lang.code}
+                aria-selected={currentLocale === lang.code} // Aria selected based on prop
                 disabled={isPending} // Disable options during transition
               >
                 <span>{lang.name}</span>
-                {selectedLang === lang.code &&
-                  !isPending && ( // Hide checkmark when pending
+                {currentLocale === lang.code &&
+                  !isPending && ( // Show checkmark based on prop
                     <svg
                       className="h-4 w-4 text-primary"
                       xmlns="http://www.w3.org/2000/svg"

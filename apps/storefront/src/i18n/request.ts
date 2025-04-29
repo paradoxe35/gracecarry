@@ -4,11 +4,12 @@ import { headers } from "next/headers";
 import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
 import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, LOCALES } from "./constants";
+import { getLocaleFromCookie } from "./selector";
 
 // Function to get locale from headers
-function getLocale(requestHeaders: Headers): string {
+async function getLocale(requestHeaders: Headers): Promise<string> {
   // 1. Check custom header first
-  const customLocale = requestHeaders.get(LOCALE_COOKIE_NAME);
+  const customLocale = await getLocaleFromCookie();
   if (customLocale && LOCALES.includes(customLocale as any)) {
     return customLocale;
   }
@@ -39,7 +40,7 @@ function getLocale(requestHeaders: Headers): string {
 
 export default getRequestConfig(async () => {
   const requestHeaders = await headers();
-  const locale = getLocale(requestHeaders);
+  const locale = await getLocale(requestHeaders);
 
   // Load messages for the determined locale
   // Ensure messages for the default locale are always loaded as a base

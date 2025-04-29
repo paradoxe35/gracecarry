@@ -29,7 +29,6 @@ export async function setLocaleCookie(
   store.set(LOCALE_COOKIE_NAME, locale, {
     path: "/", // Make the cookie available across the entire site
     maxAge: 365 * 24 * 60 * 60, // 1 year expiration
-    sameSite: "lax", // Recommended for security and usability
     // secure: process.env.NODE_ENV === 'production', // Set Secure flag in production (HTTPS)
     // httpOnly: true, // Recommended for security if cookie is only read server-side
   });
