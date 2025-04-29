@@ -1,187 +1,195 @@
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from '@/components/ui/Button';
+import { getTranslations } from 'next-intl/server'; // Import getTranslations
 
-export default function ShippingPage() {
+export default async function ShippingPage() {
+  const t = await getTranslations('ShippingPage'); // Initialize getTranslations
+
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Shipping & Returns</h1>
-      
+      <h1 className="g-heading text-3xl mb-6">{t('pageHeading')}</h1>
+
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
         <div className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Shipping Information</h2>
-          
+          <h2 className="text-2xl font-medium mb-6">{t('shippingInfoHeading')}</h2>
+
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-medium mb-4">Shipping Options</h3>
+              <h3 className="text-xl font-medium mb-4">{t('shippingOptionsHeading')}</h3>
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse">
                   <thead>
                     <tr className="bg-neutral-100">
-                      <th className="border border-neutral-200 px-4 py-3 text-left">Shipping Method</th>
-                      <th className="border border-neutral-200 px-4 py-3 text-left">Delivery Time</th>
-                      <th className="border border-neutral-200 px-4 py-3 text-left">Cost</th>
+                      <th className="border border-neutral-200 px-4 py-3 text-left">{t('tableHeaderMethod')}</th>
+                      <th className="border border-neutral-200 px-4 py-3 text-left">{t('tableHeaderTime')}</th>
+                      <th className="border border-neutral-200 px-4 py-3 text-left">{t('tableHeaderCost')}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="border border-neutral-200 px-4 py-3">Standard Shipping</td>
-                      <td className="border border-neutral-200 px-4 py-3">3-5 business days</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('standardShippingMethod')}</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('standardShippingTime')}</td>
                       <td className="border border-neutral-200 px-4 py-3">
-                        $9.99 (Free on orders over $100)
+                        {t('standardShippingCost')}
                       </td>
                     </tr>
                     <tr>
-                      <td className="border border-neutral-200 px-4 py-3">Express Shipping</td>
-                      <td className="border border-neutral-200 px-4 py-3">1-2 business days</td>
-                      <td className="border border-neutral-200 px-4 py-3">$12.99</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('expressShippingMethod')}</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('expressShippingTime')}</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('expressShippingCost')}</td>
                     </tr>
                     <tr>
-                      <td className="border border-neutral-200 px-4 py-3">Overnight Shipping</td>
-                      <td className="border border-neutral-200 px-4 py-3">Next business day</td>
-                      <td className="border border-neutral-200 px-4 py-3">$24.99</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('overnightShippingMethod')}</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('overnightShippingTime')}</td>
+                      <td className="border border-neutral-200 px-4 py-3">{t('overnightShippingCost')}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <p className="text-sm text-neutral-600 mt-2">
-                * Business days are Monday through Friday, excluding holidays.
+                {t('businessDaysNote')}
               </p>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-medium mb-4">Shipping Policies</h3>
+              <h3 className="text-xl font-medium mb-4">{t('shippingPoliciesHeading')}</h3>
               <ul className="list-disc list-inside space-y-2 text-neutral-700">
                 <li>
-                  Orders are processed and shipped within 1-2 business days after payment confirmation.
+                  {t('policyProcessed')}
                 </li>
                 <li>
-                  You will receive a shipping confirmation email with tracking information once your order has been shipped.
+                  {t('policyConfirmation')}
                 </li>
                 <li>
-                  We currently ship to the United States and Canada. For international shipping inquiries, please 
-                  <LocalizedLink href="/contact" className="text-primary hover:underline"> contact us</LocalizedLink>.
+                  {t.rich('policyLocations', {
+                    contactLink: (chunks) => <LocalizedLink href="/contact" className="text-primary hover:underline">{chunks}</LocalizedLink>
+                  })}
                 </li>
                 <li>
-                  Shipping times may be affected during peak seasons, holidays, or due to unforeseen circumstances.
+                  {t('policyDelays')}
                 </li>
                 <li>
-                  For orders with multiple items, we may ship items separately to ensure the fastest delivery.
+                  {t('policyMultipleItems')}
                 </li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-medium mb-4">Order Tracking</h3>
+              <h3 className="text-xl font-medium mb-4">{t('orderTrackingHeading')}</h3>
               <p className="text-neutral-700 mb-4">
-                You can track your order by:
+                {t('orderTrackingIntro')}
               </p>
               <ul className="list-disc list-inside space-y-2 text-neutral-700">
                 <li>
-                  Clicking the tracking link in your shipping confirmation email
+                  {t('trackingEmail')}
                 </li>
                 <li>
-                  Visiting the "Order History" section in your <LocalizedLink href="/account/orders" className="text-primary hover:underline">account</LocalizedLink>
+                  {t.rich('trackingAccount', {
+                    accountLink: (chunks) => <LocalizedLink href="/account/orders" className="text-primary hover:underline">{chunks}</LocalizedLink>
+                  })}
                 </li>
                 <li>
-                  Contacting our <LocalizedLink href="/customer-service" className="text-primary hover:underline">customer service</LocalizedLink> team with your order number
+                  {t.rich('trackingCustomerService', {
+                    customerServiceLink: (chunks) => <LocalizedLink href="/customer-service" className="text-primary hover:underline">{chunks}</LocalizedLink>
+                  })}
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        
+
         <div className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Returns & Exchanges</h2>
-          
+          <h2 className="text-2xl font-medium mb-6">{t('returnsExchangesHeading')}</h2>
+
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-medium mb-4">Return Policy</h3>
+              <h3 className="text-xl font-medium mb-4">{t('returnPolicyHeading')}</h3>
               <ul className="list-disc list-inside space-y-2 text-neutral-700">
                 <li>
-                  We offer a 30-day return policy for all unworn items in their original condition with tags attached.
+                  {t('returnPolicy30Days')}
                 </li>
                 <li>
-                  Sale items and accessories (jewelry, scarves, etc.) are final sale and cannot be returned unless defective.
+                  {t('returnPolicyFinalSale')}
                 </li>
                 <li>
-                  Defective or damaged items can be returned within 14 days of receipt.
+                  {t('returnPolicyDefective')}
                 </li>
                 <li>
-                  Return shipping costs are the responsibility of the customer, except for defective or incorrectly shipped items.
+                  {t('returnPolicyShippingCost')}
                 </li>
                 <li>
-                  Refunds will be issued to the original payment method within 5-7 business days after we receive and process your return.
+                  {t('returnPolicyRefundTime')}
                 </li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-medium mb-4">How to Return an Item</h3>
+              <h3 className="text-xl font-medium mb-4">{t('howToReturnHeading')}</h3>
               <ol className="list-decimal list-inside space-y-4 text-neutral-700">
                 <li>
-                  <span className="font-medium">Initiate a return:</span> Log into your account and go to "Order History" or contact our customer service team.
+                  <span className="font-medium">{t('returnStep1Title')}</span> {t('returnStep1Desc')}
                 </li>
                 <li>
-                  <span className="font-medium">Prepare your package:</span> Ensure all items are in their original condition with tags attached. Include your order number or the return form.
+                  <span className="font-medium">{t('returnStep2Title')}</span> {t('returnStep2Desc')}
                 </li>
                 <li>
-                  <span className="font-medium">Ship your return:</span> Use a trackable shipping method and send to the address provided in the return confirmation.
+                  <span className="font-medium">{t('returnStep3Title')}</span> {t('returnStep3Desc')}
                 </li>
                 <li>
-                  <span className="font-medium">Wait for confirmation:</span> You'll receive an email once your return is processed and your refund is issued.
+                  <span className="font-medium">{t('returnStep4Title')}</span> {t('returnStep4Desc')}
                 </li>
               </ol>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-medium mb-4">Exchanges</h3>
+              <h3 className="text-xl font-medium mb-4">{t('exchangesHeading')}</h3>
               <p className="text-neutral-700 mb-4">
-                We currently do not offer direct exchanges. If you would like to exchange an item, please return the original item for a refund and place a new order for the desired item.
+                {t('exchangesDescription')}
               </p>
             </div>
           </div>
         </div>
-        
+
         <div>
-          <h2 className="text-2xl font-medium mb-6">Frequently Asked Questions</h2>
-          
+          <h2 className="text-2xl font-medium mb-6">{t('faqHeading')}</h2>
+
           <div className="space-y-4">
             <div className="border border-neutral-200 rounded-md p-4">
-              <h3 className="font-medium mb-2">When will my order ship?</h3>
+              <h3 className="font-medium mb-2">{t('faq1Question')}</h3>
               <p className="text-neutral-600">
-                Orders are typically processed and shipped within 1-2 business days after payment confirmation.
+                {t('faq1Answer')}
               </p>
             </div>
-            
+
             <div className="border border-neutral-200 rounded-md p-4">
-              <h3 className="font-medium mb-2">Can I change or cancel my order?</h3>
+              <h3 className="font-medium mb-2">{t('faq2Question')}</h3>
               <p className="text-neutral-600">
-                You can request to change or cancel your order within 1 hour of placing it by contacting our customer service team. Once an order has been processed, we cannot make changes or cancel it.
+                {t('faq2Answer')}
               </p>
             </div>
-            
+
             <div className="border border-neutral-200 rounded-md p-4">
-              <h3 className="font-medium mb-2">How long will it take to receive my refund?</h3>
+              <h3 className="font-medium mb-2">{t('faq3Question')}</h3>
               <p className="text-neutral-600">
-                Once we receive and process your return, refunds typically take 5-7 business days to appear on your original payment method. The timing may vary depending on your financial institution.
+                {t('faq3Answer')}
               </p>
             </div>
-            
+
             <div className="border border-neutral-200 rounded-md p-4">
-              <h3 className="font-medium mb-2">What if my item arrives damaged?</h3>
+              <h3 className="font-medium mb-2">{t('faq4Question')}</h3>
               <p className="text-neutral-600">
-                If your item arrives damaged or defective, please contact our customer service team within 14 days of receipt. We'll provide instructions for returning the item and sending a replacement.
+                {t('faq4Answer')}
               </p>
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12 text-center">
           <p className="text-neutral-700 mb-4">
-            Have more questions about shipping or returns? We're here to help.
+            {t('contactPrompt')}
           </p>
           <Button variant="primary" href="/contact">
-            Contact Customer Service
+            {t('contactButton')}
           </Button>
         </div>
       </div>

@@ -1,11 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import LocalizedLink from "@/components/ui/LocalizedLink";
 import ProductCard from "@/components/product/ProductCard";
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 // Mock products data - simulating sale items
 const saleProducts = [
@@ -48,14 +45,14 @@ const saleProducts = [
 ];
 
 export default function SalePage() {
+  const t = useTranslations("SalePage"); // Initialize useTranslations
   const [products, setProducts] = useState(saleProducts);
 
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Sale</h1>
+      <h1 className="g-heading text-3xl mb-6">{t("pageHeading")}</h1> {/* Use translation key */}
       <p className="text-neutral-700 mb-8">
-        Discover incredible deals on our premium women's fashion. Limited time
-        offers, don't miss out!
+        {t("pageDescription")} {/* Use translation key */}
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

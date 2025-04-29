@@ -2,83 +2,78 @@ import Image from "next/image";
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME } from "@/lib/constants";
+import { getTranslations } from 'next-intl/server'; // Import getTranslations
 
-export default function SizeGuidePage() {
+export default async function SizeGuidePage() {
+  const t = await getTranslations('SizeGuidePage'); // Initialize getTranslations
+
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Size Guide</h1>
+      <h1 className="g-heading text-3xl mb-6">{t('pageHeading')}</h1>
 
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
         <div className="mb-8">
           <p className="text-neutral-700 mb-6">
-            Finding the perfect fit is essential for both comfort and style. Use
-            our comprehensive size guides to determine your ideal size for all{" "}
-            {BRAND_NAME} products. If you're between sizes, we generally
-            recommend sizing up for a more comfortable fit.
+            {t('introParagraph', { brandName: BRAND_NAME })}
           </p>
 
           <div className="bg-primary/10 border-l-4 border-primary p-4 rounded-md mb-6">
-            <h3 className="font-medium mb-2">Need assistance?</h3>
+            <h3 className="font-medium mb-2">{t('assistanceHeading')}</h3>
             <p className="text-neutral-700">
-              Our customer service team is available to help with any sizing
-              questions.
-              <LocalizedLink
-                href="/contact"
-                className="text-primary hover:underline ml-1"
-              >
-                Contact us
-              </LocalizedLink>{" "}
-              for personalized assistance.
+              {t.rich('assistanceText', {
+                contactLink: (chunks) => <LocalizedLink href="/contact" className="text-primary hover:underline ml-1">{chunks}</LocalizedLink>
+              })}
             </p>
           </div>
 
           <div className="flex flex-wrap gap-4 mb-8">
             <Button variant="outline" href="#womens-clothing">
-              Women's Clothing
+              {t('buttonWomensClothing')}
             </Button>
             <Button variant="outline" href="#footwear">
-              Footwear
+              {t('buttonFootwear')}
             </Button>
             <Button variant="outline" href="#accessories">
-              Accessories
+              {t('buttonAccessories')}
             </Button>
             <Button variant="outline" href="#measurement-guide">
-              How to Measure
+              {t('buttonHowToMeasure')}
             </Button>
           </div>
         </div>
 
         <div id="womens-clothing" className="mb-12">
           <h2 className="text-2xl font-medium mb-6">
-            Women's Clothing Size Guide
+            {t('womensClothingHeading')}
           </h2>
 
           <div className="mb-8">
             <h3 className="text-xl font-medium mb-4">
-              Standard Sizes (Inches)
+              {t('standardSizesHeading')}
             </h3>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-neutral-100">
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      Size
+                      {t('tableHeaderSize')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      US Size
+                      {t('tableHeaderUsSize')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      Bust
+                      {t('tableHeaderBust')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      Waist
+                      {t('tableHeaderWaist')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      Hips
+                      {t('tableHeaderHips')}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
+                  {/* Table rows remain the same as they contain numerical data */}
                   <tr>
                     <td className="border border-neutral-200 px-4 py-3 font-medium">
                       XS
@@ -167,32 +162,33 @@ export default function SizeGuidePage() {
         </div>
 
         <div id="footwear" className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Footwear Size Guide</h2>
+          <h2 className="text-2xl font-medium mb-6">{t('footwearHeading')}</h2>
 
           <div className="mb-8">
-            <h3 className="text-xl font-medium mb-4">Women's Shoe Sizes</h3>
+            <h3 className="text-xl font-medium mb-4">{t('womensShoeSizesHeading')}</h3>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-neutral-100">
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      US
+                      {t('tableHeaderUs')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      EU
+                      {t('tableHeaderEu')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      UK
+                      {t('tableHeaderUk')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      Foot Length (inches)
+                      {t('tableHeaderFootLengthIn')}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      Foot Length (cm)
+                      {t('tableHeaderFootLengthCm')}
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                 <tbody>
+                  {/* Table rows remain the same as they contain numerical data */}
                   <tr>
                     <td className="border border-neutral-200 px-4 py-3">5</td>
                     <td className="border border-neutral-200 px-4 py-3">
@@ -269,87 +265,75 @@ export default function SizeGuidePage() {
               </table>
             </div>
             <p className="text-sm text-neutral-600 mt-2">
-              * For the best fit, we recommend measuring your foot and referring
-              to the foot length in inches or centimeters.
+              {t('footwearNote')}
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-medium mb-4">Footwear Fit Tips</h3>
+            <h3 className="text-xl font-medium mb-4">{t('footwearFitTipsHeading')}</h3>
             <ul className="list-disc list-inside space-y-2 text-neutral-700">
               <li>
-                Measure your feet in the evening when they tend to be at their
-                largest.
+                {t('tipMeasureEvening')}
               </li>
               <li>
-                Stand when measuring and wear the type of socks you plan to wear
-                with the shoes.
+                {t('tipWearSocks')}
               </li>
               <li>
-                If one foot is larger than the other, fit to the larger foot.
+                {t('tipLargerFoot')}
               </li>
               <li>
-                For heels and dress shoes, a snug fit is recommended as leather
-                will stretch slightly with wear.
+                {t('tipHeelsStretch')}
               </li>
               <li>
-                For boots and closed-toe shoes, ensure there is about a thumb's
-                width of space between your longest toe and the end of the shoe.
+                {t('tipBootsSpace')}
               </li>
             </ul>
           </div>
         </div>
 
         <div id="measurement-guide" className="mb-8">
-          <h2 className="text-2xl font-medium mb-6">How to Measure</h2>
+          <h2 className="text-2xl font-medium mb-6">{t('howToMeasureHeading')}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-medium mb-4">For Clothing</h3>
+              <h3 className="text-xl font-medium mb-4">{t('forClothingHeading')}</h3>
               <ul className="space-y-4 text-neutral-700">
                 <li>
-                  <span className="font-medium block mb-1">Bust:</span>
-                  Measure around the fullest part of your bust, keeping the tape
-                  parallel to the floor.
+                  <span className="font-medium block mb-1">{t('measureBustTitle')}</span>
+                  {t('measureBustDesc')}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">Waist:</span>
-                  Measure around your natural waistline, which is the narrowest
-                  part of your torso.
+                  <span className="font-medium block mb-1">{t('measureWaistTitle')}</span>
+                  {t('measureWaistDesc')}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">Hips:</span>
-                  Measure around the fullest part of your hips, usually about 8
-                  inches below your waistline.
+                  <span className="font-medium block mb-1">{t('measureHipsTitle')}</span>
+                  {t('measureHipsDesc')}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">Inseam:</span>
-                  Measure from the crotch to the bottom of the ankle.
+                  <span className="font-medium block mb-1">{t('measureInseamTitle')}</span>
+                  {t('measureInseamDesc')}
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xl font-medium mb-4">For Footwear</h3>
+              <h3 className="text-xl font-medium mb-4">{t('forFootwearHeading')}</h3>
               <ul className="space-y-4 text-neutral-700">
                 <li>
-                  <span className="font-medium block mb-1">Foot Length:</span>
-                  Stand on a piece of paper and trace around your foot. Measure
-                  the length from the heel to the longest toe.
+                  <span className="font-medium block mb-1">{t('measureFootLengthTitle')}</span>
+                  {t('measureFootLengthDesc')}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">Foot Width:</span>
-                  Measure the widest part of your foot, usually across the ball
-                  of your foot.
+                  <span className="font-medium block mb-1">{t('measureFootWidthTitle')}</span>
+                  {t('measureFootWidthDesc')}
                 </li>
               </ul>
 
               <div className="mt-6">
-                <h4 className="font-medium mb-3">Pro Tip:</h4>
+                <h4 className="font-medium mb-3">{t('proTipHeading')}</h4>
                 <p className="text-neutral-700">
-                  If you're between sizes or unsure, our customer service team
-                  is happy to provide specific sizing recommendations for any
-                  product.
+                  {t('proTipDesc')}
                 </p>
               </div>
             </div>
@@ -358,14 +342,14 @@ export default function SizeGuidePage() {
 
         <div className="mt-12 text-center">
           <p className="text-neutral-700 mb-4">
-            Still have questions about finding your perfect size?
+            {t('finalPrompt')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button variant="primary" href="/contact">
-              Contact Us
+              {t('contactButton')}
             </Button>
             <Button variant="secondary" href="/faq">
-              View FAQs
+              {t('faqButton')}
             </Button>
           </div>
         </div>
