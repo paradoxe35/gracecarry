@@ -5,6 +5,7 @@ import Image from 'next/image';
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import { useTranslations } from 'next-intl';
 
 // Mock cart data (same as in cart page)
 const cartItems = [
@@ -77,6 +78,9 @@ const shippingMethods = [
 ];
 
 export default function CheckoutPage() {
+  const t = useTranslations('CheckoutPage');
+  const tAccount = useTranslations('AccountPage'); // For shared keys like address types
+  const tCart = useTranslations('CartPage'); // For shared keys like summary labels
   const [activeStep, setActiveStep] = useState(1);
   const [shippingAddress, setShippingAddress] = useState(userAddresses[0]);
   const [billingAddress, setBillingAddress] = useState(userAddresses[1]);
@@ -152,8 +156,8 @@ export default function CheckoutPage() {
   
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-8">Checkout</h1>
-      
+      <h1 className="g-heading text-3xl mb-8">{t('pageHeading')}</h1>
+
       {/* Checkout steps */}
       <div className="mb-8">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
@@ -163,9 +167,9 @@ export default function CheckoutPage() {
             }`}>
               1
             </div>
-            <span className="text-sm">Shipping</span>
+            <span className="text-sm">{t('stepShipping')}</span>
           </div>
-          
+
           <div className={`flex-grow border-t ${activeStep >= 2 ? 'border-primary' : 'border-neutral-200'}`}></div>
           
           <div className={`flex flex-col items-center ${activeStep >= 2 ? 'text-primary' : 'text-neutral-400'}`}>
@@ -174,9 +178,9 @@ export default function CheckoutPage() {
             }`}>
               2
             </div>
-            <span className="text-sm">Payment</span>
+            <span className="text-sm">{t('stepPayment')}</span>
           </div>
-          
+
           <div className={`flex-grow border-t ${activeStep >= 3 ? 'border-primary' : 'border-neutral-200'}`}></div>
           
           <div className={`flex flex-col items-center ${activeStep >= 3 ? 'text-primary' : 'text-neutral-400'}`}>
@@ -185,7 +189,7 @@ export default function CheckoutPage() {
             }`}>
               3
             </div>
-            <span className="text-sm">Review</span>
+            <span className="text-sm">{t('stepReview')}</span>
           </div>
         </div>
       </div>
@@ -197,11 +201,11 @@ export default function CheckoutPage() {
             {/* Step 1: Shipping */}
             {activeStep === 1 && (
               <div>
-                <h2 className="text-xl font-medium mb-6">Shipping Information</h2>
-                
+                <h2 className="text-xl font-medium mb-6">{t('shippingInfoHeading')}</h2>
+
                 <div className="mb-8">
-                  <h3 className="font-medium mb-4">Shipping Address</h3>
-                  
+                  <h3 className="font-medium mb-4">{t('shippingAddressHeading')}</h3>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     {userAddresses.map((address) => (
                       <div 
@@ -219,11 +223,11 @@ export default function CheckoutPage() {
                               onChange={() => setShippingAddress(address)}
                               className="text-primary focus:ring-primary mr-2"
                             />
-                            <h4 className="font-medium">{address.type}</h4>
+                            <h4 className="font-medium">{tAccount(`addressType${address.type}` as any)}</h4>
                           </div>
                           {address.isDefault && (
                             <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">
-                              Default
+                              {tAccount('addressDefaultBadge')}
                             </span>
                           )}
                         </div>
@@ -241,15 +245,15 @@ export default function CheckoutPage() {
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-neutral-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                       </svg>
-                      <h4 className="font-medium mb-1">Add New Address</h4>
-                      <p className="text-sm text-neutral-600">Add a new shipping address</p>
+                      <h4 className="font-medium mb-1">{t('addNewAddressButton')}</h4>
+                      <p className="text-sm text-neutral-600">{t('addNewAddressDescription')}</p>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="mb-8">
-                  <h3 className="font-medium mb-4">Shipping Method</h3>
-                  
+                  <h3 className="font-medium mb-4">{t('shippingMethodHeading')}</h3>
+
                   <div className="space-y-4">
                     {shippingMethods.map((method) => (
                       <div 
@@ -268,12 +272,12 @@ export default function CheckoutPage() {
                               className="text-primary focus:ring-primary mr-3"
                             />
                             <div>
-                              <h4 className="font-medium">{method.name}</h4>
-                              <p className="text-sm text-neutral-600">{method.description}</p>
+                              <h4 className="font-medium">{t(`shippingMethod${method.name.replace(/\s+/g, '')}Name` as any)}</h4>
+                              <p className="text-sm text-neutral-600">{t(`shippingMethod${method.name.replace(/\s+/g, '')}Description` as any)}</p>
                             </div>
                           </div>
                           <div className="font-medium">
-                            {method.price === 0 ? 'Free' : `$${method.price.toFixed(2)}`}
+                            {method.price === 0 ? tCart('summaryShippingFree') : `$${method.price.toFixed(2)}`}
                           </div>
                         </div>
                       </div>
@@ -283,10 +287,10 @@ export default function CheckoutPage() {
                 
                 <div className="flex justify-between mt-8">
                   <Button variant="secondary" href="/cart">
-                    Back to Cart
+                    {t('backToCartButton')}
                   </Button>
                   <Button variant="primary" onClick={handleContinue}>
-                    Continue to Payment
+                    {t('continueToPaymentButton')}
                   </Button>
                 </div>
               </div>
@@ -295,11 +299,11 @@ export default function CheckoutPage() {
             {/* Step 2: Payment */}
             {activeStep === 2 && (
               <div>
-                <h2 className="text-xl font-medium mb-6">Payment Information</h2>
-                
+                <h2 className="text-xl font-medium mb-6">{t('paymentInfoHeading')}</h2>
+
                 <div className="mb-8">
-                  <h3 className="font-medium mb-4">Billing Address</h3>
-                  
+                  <h3 className="font-medium mb-4">{t('billingAddressHeading')}</h3>
+
                   <div className="mb-4">
                     <label className="flex items-center">
                       <input
@@ -308,7 +312,7 @@ export default function CheckoutPage() {
                         onChange={handleSameAsShippingChange}
                         className="rounded text-primary focus:ring-primary mr-2"
                       />
-                      <span className="text-neutral-700">Same as shipping address</span>
+                      <span className="text-neutral-700">{t('sameAsShippingLabel')}</span>
                     </label>
                   </div>
                   
@@ -330,11 +334,11 @@ export default function CheckoutPage() {
                                 onChange={() => setBillingAddress(address)}
                                 className="text-primary focus:ring-primary mr-2"
                               />
-                              <h4 className="font-medium">{address.type}</h4>
+                              <h4 className="font-medium">{tAccount(`addressType${address.type}` as any)}</h4>
                             </div>
                             {address.isDefault && (
                               <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">
-                                Default
+                                {tAccount('addressDefaultBadge')}
                               </span>
                             )}
                           </div>
@@ -350,10 +354,10 @@ export default function CheckoutPage() {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="mb-8">
-                  <h3 className="font-medium mb-4">Payment Method</h3>
-                  
+                  <h3 className="font-medium mb-4">{t('paymentMethodHeading')}</h3>
+
                   <div className="space-y-4 mb-6">
                     <div 
                       className={`border rounded-md p-4 cursor-pointer ${
@@ -368,9 +372,9 @@ export default function CheckoutPage() {
                           onChange={() => handlePaymentMethodChange('credit-card')}
                           className="text-primary focus:ring-primary mr-3"
                         />
-                        <h4 className="font-medium">Credit / Debit Card</h4>
+                        <h4 className="font-medium">{t('paymentMethodCreditCard')}</h4>
                       </div>
-                      
+
                       {paymentMethod === 'credit-card' && (
                         <div className="pl-6">
                           <div className="flex space-x-2 mb-4">
@@ -382,41 +386,41 @@ export default function CheckoutPage() {
                           
                           <div className="space-y-4">
                             <Input
-                              label="Card Number"
+                              label={t('cardFormNumberLabel')}
                               name="cardNumber"
                               type="text"
-                              placeholder="1234 5678 9012 3456"
+                              placeholder={t('cardFormNumberPlaceholder')}
                               value={paymentData.cardNumber}
                               onChange={handleInputChange}
                               required
                             />
-                            
+
                             <Input
-                              label="Cardholder Name"
+                              label={t('cardFormNameLabel')}
                               name="cardName"
                               type="text"
-                              placeholder="John Doe"
+                              placeholder={t('cardFormNamePlaceholder')}
                               value={paymentData.cardName}
                               onChange={handleInputChange}
                               required
                             />
-                            
+
                             <div className="grid grid-cols-2 gap-4">
                               <Input
-                                label="Expiry Date"
+                                label={t('cardFormExpiryLabel')}
                                 name="expiryDate"
                                 type="text"
-                                placeholder="MM/YY"
+                                placeholder={t('cardFormExpiryPlaceholder')}
                                 value={paymentData.expiryDate}
                                 onChange={handleInputChange}
                                 required
                               />
-                              
+
                               <Input
-                                label="CVV"
+                                label={t('cardFormCvvLabel')}
                                 name="cvv"
                                 type="text"
-                                placeholder="123"
+                                placeholder={t('cardFormCvvPlaceholder')}
                                 value={paymentData.cvv}
                                 onChange={handleInputChange}
                                 required
@@ -440,7 +444,7 @@ export default function CheckoutPage() {
                           onChange={() => handlePaymentMethodChange('paypal')}
                           className="text-primary focus:ring-primary mr-3"
                         />
-                        <h4 className="font-medium">PayPal</h4>
+                        <h4 className="font-medium">{t('paymentMethodPayPal')}</h4>
                       </div>
                     </div>
                   </div>
@@ -448,10 +452,10 @@ export default function CheckoutPage() {
                 
                 <div className="flex justify-between mt-8">
                   <Button variant="secondary" onClick={handleBack}>
-                    Back to Shipping
+                    {t('backToShippingButton')}
                   </Button>
                   <Button variant="primary" onClick={handleContinue}>
-                    Review Order
+                    {t('reviewOrderButton')}
                   </Button>
                 </div>
               </div>
@@ -460,11 +464,11 @@ export default function CheckoutPage() {
             {/* Step 3: Review */}
             {activeStep === 3 && (
               <div>
-                <h2 className="text-xl font-medium mb-6">Review Your Order</h2>
-                
+                <h2 className="text-xl font-medium mb-6">{t('reviewOrderHeading')}</h2>
+
                 <div className="mb-8">
-                  <h3 className="font-medium mb-4">Items</h3>
-                  
+                  <h3 className="font-medium mb-4">{t('reviewItemsHeading')}</h3>
+
                   <div className="space-y-4">
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex items-center">
@@ -480,8 +484,8 @@ export default function CheckoutPage() {
                         <div className="ml-4 flex-grow">
                           <h4 className="font-medium">{item.name}</h4>
                           <div className="text-sm text-neutral-600">
-                            <p>Color: {item.color} | Size: {item.size}</p>
-                            <p>Qty: {item.quantity}</p>
+                            <p>{t('reviewItemDetails', { color: item.color, size: item.size })}</p>
+                            <p>{tAccount('orderQuantityPrefix')} {item.quantity}</p>
                           </div>
                         </div>
                         <div className="text-right">
@@ -494,47 +498,47 @@ export default function CheckoutPage() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                   <div>
-                    <h3 className="font-medium mb-4">Shipping Information</h3>
+                    <h3 className="font-medium mb-4">{t('shippingInfoHeading')}</h3>
                     <div className="border border-neutral-200 rounded-md p-4">
-                      <h4 className="font-medium mb-2">Shipping Address</h4>
+                      <h4 className="font-medium mb-2">{t('shippingAddressHeading')}</h4>
                       <div className="text-neutral-700">
                         <p>{shippingAddress.name}</p>
                         <p>{shippingAddress.street}</p>
                         <p>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.zipCode}</p>
                         <p>{shippingAddress.country}</p>
                       </div>
-                      
+
                       <div className="border-t border-neutral-200 mt-4 pt-4">
-                        <h4 className="font-medium mb-2">Shipping Method</h4>
+                        <h4 className="font-medium mb-2">{t('shippingMethodHeading')}</h4>
                         <p className="text-neutral-700">
-                          {shippingMethods.find(method => method.id === selectedShippingMethod)?.name}
+                          {t(`shippingMethod${shippingMethods.find(method => method.id === selectedShippingMethod)?.name.replace(/\s+/g, '')}Name` as any)}
                         </p>
                         <p className="text-sm text-neutral-600">
-                          {shippingMethods.find(method => method.id === selectedShippingMethod)?.description}
+                          {t(`shippingMethod${shippingMethods.find(method => method.id === selectedShippingMethod)?.name.replace(/\s+/g, '')}Description` as any)}
                         </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
-                    <h3 className="font-medium mb-4">Payment Information</h3>
+                    <h3 className="font-medium mb-4">{t('paymentInfoHeading')}</h3>
                     <div className="border border-neutral-200 rounded-md p-4">
-                      <h4 className="font-medium mb-2">Billing Address</h4>
+                      <h4 className="font-medium mb-2">{t('billingAddressHeading')}</h4>
                       <div className="text-neutral-700">
                         <p>{billingAddress.name}</p>
                         <p>{billingAddress.street}</p>
                         <p>{billingAddress.city}, {billingAddress.state} {billingAddress.zipCode}</p>
                         <p>{billingAddress.country}</p>
                       </div>
-                      
+
                       <div className="border-t border-neutral-200 mt-4 pt-4">
-                        <h4 className="font-medium mb-2">Payment Method</h4>
+                        <h4 className="font-medium mb-2">{t('paymentMethodHeading')}</h4>
                         <p className="text-neutral-700">
-                          {paymentMethod === 'credit-card' ? 'Credit / Debit Card' : 'PayPal'}
+                          {t(paymentMethod === 'credit-card' ? 'paymentMethodCreditCard' : 'paymentMethodPayPal')}
                         </p>
-                        {paymentMethod === 'credit-card' && (
+                        {paymentMethod === 'credit-card' && paymentData.cardNumber && (
                           <p className="text-sm text-neutral-600">
-                            Card ending in {paymentData.cardNumber.slice(-4)}
+                            {t('reviewCardEndingIn', { lastFour: paymentData.cardNumber.slice(-4) })}
                           </p>
                         )}
                       </div>
@@ -544,14 +548,14 @@ export default function CheckoutPage() {
                 
                 <div className="flex justify-between mt-8">
                   <Button variant="secondary" onClick={handleBack}>
-                    Back to Payment
+                    {t('backToPaymentButton')}
                   </Button>
-                  <Button 
-                    variant="primary" 
+                  <Button
+                    variant="primary"
                     onClick={handlePlaceOrder}
                     disabled={isProcessing}
                   >
-                    {isProcessing ? 'Processing...' : 'Place Order'}
+                    {isProcessing ? t('processingButton') : t('placeOrderButton')}
                   </Button>
                 </div>
               </div>
@@ -562,41 +566,41 @@ export default function CheckoutPage() {
         {/* Order summary */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-md shadow-soft p-6 sticky top-6">
-            <h2 className="font-medium text-xl mb-4">Order Summary</h2>
-            
+            <h2 className="font-medium text-xl mb-4">{tCart('summaryHeading')}</h2>
+
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span className="text-neutral-600">Subtotal ({cartItems.reduce((total, item) => total + item.quantity, 0)} items)</span>
+                <span className="text-neutral-600">{t('summarySubtotalItemsLabel', { count: cartItems.reduce((total, item) => total + item.quantity, 0) })}</span>
                 <span className="font-medium">${subtotal.toFixed(2)}</span>
               </div>
-              
+
               <div className="flex justify-between">
-                <span className="text-neutral-600">Shipping</span>
+                <span className="text-neutral-600">{tCart('summaryShippingLabel')}</span>
                 <span className="font-medium">
-                  {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                  {shipping === 0 ? tCart('summaryShippingFree') : `$${shipping.toFixed(2)}`}
                 </span>
               </div>
-              
+
               <div className="flex justify-between">
-                <span className="text-neutral-600">Tax</span>
+                <span className="text-neutral-600">{t('summaryTaxLabel')}</span>
                 <span className="font-medium">${tax.toFixed(2)}</span>
               </div>
-              
+
               <div className="border-t border-neutral-200 pt-3 mt-3">
                 <div className="flex justify-between">
-                  <span className="font-medium">Total</span>
+                  <span className="font-medium">{tCart('summaryTotalLabel')}</span>
                   <span className="font-medium text-lg">${total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
-            
+
             <div className="border-t border-neutral-200 pt-4">
-              <h3 className="font-medium mb-2">Order Details</h3>
+              <h3 className="font-medium mb-2">{t('orderDetailsHeading')}</h3>
               <div className="space-y-2 text-sm">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex justify-between">
                     <span className="text-neutral-600">
-                      {item.name} x {item.quantity}
+                      {t('orderDetailsItemFormat', { name: item.name, quantity: item.quantity })}
                     </span>
                     <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
                   </div>
