@@ -1,65 +1,79 @@
-"use client"
+"use client";
 
-import { useParams, usePathname, useRouter } from "next/navigation"
-import { useEffect, useState, useRef } from "react"
+import { useParams, usePathname } from "next/navigation";
+import { useEffect, useState, useRef, useTransition } from "react";
+import { switchLocaleAction } from "@/actions/i18nActions"; // Import the Server Action
+import { LOCALES } from "@/i18n/constants";
 
 // Define available languages (adjust as needed)
-const languages = [
+type ValueOf<T> = Required<T>[keyof T] & string;
+
+type Language = {
+  code: ValueOf<typeof LOCALES>;
+  name: string;
+};
+
+const languages: Language[] = [
   { code: "en", name: "English" },
   { code: "fr", name: "Français" },
   { code: "rw", name: "Kinyarwanda" },
-]
+];
 
 export default function LanguageSelector() {
-  const router = useRouter()
-  const pathname = usePathname()
-  const params = useParams()
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  
-  // Infer current language from the URL parameter (e.g., /en/about -> 'en')
-  const currentLang = typeof params.countryCode === 'string' ? params.countryCode : 'en'; // Default to 'en'
+  const pathname = usePathname();
+  const params = useParams();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isPending, startTransition] = useTransition(); // For loading state
 
-  const [selectedLang, setSelectedLang] = useState(currentLang)
-  const [isOpen, setIsOpen] = useState(false)
+  // Infer current language from the URL parameter (e.g., /en/about -> 'en')
+  // Note: This might need adjustment if locale comes purely from cookie via middleware
+  const currentLang =
+    typeof params.countryCode === "string" ? params.countryCode : "en"; // Default to 'en'
+
+  const [selectedLang, setSelectedLang] = useState(currentLang);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
       }
     }
-    
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Update selectedLang if the currentLang derived from URL changes
   useEffect(() => {
-    setSelectedLang(currentLang)
-  }, [currentLang])
+    setSelectedLang(currentLang);
+  }, [currentLang]);
 
   const handleLanguageChange = (langCode: string) => {
-    if (langCode === selectedLang) {
-      setIsOpen(false)
-      return
-    }
-    
-    setSelectedLang(langCode)
-    setIsOpen(false)
-
-    // Construct the new path by replacing the current language code
-    let newPathname = pathname
-    if (pathname.startsWith(`/${currentLang}`)) {
-      newPathname = pathname.replace(`/${currentLang}`, `/${langCode}`)
-    } else {
-      newPathname = `/${langCode}${pathname}`
+    if (langCode === selectedLang || isPending) {
+      setIsOpen(false);
+      return;
     }
 
-    router.push(newPathname)
-  }
+    setIsOpen(false);
+
+    startTransition(async () => {
+      const result = await switchLocaleAction(langCode, pathname);
+      if (result?.error) {
+        // Handle error (e.g., show a toast notification)
+        console.error("Language switch error:", result.error);
+        // Optionally reset selectedLang visually if the switch failed
+        // setSelectedLang(currentLang);
+      }
+    });
+  };
 
   // Get current language display name
-  const currentLanguage = languages.find(lang => lang.code === selectedLang)
+  const currentLanguage = languages.find((lang) => lang.code === selectedLang);
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -70,11 +84,12 @@ export default function LanguageSelector() {
         aria-label="Select language"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        disabled={isPending} // Disable button during transition
       >
         {/* Globe icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
+          className={`h-5 w-5 ${isPending ? "animate-spin" : ""}`} // Add spinner effect if pending
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -86,20 +101,24 @@ export default function LanguageSelector() {
             d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        
+
         {/* Only show text on larger screens */}
         <span className="hidden md:inline text-sm font-medium">
           {currentLanguage?.code.toUpperCase()}
         </span>
-        
+
         {/* Dropdown arrow */}
         <svg
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`}
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "transform rotate-180" : ""}`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
         </svg>
       </button>
 
@@ -115,22 +134,35 @@ export default function LanguageSelector() {
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
                 className={`w-full text-left px-4 py-2 text-sm hover:bg-neutral-100 transition-colors duration-150 flex items-center justify-between ${
-                  selectedLang === lang.code ? 'text-primary font-medium bg-neutral-50' : 'text-neutral-800'
+                  selectedLang === lang.code
+                    ? "text-primary font-medium bg-neutral-50"
+                    : "text-neutral-800"
                 }`}
                 role="option"
                 aria-selected={selectedLang === lang.code}
+                disabled={isPending} // Disable options during transition
               >
                 <span>{lang.name}</span>
-                {selectedLang === lang.code && (
-                  <svg className="h-4 w-4 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                )}
+                {selectedLang === lang.code &&
+                  !isPending && ( // Hide checkmark when pending
+                    <svg
+                      className="h-4 w-4 text-primary"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
               </button>
             ))}
           </div>
         </div>
       )}
     </div>
-  )
+  );
 }
