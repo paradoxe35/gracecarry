@@ -221,5 +221,37 @@
     "twitterSignInAriaLabel": "Sign in with Twitter",
     "signUpPrompt": "Don't have an account?",
     "signUpLink": "Sign up"
+  },
+  "SignupPage": {
+    "heading": "Create an Account",
+    "subheading": "Join our community of fashion enthusiasts",
+    "errorPasswordMismatch": "Passwords do not match",
+    "errorTermsNotAccepted": "You must accept the terms and conditions",
+    "errorRegistrationFailed": "An error occurred during registration. Please try again.",
+    "firstNamePlaceholder": "Jane",
+    "lastNamePlaceholder": "Doe",
+    "passwordHelperText": "Must be at least 8 characters",
+    "termsCheckboxPrefix": "I agree to the",
+    "termsCheckboxSuffix": "and",
+    "createAccountButton": "Create Account",
+    "createAccountButtonLoading": "Creating Account...",
+    "socialSignupSeparator": "Or sign up with",
+    "googleSignupAriaLabel": "Sign up with Google",
+    "facebookSignupAriaLabel": "Sign up with Facebook",
+    "twitterSignupAriaLabel": "Sign up with Twitter",
+    "signInPrompt": "Already have an account?",
+    "signInLink": "Sign in"
+  },
+  "ForgotPasswordPage": {
+    "brandName": "Grace & Carry",
+    "heading": "Forgot Your Password?",
+    "subheading": "Enter your email address to reset your password",
+    "errorMessage": "An error occurred while submitting the form. Please try again.",
+    "successHeading": "Email Sent Successfully!",
+    "successMessage": "We've sent a password reset link to your email address. Please check your inbox and follow the instructions to reset your password.",
+    "submitButton": "Send Reset Link",
+    "submitButtonLoading": "Sending Reset Link...",
+    "signInPrompt": "Remember your password?",
+    "signInLink": "Sign in"
   }
 }

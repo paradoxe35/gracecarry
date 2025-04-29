@@ -5,8 +5,14 @@ import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 
 export default function SignupPage() {
+  const t = useTranslations("SignupPage");
+  const tAccount = useTranslations("AccountPage"); // For shared keys
+  const tLogin = useTranslations("LoginPage"); // For shared keys
+  const tFooter = useTranslations("Footer"); // For shared keys
+  const tHeader = useTranslations("Header"); // For shared keys
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,12 +28,12 @@ export default function SignupPage() {
 
     // Validate form
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("errorPasswordMismatch"));
       return;
     }
 
     if (!acceptTerms) {
-      setError("You must accept the terms and conditions");
+      setError(t("errorTermsNotAccepted"));
       return;
     }
 
@@ -41,7 +47,7 @@ export default function SignupPage() {
       // For demo purposes, let's just redirect to the account page
       window.location.href = "/account";
     } catch (err) {
-      setError("An error occurred during registration. Please try again.");
+      setError(t("errorRegistrationFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -56,9 +62,9 @@ export default function SignupPage() {
               {BRAND_NAME}
             </h1>
           </LocalizedLink>
-          <h2 className="text-2xl font-medium mt-6 mb-2">Create an Account</h2>
+          <h2 className="text-2xl font-medium mt-6 mb-2">{t("heading")}</h2>
           <p className="text-neutral-600">
-            Join our community of fashion enthusiasts
+            {t("subheading")}
           </p>
         </div>
 
@@ -72,53 +78,53 @@ export default function SignupPage() {
           <div className="space-y-4 mb-6">
             <div className="grid grid-cols-2 gap-4">
               <Input
-                label="First Name"
+                label={tAccount("profileFormFirstNameLabel")}
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                placeholder="Jane"
+                placeholder={t("firstNamePlaceholder")}
                 required
                 fullWidth
               />
 
               <Input
-                label="Last Name"
+                label={tAccount("profileFormLastNameLabel")}
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                placeholder="Doe"
+                placeholder={t("lastNamePlaceholder")}
                 required
                 fullWidth
               />
             </div>
 
             <Input
-              label="Email Address"
+              label={tAccount("profileFormEmailLabel")}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your.email@example.com"
+              placeholder={tLogin("emailPlaceholder")}
               required
               fullWidth
             />
 
             <Input
-              label="Password"
+              label={tLogin("passwordLabel")}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              helperText="Must be at least 8 characters"
+              placeholder={tLogin("passwordPlaceholder")}
+              helperText={t("passwordHelperText")}
               required
               fullWidth
             />
 
             <Input
-              label="Confirm Password"
+              label={tAccount("profileFormConfirmPasswordLabel")}
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="••••••••"
+              placeholder={tLogin("passwordPlaceholder")}
               required
               fullWidth
             />
@@ -132,19 +138,19 @@ export default function SignupPage() {
                 className="rounded text-primary focus:ring-primary mt-1 mr-2"
               />
               <label htmlFor="terms" className="text-sm text-neutral-700">
-                I agree to the{" "}
+                {t("termsCheckboxPrefix")}{" "}
                 <LocalizedLink
                   href="/terms-of-service"
                   className="text-primary hover:underline"
                 >
-                  Terms of Service
+                  {tFooter("termsOfService")}
                 </LocalizedLink>{" "}
-                and{" "}
+                {t("termsCheckboxSuffix")}{" "}
                 <LocalizedLink
                   href="/privacy-policy"
                   className="text-primary hover:underline"
                 >
-                  Privacy Policy
+                  {tFooter("privacyPolicy")}
                 </LocalizedLink>
               </label>
             </div>
@@ -156,15 +162,15 @@ export default function SignupPage() {
             fullWidth
             disabled={isLoading}
           >
-            {isLoading ? "Creating Account..." : "Create Account"}
+            {isLoading ? t("createAccountButtonLoading") : t("createAccountButton")}
           </Button>
         </form>
 
         <div className="mt-8 pt-6 border-t border-neutral-200 text-center">
-          <p className="text-neutral-600 mb-4">Or sign up with</p>
+          <p className="text-neutral-600 mb-4">{t("socialSignupSeparator")}</p>
 
           <div className="flex justify-center space-x-4">
-            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors">
+            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors" aria-label={t("googleSignupAriaLabel")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -180,7 +186,7 @@ export default function SignupPage() {
               </svg>
             </button>
 
-            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors">
+            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors" aria-label={t("facebookSignupAriaLabel")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -193,7 +199,7 @@ export default function SignupPage() {
               </svg>
             </button>
 
-            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors">
+            <button className="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 hover:bg-neutral-50 transition-colors" aria-label={t("twitterSignupAriaLabel")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -210,9 +216,9 @@ export default function SignupPage() {
 
         <div className="mt-6 text-center">
           <p className="text-neutral-600">
-            Already have an account?{" "}
+            {t("signInPrompt")}{" "}
             <LocalizedLink href="/auth/login" className="text-primary hover:underline">
-              Sign in
+              {tHeader("accountSignIn")}
             </LocalizedLink>
           </p>
         </div>
