@@ -1,5 +1,7 @@
 import { StorePrice } from "@medusajs/types";
 
+export type SortOptions = "created_at" | "price_asc" | "price_desc";
+
 export type FeaturedProduct = {
   id: string;
   title: string;

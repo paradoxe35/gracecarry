@@ -1,8 +1,7 @@
 "use client";
 
+import { SortOptions } from "@/types/global";
 import { useTranslations } from "next-intl";
-
-export type SortOptions = "price_asc" | "price_desc" | "created_at";
 
 type SortProductsProps = {
   sortBy: SortOptions;
@@ -38,7 +37,7 @@ const SortProducts = ({
   };
 
   // Map options with translated labels
-  const sortOptions = sortOptionsData.map(option => ({
+  const sortOptions = sortOptionsData.map((option) => ({
     value: option.value,
     label: t(option.labelKey),
   }));

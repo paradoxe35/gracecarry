@@ -4,10 +4,11 @@ import { Metadata } from "next";
 
 // Generate dynamic metadata using translations
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "AboutPage" });
 
   return {

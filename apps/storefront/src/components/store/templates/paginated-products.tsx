@@ -1,8 +1,7 @@
-import ProductCard from "@/components/product/ProductCard"; // Import ProductCard
-import { Pagination } from "../pagination"; // Import Pagination as a named export
-import { SortOptions } from "../sort-products"; // Import SortOptions
-import { listProductsWithSort } from "../../../lib/data/products"; // Corrected import path
-import { getRegion } from "../../../lib/data/regions"; // Corrected import path
+import { SortOptions } from "@/types/global";
+import { Pagination } from "../pagination";
+import { getRegion } from "@/lib/data/regions";
+import { listProductsWithSort } from "@/lib/data/products";
 
 const PRODUCT_LIMIT = 12;
 
