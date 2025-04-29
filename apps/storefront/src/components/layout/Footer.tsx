@@ -193,6 +193,14 @@ const Footer = () => {
                   Contact Us
                 </LocalizedLink>
               </li>
+              <li>
+                <LocalizedLink
+                  href="/about"
+                  className="text-neutral-700 hover:text-primary transition-colors"
+                >
+                  About Us
+                </LocalizedLink>
+              </li>
             </ul>
           </div>
 
