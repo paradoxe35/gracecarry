@@ -1,1 +1,8 @@
-{}
+{
+  "LanguageSelector": {
+    "selectLanguage": "Select language",
+    "en": "English",
+    "fr": "Français",
+    "rw": "Kinyarwanda"
+  }
+}

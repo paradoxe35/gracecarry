@@ -4,10 +4,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, useRef, useTransition } from "react";
 import { switchLocaleAction } from "@/actions/i18nActions";
 import { LOCALES } from "@/i18n/constants"; // Assuming LOCALES constant exists
+import { useTranslations } from "next-intl";
 
-type ValueOf<T> = Required<T>[keyof T] & string;
 type Language = {
-  code: ValueOf<typeof LOCALES>;
+  code: (typeof LOCALES)[number];
   name: string;
 };
 
@@ -28,6 +28,7 @@ export default function LanguageSelector({
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isPending, startTransition] = useTransition(); // For loading state
+  const t = useTranslations("LanguageSelector");
 
   // Use the prop for initial state and current display
   const [selectedLang, setSelectedLang] = useState(currentLocale);
@@ -89,7 +90,7 @@ export default function LanguageSelector({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-1 p-2 text-neutral-800 hover:text-primary transition-colors duration-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
-        aria-label="Select language"
+        aria-label={t("selectLanguage")}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         disabled={isPending} // Disable button during transition
@@ -150,7 +151,7 @@ export default function LanguageSelector({
                 aria-selected={currentLocale === lang.code} // Aria selected based on prop
                 disabled={isPending} // Disable options during transition
               >
-                <span>{lang.name}</span>
+                <span>{t(lang.code)}</span>
                 {currentLocale === lang.code &&
                   !isPending && ( // Show checkmark based on prop
                     <svg
