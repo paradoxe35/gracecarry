@@ -4,6 +4,7 @@ import { use, useState } from "react";
 import Image from "next/image";
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 // This would normally come from an API or database
 const getProductById = (id: string) => {
@@ -47,6 +48,7 @@ export default function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const params = use(paramsPromise);
+  const t = useTranslations("ProductPage"); // Initialize useTranslations
 
   const product = getProductById(params.id);
 
@@ -74,7 +76,7 @@ export default function ProductPage({
         <ol className="flex text-sm">
           <li className="flex items-center">
             <LocalizedLink href="/" className="text-neutral-600 hover:text-primary">
-              Home
+              {t('breadcrumbs.home')}
             </LocalizedLink>
             <span className="mx-2 text-neutral-400">/</span>
           </li>
@@ -83,11 +85,11 @@ export default function ProductPage({
               href={`/category/${product.category.toLowerCase()}`}
               className="text-neutral-600 hover:text-primary"
             >
-              {product.category}
+              {product.category} {/* Assuming category name is not translatable or comes translated */}
             </LocalizedLink>
             <span className="mx-2 text-neutral-400">/</span>
           </li>
-          <li className="text-neutral-800 font-medium">{product.name}</li>
+          <li className="text-neutral-800 font-medium">{product.name}</li> {/* Assuming product name is not translatable or comes translated */}
         </ol>
       </nav>
 
@@ -97,7 +99,7 @@ export default function ProductPage({
           <div className="relative aspect-square overflow-hidden rounded-md mb-4">
             <Image
               src={product.images[activeImage]}
-              alt={product.name}
+              alt={product.name} // Alt text might need translation if product name isn't already translated
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               style={{ objectFit: "cover" }}
@@ -109,7 +111,7 @@ export default function ProductPage({
             <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
               {product.isNew && (
                 <span className="bg-primary text-white text-xs font-medium px-2 py-1 rounded">
-                  New
+                  {t('badges.new')}
                 </span>
               )}
               {hasDiscount && (
@@ -134,7 +136,7 @@ export default function ProductPage({
               >
                 <Image
                   src={image}
-                  alt={`${product.name} - Image ${index + 1}`}
+                  alt={t('imageAlt', { productName: product.name, index: index + 1 })}
                   fill
                   sizes="25vw"
                   style={{ objectFit: "cover" }}
@@ -146,7 +148,7 @@ export default function ProductPage({
 
         {/* Product Info */}
         <div>
-          <h1 className="g-heading text-3xl mb-2">{product.name}</h1>
+          <h1 className="g-heading text-3xl mb-2">{product.name}</h1> {/* Assuming product name is not translatable or comes translated */}
 
           {/* Price */}
           <div className="flex items-center mb-4">
@@ -198,16 +200,16 @@ export default function ProductPage({
               ))}
             </div>
             <span className="ml-2 text-neutral-600">
-              {product.reviews.average} ({product.reviews.count} reviews)
+              {product.reviews.average} {t('reviews.count', { count: product.reviews.count })}
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-neutral-700 mb-6">{product.description}</p>
+          <p className="text-neutral-700 mb-6">{product.description}</p> {/* Assuming description is not translatable or comes translated */}
 
           {/* Color selection */}
           <div className="mb-6">
-            <h3 className="text-sm font-medium mb-3">Color: {selectedColor}</h3>
+            <h3 className="text-sm font-medium mb-3">{t('options.colorLabel', { selectedColor: selectedColor || '' })}</h3>
             <div className="flex space-x-3">
               {product.colors.map((color) => {
                 // Map color names to actual color values
@@ -227,7 +229,7 @@ export default function ProductPage({
                         ? "ring-2 ring-offset-2 ring-primary"
                         : ""
                     }`}
-                    aria-label={`Select ${color} color`}
+                    aria-label={t('options.selectColorAria', { color: color })}
                   />
                 );
               })}
@@ -237,12 +239,12 @@ export default function ProductPage({
           {/* Size selection */}
           <div className="mb-6">
             <div className="flex justify-between items-center mb-3">
-              <h3 className="text-sm font-medium">Size: {selectedSize}</h3>
+              <h3 className="text-sm font-medium">{t('options.sizeLabel', { selectedSize: selectedSize || '' })}</h3>
               <LocalizedLink
                 href="/size-guide"
                 className="text-sm text-primary hover:underline"
               >
-                Size Guide
+                {t('options.sizeGuideLink')}
               </LocalizedLink>
             </div>
 
@@ -257,7 +259,7 @@ export default function ProductPage({
                       : "border-neutral-300 text-neutral-800 hover:border-neutral-400"
                   }`}
                 >
-                  {size}
+                  {size} {/* Assuming size is not translatable */}
                 </button>
               ))}
             </div>
@@ -265,7 +267,7 @@ export default function ProductPage({
 
           {/* Quantity */}
           <div className="mb-8">
-            <h3 className="text-sm font-medium mb-3">Quantity</h3>
+            <h3 className="text-sm font-medium mb-3">{t('options.quantityLabel')}</h3>
             <div className="flex items-center">
               <button
                 onClick={() => handleQuantityChange(quantity - 1)}
@@ -321,7 +323,7 @@ export default function ProductPage({
           {/* Add to cart and wishlist */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Button variant="primary" fullWidth>
-              Add to Cart
+              {t('actions.addToCart')}
             </Button>
             <Button variant="outline" fullWidth>
               <svg
@@ -338,16 +340,16 @@ export default function ProductPage({
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 />
               </svg>
-              Add to Wishlist
+              {t('actions.addToWishlist')}
             </Button>
           </div>
 
           {/* Product details */}
           <div className="border-t border-neutral-200 pt-6">
-            <h3 className="font-medium mb-4">Product Details</h3>
+            <h3 className="font-medium mb-4">{t('details.title')}</h3>
             <ul className="list-disc list-inside space-y-2 text-neutral-700">
               {product.details.map((detail, index) => (
-                <li key={index}>{detail}</li>
+                <li key={index}>{detail}</li> // Assuming details are not translatable or come translated
               ))}
             </ul>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 import ProductCard from "@/components/product/ProductCard";
 
@@ -77,17 +78,19 @@ const allProducts = [
   },
 ];
 
-// Sort options
-const sortOptions = [
-  { value: "newest", label: "Newest" },
-  { value: "price-low-high", label: "Price: Low to High" },
-  { value: "price-high-low", label: "Price: High to Low" },
-  { value: "best-selling", label: "Best Selling" },
-];
 
 export default function ProductsPage() {
+  const t = useTranslations("ProductsPage"); // Initialize useTranslations
   const [products, setProducts] = useState(allProducts);
   const [sortBy, setSortBy] = useState("newest");
+
+  // Sort options using translations
+  const sortOptions = [
+    { value: "newest", label: t('sortOptions.newest') },
+    { value: "price-low-high", label: t('sortOptions.priceLowHigh') },
+    { value: "price-high-low", label: t('sortOptions.priceHighLow') },
+    { value: "best-selling", label: t('sortOptions.bestSelling') },
+  ];
 
   // Sort products
   useEffect(() => {
@@ -112,18 +115,18 @@ export default function ProductsPage() {
     }
 
     setProducts(filteredProducts);
-  }, [sortBy, allProducts]);
+  }, [sortBy, allProducts]); // Removed t from dependencies as sortOptions are now defined inside the component
 
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-8">All Products</h1>
+      <h1 className="g-heading text-3xl mb-8">{t('heading')}</h1>
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <p className="text-neutral-600">{products.length} products</p>
+        <p className="text-neutral-600">{t('productCount', { count: products.length })}</p>
 
         <div className="flex items-center">
           <label htmlFor="sort" className="mr-2 text-neutral-600">
-            Sort by:
+            {t('sortByLabel')}
           </label>
           <select
             id="sort"

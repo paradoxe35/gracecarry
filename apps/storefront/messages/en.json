@@ -543,5 +543,42 @@
     },
     "notFoundText": "Couldn't find the answer you're looking for?",
     "contactButton": "Contact Our Customer Service Team"
+  },
+  "ProductPage": {
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "badges": {
+      "new": "New"
+    },
+    "imageAlt": "{productName} - Image {index}",
+    "reviews": {
+      "count": "({count} reviews)"
+    },
+    "options": {
+      "colorLabel": "Color: {selectedColor}",
+      "selectColorAria": "Select {color} color",
+      "sizeLabel": "Size: {selectedSize}",
+      "sizeGuideLink": "Size Guide",
+      "quantityLabel": "Quantity"
+    },
+    "actions": {
+      "addToCart": "Add to Cart",
+      "addToWishlist": "Add to Wishlist"
+    },
+    "details": {
+      "title": "Product Details"
+    }
+  },
+  "ProductsPage": {
+    "heading": "All Products",
+    "productCount": "{count, plural, one {# product} other {# products}}",
+    "sortByLabel": "Sort by:",
+    "sortOptions": {
+      "newest": "Newest",
+      "priceLowHigh": "Price: Low to High",
+      "priceHighLow": "Price: High to Low",
+      "bestSelling": "Best Selling"
+    }
   }
 }
