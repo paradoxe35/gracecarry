@@ -1,74 +1,80 @@
-import Image from "next/image";
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME } from "@/lib/constants";
-import { getTranslations } from 'next-intl/server'; // Import getTranslations
+import { getTranslations } from "next-intl/server"; // Import getTranslations
 
 export default async function SizeGuidePage() {
-  const t = await getTranslations('SizeGuidePage'); // Initialize getTranslations
+  const t = await getTranslations("SizeGuidePage"); // Initialize getTranslations
 
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">{t('pageHeading')}</h1>
+      <h1 className="g-heading text-3xl mb-6">{t("pageHeading")}</h1>
 
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
         <div className="mb-8">
           <p className="text-neutral-700 mb-6">
-            {t('introParagraph', { brandName: BRAND_NAME })}
+            {t("introParagraph", { brandName: BRAND_NAME })}
           </p>
 
           <div className="bg-primary/10 border-l-4 border-primary p-4 rounded-md mb-6">
-            <h3 className="font-medium mb-2">{t('assistanceHeading')}</h3>
+            <h3 className="font-medium mb-2">{t("assistanceHeading")}</h3>
             <p className="text-neutral-700">
-              {t.rich('assistanceText', {
-                contactLink: (chunks) => <LocalizedLink href="/contact" className="text-primary hover:underline ml-1">{chunks}</LocalizedLink>
+              {t.rich("assistanceText", {
+                contactLink: (chunks) => (
+                  <LocalizedLink
+                    href="/contact"
+                    className="text-primary hover:underline ml-1"
+                  >
+                    {chunks}
+                  </LocalizedLink>
+                ),
               })}
             </p>
           </div>
 
           <div className="flex flex-wrap gap-4 mb-8">
             <Button variant="outline" href="#womens-clothing">
-              {t('buttonWomensClothing')}
+              {t("buttonWomensClothing")}
             </Button>
             <Button variant="outline" href="#footwear">
-              {t('buttonFootwear')}
+              {t("buttonFootwear")}
             </Button>
             <Button variant="outline" href="#accessories">
-              {t('buttonAccessories')}
+              {t("buttonAccessories")}
             </Button>
             <Button variant="outline" href="#measurement-guide">
-              {t('buttonHowToMeasure')}
+              {t("buttonHowToMeasure")}
             </Button>
           </div>
         </div>
 
         <div id="womens-clothing" className="mb-12">
           <h2 className="text-2xl font-medium mb-6">
-            {t('womensClothingHeading')}
+            {t("womensClothingHeading")}
           </h2>
 
           <div className="mb-8">
             <h3 className="text-xl font-medium mb-4">
-              {t('standardSizesHeading')}
+              {t("standardSizesHeading")}
             </h3>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-neutral-100">
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderSize')}
+                      {t("tableHeaderSize")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderUsSize')}
+                      {t("tableHeaderUsSize")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderBust')}
+                      {t("tableHeaderBust")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderWaist')}
+                      {t("tableHeaderWaist")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderHips')}
+                      {t("tableHeaderHips")}
                     </th>
                   </tr>
                 </thead>
@@ -162,32 +168,34 @@ export default async function SizeGuidePage() {
         </div>
 
         <div id="footwear" className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">{t('footwearHeading')}</h2>
+          <h2 className="text-2xl font-medium mb-6">{t("footwearHeading")}</h2>
 
           <div className="mb-8">
-            <h3 className="text-xl font-medium mb-4">{t('womensShoeSizesHeading')}</h3>
+            <h3 className="text-xl font-medium mb-4">
+              {t("womensShoeSizesHeading")}
+            </h3>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-neutral-100">
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderUs')}
+                      {t("tableHeaderUs")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderEu')}
+                      {t("tableHeaderEu")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderUk')}
+                      {t("tableHeaderUk")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderFootLengthIn')}
+                      {t("tableHeaderFootLengthIn")}
                     </th>
                     <th className="border border-neutral-200 px-4 py-3 text-left">
-                      {t('tableHeaderFootLengthCm')}
+                      {t("tableHeaderFootLengthCm")}
                     </th>
                   </tr>
                 </thead>
-                 <tbody>
+                <tbody>
                   {/* Table rows remain the same as they contain numerical data */}
                   <tr>
                     <td className="border border-neutral-200 px-4 py-3">5</td>
@@ -264,92 +272,96 @@ export default async function SizeGuidePage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-sm text-neutral-600 mt-2">
-              {t('footwearNote')}
-            </p>
+            <p className="text-sm text-neutral-600 mt-2">{t("footwearNote")}</p>
           </div>
 
           <div>
-            <h3 className="text-xl font-medium mb-4">{t('footwearFitTipsHeading')}</h3>
+            <h3 className="text-xl font-medium mb-4">
+              {t("footwearFitTipsHeading")}
+            </h3>
             <ul className="list-disc list-inside space-y-2 text-neutral-700">
-              <li>
-                {t('tipMeasureEvening')}
-              </li>
-              <li>
-                {t('tipWearSocks')}
-              </li>
-              <li>
-                {t('tipLargerFoot')}
-              </li>
-              <li>
-                {t('tipHeelsStretch')}
-              </li>
-              <li>
-                {t('tipBootsSpace')}
-              </li>
+              <li>{t("tipMeasureEvening")}</li>
+              <li>{t("tipWearSocks")}</li>
+              <li>{t("tipLargerFoot")}</li>
+              <li>{t("tipHeelsStretch")}</li>
+              <li>{t("tipBootsSpace")}</li>
             </ul>
           </div>
         </div>
 
         <div id="measurement-guide" className="mb-8">
-          <h2 className="text-2xl font-medium mb-6">{t('howToMeasureHeading')}</h2>
+          <h2 className="text-2xl font-medium mb-6">
+            {t("howToMeasureHeading")}
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-medium mb-4">{t('forClothingHeading')}</h3>
+              <h3 className="text-xl font-medium mb-4">
+                {t("forClothingHeading")}
+              </h3>
               <ul className="space-y-4 text-neutral-700">
                 <li>
-                  <span className="font-medium block mb-1">{t('measureBustTitle')}</span>
-                  {t('measureBustDesc')}
+                  <span className="font-medium block mb-1">
+                    {t("measureBustTitle")}
+                  </span>
+                  {t("measureBustDesc")}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">{t('measureWaistTitle')}</span>
-                  {t('measureWaistDesc')}
+                  <span className="font-medium block mb-1">
+                    {t("measureWaistTitle")}
+                  </span>
+                  {t("measureWaistDesc")}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">{t('measureHipsTitle')}</span>
-                  {t('measureHipsDesc')}
+                  <span className="font-medium block mb-1">
+                    {t("measureHipsTitle")}
+                  </span>
+                  {t("measureHipsDesc")}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">{t('measureInseamTitle')}</span>
-                  {t('measureInseamDesc')}
+                  <span className="font-medium block mb-1">
+                    {t("measureInseamTitle")}
+                  </span>
+                  {t("measureInseamDesc")}
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xl font-medium mb-4">{t('forFootwearHeading')}</h3>
+              <h3 className="text-xl font-medium mb-4">
+                {t("forFootwearHeading")}
+              </h3>
               <ul className="space-y-4 text-neutral-700">
                 <li>
-                  <span className="font-medium block mb-1">{t('measureFootLengthTitle')}</span>
-                  {t('measureFootLengthDesc')}
+                  <span className="font-medium block mb-1">
+                    {t("measureFootLengthTitle")}
+                  </span>
+                  {t("measureFootLengthDesc")}
                 </li>
                 <li>
-                  <span className="font-medium block mb-1">{t('measureFootWidthTitle')}</span>
-                  {t('measureFootWidthDesc')}
+                  <span className="font-medium block mb-1">
+                    {t("measureFootWidthTitle")}
+                  </span>
+                  {t("measureFootWidthDesc")}
                 </li>
               </ul>
 
               <div className="mt-6">
-                <h4 className="font-medium mb-3">{t('proTipHeading')}</h4>
-                <p className="text-neutral-700">
-                  {t('proTipDesc')}
-                </p>
+                <h4 className="font-medium mb-3">{t("proTipHeading")}</h4>
+                <p className="text-neutral-700">{t("proTipDesc")}</p>
               </div>
             </div>
           </div>
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-neutral-700 mb-4">
-            {t('finalPrompt')}
-          </p>
+          <p className="text-neutral-700 mb-4">{t("finalPrompt")}</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button variant="primary" href="/contact">
-              {t('contactButton')}
+              {t("contactButton")}
             </Button>
             <Button variant="secondary" href="/faq">
-              {t('faqButton')}
+              {t("faqButton")}
             </Button>
           </div>
         </div>
