@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 export type SortOptions = "price_asc" | "price_desc" | "created_at";
 
 type SortProductsProps = {
@@ -8,34 +10,43 @@ type SortProductsProps = {
   "data-testid"?: string;
 };
 
-const sortOptions = [
+// Define options with keys for translation
+const sortOptionsData = [
   {
     value: "created_at",
-    label: "Latest Arrivals",
+    labelKey: "latestArrivals",
   },
   {
     value: "price_asc",
-    label: "Price: Low -> High",
+    labelKey: "priceAsc",
   },
   {
     value: "price_desc",
-    label: "Price: High -> Low",
+    labelKey: "priceDesc",
   },
-];
+] as const;
 
 const SortProducts = ({
   "data-testid": dataTestId,
   sortBy,
   setQueryParams,
 }: SortProductsProps) => {
+  const t = useTranslations("SortProducts");
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setQueryParams("sortBy", e.target.value as SortOptions);
   };
 
+  // Map options with translated labels
+  const sortOptions = sortOptionsData.map(option => ({
+    value: option.value,
+    label: t(option.labelKey),
+  }));
+
   return (
     <div className="flex items-center" data-testid={dataTestId}>
       <label htmlFor="sort" className="mr-2 text-neutral-600">
-        Sort by:
+        {t("label")}
       </label>
       <select
         id="sort"

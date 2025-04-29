@@ -5,8 +5,13 @@ import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME, SUPPORT_CONTACT } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 
 export default function ContactPage() {
+  const t = useTranslations("ContactPage");
+  const tFooter = useTranslations("Footer");
+  const tAccount = useTranslations("AccountPage");
+  const tForgotPassword = useTranslations("ForgotPasswordPage");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,7 +43,7 @@ export default function ContactPage() {
 
     // Validate form
     if (!formData.name || !formData.email || !formData.message) {
-      setError("Please fill in all required fields.");
+      setError(t("formErrorRequired"));
       setIsSubmitting(false);
       return;
     }
@@ -57,9 +62,7 @@ export default function ContactPage() {
         message: "",
       });
     } catch (err) {
-      setError(
-        "An error occurred while submitting the form. Please try again."
-      );
+      setError(tForgotPassword("errorMessage")); // Reusing generic error
     } finally {
       setIsSubmitting(false);
     }
@@ -67,17 +70,15 @@ export default function ContactPage() {
 
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Contact Us</h1>
+      <h1 className="g-heading text-3xl mb-6">{tFooter("helpContactUs")}</h1>
 
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div>
-            <h2 className="text-2xl font-medium mb-6">Get in Touch</h2>
+            <h2 className="text-2xl font-medium mb-6">{t("getIntouchHeading")}</h2>
             <p className="text-neutral-700 mb-8">
-              We're here to help with any questions or concerns you may have.
-              Our customer service team is available Monday through Friday, 9am
-              to 5pm EST.
+              {t("getIntouchParagraph")}
             </p>
 
             <div className="space-y-8">
@@ -99,9 +100,9 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-medium mb-1">Email Us</h3>
+                  <h3 className="font-medium mb-1">{t("emailHeading")}</h3>
                   <p className="text-neutral-600 mt-2 mb-1">
-                    For customer support:
+                    {t("emailDescription")}
                   </p>
                   <a
                     href={`mailto:${SUPPORT_CONTACT}`}
@@ -130,21 +131,21 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-medium mb-1">Call Us</h3>
-                  <p className="text-neutral-600 mb-1">Customer Service:</p>
+                  <h3 className="font-medium mb-1">{t("callHeading")}</h3>
+                  <p className="text-neutral-600 mb-1">{t("callDescription")}</p>
                   <a
                     href="tel:+18001234567"
                     className="text-primary hover:underline"
                   >
-                    1-800-123-4567
+                    1-800-123-4567 {/* Keep phone number hardcoded */}
                   </a>
                   <p className="text-neutral-600 mt-2 mb-1">
-                    Hours of Operation:
+                    {t("callHoursHeading")}
                   </p>
                   <p className="text-neutral-700">
-                    Monday - Friday: 9am - 5pm EST
+                    {t("callHoursWeekdays")}
                     <br />
-                    Saturday - Sunday: Closed
+                    {t("callHoursWeekends")}
                   </p>
                 </div>
               </div>
@@ -173,15 +174,15 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-medium mb-1">Our Address</h3>
+                  <h3 className="font-medium mb-1">{t("addressHeading")}</h3>
                   <p className="text-neutral-700">
-                    {BRAND_NAME} Headquarters
+                    {t("addressLine1", { brandName: BRAND_NAME })}
                     <br />
-                    123 Fashion Avenue
+                    {t("addressLine2")}
                     <br />
-                    New York, NY 10001
+                    {t("addressLine3")}
                     <br />
-                    United States
+                    {t("addressLine4")}
                   </p>
                 </div>
               </div>
@@ -204,27 +205,26 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-medium mb-1">Live Chat</h3>
+                  <h3 className="font-medium mb-1">{t("chatHeading")}</h3>
                   <p className="text-neutral-600 mb-3">
-                    Chat with our customer service team in real-time during
-                    business hours.
+                    {t("chatDescription")}
                   </p>
                   <Button variant="outline" size="sm">
-                    Start Chat
+                    {t("chatButton")}
                   </Button>
                 </div>
               </div>
             </div>
 
             <div className="mt-8">
-              <h3 className="font-medium mb-3">Connect With Us</h3>
+              <h3 className="font-medium mb-3">{t("connectHeading")}</h3>
               <div className="flex space-x-4">
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-700 hover:text-primary"
-                  aria-label="Instagram"
+                  aria-label={tFooter("instagramAriaLabel")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -241,7 +241,7 @@ export default function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-700 hover:text-primary"
-                  aria-label="Facebook"
+                  aria-label={tFooter("facebookAriaLabel")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +258,7 @@ export default function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-700 hover:text-primary"
-                  aria-label="Pinterest"
+                  aria-label={tFooter("pinterestAriaLabel")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +275,7 @@ export default function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-700 hover:text-primary"
-                  aria-label="Twitter"
+                  aria-label={tFooter("twitterAriaLabel")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -293,7 +293,7 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div>
-            <h2 className="text-2xl font-medium mb-6">Send Us a Message</h2>
+            <h2 className="text-2xl font-medium mb-6">{t("formHeading")}</h2>
 
             {isSubmitted ? (
               <div className="bg-success/10 text-success p-6 rounded-md">
@@ -315,16 +315,14 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <h3 className="text-lg font-medium">
-                    Message Sent Successfully!
+                    {t("formSuccessHeading")}
                   </h3>
                 </div>
                 <p className="mb-4">
-                  Thank you for contacting us. We've received your message and
-                  will respond to you as soon as possible, usually within 24-48
-                  business hours.
+                  {t("formSuccessMessage")}
                 </p>
                 <Button variant="outline" onClick={() => setIsSubmitted(false)}>
-                  Send Another Message
+                  {t("formSuccessButton")}
                 </Button>
               </div>
             ) : (
@@ -338,7 +336,7 @@ export default function ContactPage() {
                 <div className="space-y-4 mb-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
-                      label="Your Name *"
+                      label={t("formLabelName")}
                       name="name"
                       type="text"
                       value={formData.name}
@@ -347,7 +345,7 @@ export default function ContactPage() {
                     />
 
                     <Input
-                      label="Email Address *"
+                      label={tAccount("profileFormEmailLabel")}
                       name="email"
                       type="email"
                       value={formData.email}
@@ -358,7 +356,7 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
-                      label="Order Number (if applicable)"
+                      label={t("formLabelOrderNumber")}
                       name="orderNumber"
                       type="text"
                       value={formData.orderNumber}
@@ -367,7 +365,7 @@ export default function ContactPage() {
 
                     <div>
                       <label className="block text-neutral-800 font-medium mb-1 text-sm">
-                        Subject *
+                        {t("formLabelSubject")}
                       </label>
                       <select
                         name="subject"
@@ -376,27 +374,21 @@ export default function ContactPage() {
                         className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         required
                       >
-                        <option value="">Select a subject</option>
-                        <option value="Order Inquiry">Order Inquiry</option>
-                        <option value="Product Question">
-                          Product Question
-                        </option>
-                        <option value="Shipping & Delivery">
-                          Shipping & Delivery
-                        </option>
-                        <option value="Returns & Exchanges">
-                          Returns & Exchanges
-                        </option>
-                        <option value="Account Issues">Account Issues</option>
-                        <option value="Feedback">Feedback</option>
-                        <option value="Other">Other</option>
+                        <option value="">{t("formSubjectPlaceholder")}</option>
+                        <option value="Order Inquiry">{t("formSubjectOrder")}</option>
+                        <option value="Product Question">{t("formSubjectProduct")}</option>
+                        <option value="Shipping & Delivery">{t("formSubjectShipping")}</option>
+                        <option value="Returns & Exchanges">{t("formSubjectReturns")}</option>
+                        <option value="Account Issues">{t("formSubjectAccount")}</option>
+                        <option value="Feedback">{t("formSubjectFeedback")}</option>
+                        <option value="Other">{t("formSubjectOther")}</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-neutral-800 font-medium mb-1 text-sm">
-                      Message *
+                      {t("formLabelMessage")}
                     </label>
                     <textarea
                       name="message"
@@ -410,7 +402,7 @@ export default function ContactPage() {
                 </div>
 
                 <Button type="submit" variant="primary" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? t("formSubmitButtonLoading") : t("formSubmitButton")}
                 </Button>
               </form>
             )}
@@ -419,12 +411,12 @@ export default function ContactPage() {
 
         <div className="mt-12">
           <h2 className="text-2xl font-medium mb-6">
-            Frequently Asked Questions
+            {t("faqHeading")}
           </h2>
           <p className="text-neutral-700 mb-6">
-            Find quick answers to common questions on our{" "}
+            {t("faqParagraph")}{" "}
             <LocalizedLink href="/faq" className="text-primary hover:underline">
-              FAQ page
+              {t("faqLinkText")}
             </LocalizedLink>
             .
           </p>
@@ -432,45 +424,42 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="border border-neutral-200 rounded-md p-4">
               <h3 className="font-medium mb-2">
-                What are your shipping options?
+                {t("faq1Question")}
               </h3>
               <p className="text-neutral-600">
-                We offer standard, express, and overnight shipping options. Free
-                standard shipping on orders over $100.
+                {t("faq1Answer")}
               </p>
               <LocalizedLink
                 href="/shipping"
                 className="text-primary hover:underline text-sm mt-2 inline-block"
               >
-                Learn more
+                {t("faqLearnMoreLink")}
               </LocalizedLink>
             </div>
 
             <div className="border border-neutral-200 rounded-md p-4">
-              <h3 className="font-medium mb-2">What is your return policy?</h3>
+              <h3 className="font-medium mb-2">{t("faq2Question")}</h3>
               <p className="text-neutral-600">
-                We offer a 30-day return policy for all unworn items in their
-                original condition with tags attached.
+                {t("faq2Answer")}
               </p>
               <LocalizedLink
                 href="/shipping"
                 className="text-primary hover:underline text-sm mt-2 inline-block"
               >
-                Learn more
+                {t("faqLearnMoreLink")}
               </LocalizedLink>
             </div>
 
             <div className="border border-neutral-200 rounded-md p-4">
-              <h3 className="font-medium mb-2">How do I find my size?</h3>
+              <h3 className="font-medium mb-2">{t("faq3Question")}</h3>
               <p className="text-neutral-600">
-                We provide detailed size guides for all our products to help you
-                find your perfect fit.
+                {t("faq3Answer")}
               </p>
               <LocalizedLink
                 href="/size-guide"
                 className="text-primary hover:underline text-sm mt-2 inline-block"
               >
-                View size guide
+                {t("faqSizeGuideLink")}
               </LocalizedLink>
             </div>
           </div>
