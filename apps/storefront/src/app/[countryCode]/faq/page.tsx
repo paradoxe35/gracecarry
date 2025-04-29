@@ -1,470 +1,296 @@
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME } from "@/lib/constants";
+import { getTranslations } from "next-intl/server"; // Import getTranslations
+import React from "react"; // Import React for type hints
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  // Make component async
+  const t = await getTranslations("faqPage"); // Get translations
+
+  // Helper components for rich text links
+  const contactLink = (chunks: React.ReactNode) => (
+    <LocalizedLink href="/contact" className="text-primary hover:underline">
+      {chunks}
+    </LocalizedLink>
+  );
+
+  const shippingLink = (chunks: React.ReactNode) => (
+    <LocalizedLink href="/shipping" className="text-primary hover:underline">
+      {chunks}
+    </LocalizedLink>
+  );
+
+  const returnPolicyLink = (chunks: React.ReactNode) => (
+    <LocalizedLink href="/shipping" className="text-primary hover:underline">
+      {chunks}
+    </LocalizedLink>
+  );
+
+  const sizeGuideLink = (chunks: React.ReactNode) => (
+    <LocalizedLink href="/size-guide" className="text-primary hover:underline">
+      {chunks}
+    </LocalizedLink>
+  );
+
+  // Assuming a privacy policy page exists at /privacy-policy
+  const privacyLink = (chunks: React.ReactNode) => (
+    <LocalizedLink
+      href="/privacy-policy"
+      className="text-primary hover:underline"
+    >
+      {chunks}
+    </LocalizedLink>
+  );
+
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Frequently Asked Questions</h1>
+      <h1 className="g-heading text-3xl mb-6">{t("title")}</h1>
 
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
         <div className="mb-8">
           <p className="text-neutral-700 mb-6">
-            Find answers to our most commonly asked questions below. If you
-            can't find what you're looking for, please don't hesitate to{" "}
-            <LocalizedLink href="/contact" className="text-primary hover:underline">
-              contact us
-            </LocalizedLink>
-            .
+            {t.rich("intro", { contactLink })}
           </p>
 
           <div className="flex flex-wrap gap-4 mb-8">
             <Button variant="outline" href="#ordering">
-              Ordering & Payment
+              {t("orderingButton")}
             </Button>
             <Button variant="outline" href="#shipping">
-              Shipping & Delivery
+              {t("shippingButton")}
             </Button>
             <Button variant="outline" href="#returns">
-              Returns & Exchanges
+              {t("returnsButton")}
             </Button>
             <Button variant="outline" href="#products">
-              Products & Sizing
+              {t("productsButton")}
             </Button>
             <Button variant="outline" href="#account">
-              Account & Privacy
+              {t("accountButton")}
             </Button>
           </div>
         </div>
 
+        {/* Ordering & Payment Section */}
         <div id="ordering" className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Ordering & Payment</h2>
-
+          <h2 className="text-2xl font-medium mb-6">{t("orderingTitle")}</h2>
           <div className="space-y-6">
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How do I place an order?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("ordering.q1")}</h3>
               <div className="text-neutral-700">
-                <p>Placing an order on {BRAND_NAME} is simple:</p>
+                <p>{t("ordering.a1.p1", { brandName: BRAND_NAME })}</p>
                 <ol className="list-decimal list-inside mt-2 space-y-2">
-                  <li>Browse our collections and add items to your cart</li>
-                  <li>Click on the cart icon to review your items</li>
-                  <li>Proceed to checkout</li>
-                  <li>Enter your shipping and payment information</li>
-                  <li>Review your order and submit</li>
+                  <li>{t("ordering.a1.li1")}</li>
+                  <li>{t("ordering.a1.li2")}</li>
+                  <li>{t("ordering.a1.li3")}</li>
+                  <li>{t("ordering.a1.li4")}</li>
+                  <li>{t("ordering.a1.li5")}</li>
                 </ol>
-                <p className="mt-3">
-                  You'll receive an order confirmation email once your purchase
-                  is complete.
-                </p>
+                <p className="mt-3">{t("ordering.a1.p2")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                What payment methods do you accept?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("ordering.q2")}</h3>
               <div className="text-neutral-700">
-                <p>We accept the following payment methods:</p>
+                <p>{t("ordering.a2.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Credit/Debit Cards (Visa, Mastercard, American Express,
-                    Discover)
-                  </li>
-                  <li>PayPal</li>
-                  <li>Apple Pay</li>
-                  <li>Google Pay</li>
-                  <li>Shop Pay</li>
+                  <li>{t("ordering.a2.li1")}</li>
+                  <li>{t("ordering.a2.li2")}</li>
+                  <li>{t("ordering.a2.li3")}</li>
+                  <li>{t("ordering.a2.li4")}</li>
+                  <li>{t("ordering.a2.li5")}</li>
                 </ul>
-                <p className="mt-3">
-                  All transactions are secure and encrypted for your protection.
-                </p>
+                <p className="mt-3">{t("ordering.a2.p2")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Can I modify or cancel my order?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("ordering.q3")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  You can request to modify or cancel your order within 1 hour
-                  of placing it by contacting our customer service team. Once an
-                  order has been processed, we cannot make changes or cancel it.
-                  If your order has already been processed, you can return the
-                  items once received following our
-                  <LocalizedLink
-                    href="/shipping"
-                    className="text-primary hover:underline"
-                  >
-                    {" "}
-                    return policy
-                  </LocalizedLink>
-                  .
-                </p>
+                <p>{t.rich("ordering.a3", { returnPolicyLink })}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Do you offer gift cards?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("ordering.q4")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  Yes, we offer digital gift cards in various denominations.
-                  Gift cards are delivered via email and can be redeemed during
-                  checkout. They make perfect gifts for friends and family who
-                  appreciate elegant fashion.
-                </p>
+                <p>{t("ordering.a4")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Are there any discounts or promotions available?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("ordering.q5")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  We regularly offer seasonal promotions and special discounts.
-                  To stay updated on our latest offers:
-                </p>
+                <p>{t("ordering.a5.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>Subscribe to our newsletter</li>
-                  <li>Follow us on social media</li>
-                  <li>Create an account to receive personalized offers</li>
+                  <li>{t("ordering.a5.li1")}</li>
+                  <li>{t("ordering.a5.li2")}</li>
+                  <li>{t("ordering.a5.li3")}</li>
                 </ul>
-                <p className="mt-3">
-                  We also offer a 10% discount on your first order when you
-                  subscribe to our newsletter.
-                </p>
+                <p className="mt-3">{t("ordering.a5.p2")}</p>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Shipping & Delivery Section */}
         <div id="shipping" className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Shipping & Delivery</h2>
-
+          <h2 className="text-2xl font-medium mb-6">{t("shippingTitle")}</h2>
           <div className="space-y-6">
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                What are your shipping options and costs?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("shipping.q1")}</h3>
               <div className="text-neutral-700">
-                <p>We offer several shipping options:</p>
+                <p>{t("shipping.a1.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Standard Shipping (3-5 business days): $9.99 (Free on orders
-                    over $100)
-                  </li>
-                  <li>Express Shipping (1-2 business days): $12.99</li>
-                  <li>Overnight Shipping (Next business day): $24.99</li>
+                  <li>{t("shipping.a1.li1")}</li>
+                  <li>{t("shipping.a1.li2")}</li>
+                  <li>{t("shipping.a1.li3")}</li>
                 </ul>
                 <p className="mt-3">
-                  For more detailed information, please visit our
-                  <LocalizedLink
-                    href="/shipping"
-                    className="text-primary hover:underline"
-                  >
-                    {" "}
-                    Shipping & Returns page
-                  </LocalizedLink>
-                  .
+                  {t.rich("shipping.a1.p2", { shippingLink })}
                 </p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How long will it take to receive my order?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("shipping.q2")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  Orders are typically processed within 1-2 business days.
-                  Delivery times depend on your chosen shipping method and
-                  location. After your order ships, you'll receive a
-                  confirmation email with tracking information so you can
-                  monitor your package's progress.
-                </p>
+                <p>{t("shipping.a2")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Do you ship internationally?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("shipping.q3")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  Currently, we ship to the United States and Canada. For
-                  international shipping inquiries, please{" "}
-                  <LocalizedLink
-                    href="/contact"
-                    className="text-primary hover:underline"
-                  >
-                    contact us
-                  </LocalizedLink>{" "}
-                  directly, and we'll do our best to accommodate your request.
-                </p>
+                <p>{t.rich("shipping.a3", { contactLink })}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How can I track my order?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("shipping.q4")}</h3>
               <div className="text-neutral-700">
-                <p>You can track your order by:</p>
+                <p>{t("shipping.a4.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Clicking the tracking link in your shipping confirmation
-                    email
-                  </li>
-                  <li>Visiting the "Order History" section in your account</li>
-                  <li>
-                    Contacting our customer service team with your order number
-                  </li>
+                  <li>{t("shipping.a4.li1")}</li>
+                  <li>{t("shipping.a4.li2")}</li>
+                  <li>{t("shipping.a4.li3")}</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Returns & Exchanges Section */}
         <div id="returns" className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Returns & Exchanges</h2>
-
+          <h2 className="text-2xl font-medium mb-6">{t("returnsTitle")}</h2>
           <div className="space-y-6">
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                What is your return policy?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("returns.q1")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  We offer a 30-day return policy for all unworn items in their
-                  original condition with tags attached. Sale items and
-                  accessories (jewelry, scarves, etc.) are final sale and cannot
-                  be returned unless defective. For more details, please visit
-                  our
-                  <LocalizedLink
-                    href="/shipping"
-                    className="text-primary hover:underline"
-                  >
-                    {" "}
-                    Shipping & Returns page
-                  </LocalizedLink>
-                  .
-                </p>
+                <p>{t.rich("returns.a1", { shippingLink })}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How do I return an item?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("returns.q2")}</h3>
               <div className="text-neutral-700">
                 <ol className="list-decimal list-inside space-y-2">
-                  <li>
-                    Log into your account and go to "Order History" or contact
-                    our customer service team
-                  </li>
-                  <li>
-                    Select the items you wish to return and follow the prompts
-                  </li>
-                  <li>
-                    Package your items in their original condition with tags
-                    attached
-                  </li>
-                  <li>Include your order number or the return form</li>
-                  <li>
-                    Ship your return to the address provided using a trackable
-                    shipping method
-                  </li>
+                  <li>{t("returns.a2.li1")}</li>
+                  <li>{t("returns.a2.li2")}</li>
+                  <li>{t("returns.a2.li3")}</li>
+                  <li>{t("returns.a2.li4")}</li>
+                  <li>{t("returns.a2.li5")}</li>
                 </ol>
-                <p className="mt-3">
-                  Once we receive and process your return, you'll receive a
-                  confirmation email, and your refund will be issued.
-                </p>
+                <p className="mt-3">{t("returns.a2.p1")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Do you offer exchanges?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("returns.q3")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  We currently do not offer direct exchanges. If you would like
-                  to exchange an item, please return the original item for a
-                  refund and place a new order for the desired item. This
-                  ensures you get the exact item you want as quickly as
-                  possible.
-                </p>
+                <p>{t("returns.a3")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How long will it take to receive my refund?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("returns.q4")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  Once we receive and process your return, refunds typically
-                  take 5-7 business days to appear on your original payment
-                  method. The timing may vary depending on your financial
-                  institution.
-                </p>
+                <p>{t("returns.a4")}</p>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Products & Sizing Section */}
         <div id="products" className="mb-12">
-          <h2 className="text-2xl font-medium mb-6">Products & Sizing</h2>
-
+          <h2 className="text-2xl font-medium mb-6">{t("productsTitle")}</h2>
           <div className="space-y-6">
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How do I find my size?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("products.q1")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  We provide detailed size guides for all our products. For
-                  general sizing information, please visit our{" "}
-                  <LocalizedLink
-                    href="/size-guide"
-                    className="text-primary hover:underline"
-                  >
-                    Size Guide page
-                  </LocalizedLink>
-                  . Each product page also includes specific sizing information
-                  for that item.
-                </p>
-                <p className="mt-2">
-                  If you're between sizes, we generally recommend sizing up for
-                  a more comfortable fit.
-                </p>
+                <p>{t.rich("products.a1.p1", { sizeGuideLink })}</p>
+                <p className="mt-2">{t("products.a1.p2")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                What materials do you use in your products?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("products.q2")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  We carefully select high-quality materials for all our
-                  products. Each product page lists the specific materials used,
-                  along with care instructions. We prioritize both quality and
-                  sustainability in our material choices.
-                </p>
+                <p>{t("products.a2")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
               <h3 className="font-medium text-lg mb-3">
-                How should I care for my {BRAND_NAME} items?
+                {t("products.q3", { brandName: BRAND_NAME })}
               </h3>
               <div className="text-neutral-700">
-                <p>
-                  Care instructions are provided on each product page and on the
-                  care label of each item. Generally, we recommend:
-                </p>
+                <p>{t("products.a3.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Following the specific care instructions for each item
-                  </li>
-                  <li>Hand washing delicate items or using a gentle cycle</li>
-                  <li>
-                    Air drying when possible to maintain shape and fabric
-                    integrity
-                  </li>
-                  <li>Storing items properly to maintain their quality</li>
+                  <li>{t("products.a3.li1")}</li>
+                  <li>{t("products.a3.li2")}</li>
+                  <li>{t("products.a3.li3")}</li>
+                  <li>{t("products.a3.li4")}</li>
                 </ul>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Are your products sustainable?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("products.q4")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  Sustainability is important to us. We're continuously working
-                  to improve our practices by:
-                </p>
+                <p>{t("products.a4.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Sourcing sustainable and ethical materials when possible
-                  </li>
-                  <li>
-                    Reducing waste in our packaging and production processes
-                  </li>
-                  <li>
-                    Working with manufacturers who maintain fair labor practices
-                  </li>
-                  <li>Developing more sustainable product lines</li>
+                  <li>{t("products.a4.li1")}</li>
+                  <li>{t("products.a4.li2")}</li>
+                  <li>{t("products.a4.li3")}</li>
+                  <li>{t("products.a4.li4")}</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Account & Privacy Section */}
         <div id="account" className="mb-8">
-          <h2 className="text-2xl font-medium mb-6">Account & Privacy</h2>
-
+          <h2 className="text-2xl font-medium mb-6">{t("accountTitle")}</h2>
           <div className="space-y-6">
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How do I create an account?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("account.q1")}</h3>
               <div className="text-neutral-700">
-                <p>Creating an account is easy:</p>
+                <p>{t("account.a1.p1")}</p>
                 <ol className="list-decimal list-inside mt-2 space-y-1">
-                  <li>
-                    Click on the account icon in the top right corner of our
-                    website
-                  </li>
-                  <li>Select "Create Account"</li>
-                  <li>Enter your email address and create a password</li>
-                  <li>Fill in your personal information</li>
-                  <li>Click "Create Account" to complete the process</li>
+                  <li>{t("account.a1.li1")}</li>
+                  <li>{t("account.a1.li2")}</li>
+                  <li>{t("account.a1.li3")}</li>
+                  <li>{t("account.a1.li4")}</li>
+                  <li>{t("account.a1.li5")}</li>
                 </ol>
-                <p className="mt-3">
-                  Having an account allows you to track orders, save favorites,
-                  and enjoy a faster checkout experience.
-                </p>
+                <p className="mt-3">{t("account.a1.p2")}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                How is my personal information protected?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("account.q2")}</h3>
               <div className="text-neutral-700">
-                <p>
-                  We take your privacy seriously. All personal information is
-                  encrypted and securely stored. We never share your information
-                  with third parties without your consent. For more details,
-                  please review our Privacy Policy.
-                </p>
+                <p>{t.rich("account.a2", { privacyLink })}</p>
               </div>
             </div>
-
             <div className="border border-neutral-200 rounded-md p-6">
-              <h3 className="font-medium text-lg mb-3">
-                Can I unsubscribe from emails?
-              </h3>
+              <h3 className="font-medium text-lg mb-3">{t("account.q3")}</h3>
               <div className="text-neutral-700">
-                <p>Yes, you can unsubscribe from our emails at any time by:</p>
+                <p>{t("account.a3.p1")}</p>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Clicking the "Unsubscribe" link at the bottom of any email
-                  </li>
-                  <li>
-                    Updating your communication preferences in your account
-                    settings
-                  </li>
-                  <li>Contacting our customer service team</li>
+                  <li>{t("account.a3.li1")}</li>
+                  <li>{t("account.a3.li2")}</li>
+                  <li>{t("account.a3.li3")}</li>
                 </ul>
               </div>
             </div>
@@ -472,11 +298,9 @@ export default function FAQPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-neutral-700 mb-4">
-            Couldn't find the answer you're looking for?
-          </p>
+          <p className="text-neutral-700 mb-4">{t("notFoundText")}</p>
           <Button variant="primary" href="/contact">
-            Contact Our Customer Service Team
+            {t("contactButton")}
           </Button>
         </div>
       </div>

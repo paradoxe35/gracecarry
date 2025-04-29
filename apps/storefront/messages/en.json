@@ -385,5 +385,163 @@
     "faq3Answer": "We provide detailed size guides for all our products to help you find your perfect fit.",
     "faqLearnMoreLink": "Learn more",
     "faqSizeGuideLink": "View size guide"
+  },
+  "customerService": {
+    "title": "Customer Service",
+    "helpTitle": "How Can We Help You?",
+    "helpDescription": "At {brandName}, we're committed to providing exceptional customer service. Our dedicated team is here to assist you with any questions or concerns you may have.",
+    "emailUsTitle": "Email Us",
+    "emailUsDescription": "Send us an email and we'll respond within 24 hours.",
+    "callUsTitle": "Call Us",
+    "callUsDescription": "Our customer service team is available Monday-Friday, 9am-5pm EST.",
+    "phoneNumber": "1-800-123-4567",
+    "liveChatTitle": "Live Chat",
+    "liveChatDescription": "Chat with our customer service team in real-time.",
+    "startChatButton": "Start Chat",
+    "faqTitle": "Frequently Asked Questions",
+    "faqDescription": "Find quick answers to our most commonly asked questions. For more detailed information, please visit our <faqLink>FAQ page</faqLink>.",
+    "shippingQuestion": "What are your shipping options?",
+    "shippingAnswer": "We offer standard shipping (3-5 business days), express shipping (1-2 business days), and overnight shipping. Free standard shipping is available on all orders over $100. For more information, please visit our <shippingLink>Shipping & Returns page</shippingLink>.",
+    "returnPolicyQuestion": "What is your return policy?",
+    "returnPolicyAnswer": "We offer a 30-day return policy for all unworn items in their original condition with tags attached. For more information, please visit our <shippingLink>Shipping & Returns page</shippingLink>.",
+    "sizeGuideQuestion": "How do I find my size?",
+    "sizeGuideAnswer": "We provide detailed size guides for all our products. For general sizing information, please visit our <sizeGuideLink>Size Guide page</sizeGuideLink>.",
+    "notFoundDescription": "Can't find what you're looking for? Contact us directly or visit our comprehensive <faqLink>FAQ page</faqLink>.",
+    "contactUsButton": "Contact Us",
+    "viewAllFaqsButton": "View All FAQs"
+  },
+  "faqPage": {
+    "title": "Frequently Asked Questions",
+    "intro": "Find answers to our most commonly asked questions below. If you can't find what you're looking for, please don't hesitate to <contactLink>contact us</contactLink>.",
+    "orderingButton": "Ordering & Payment",
+    "shippingButton": "Shipping & Delivery",
+    "returnsButton": "Returns & Exchanges",
+    "productsButton": "Products & Sizing",
+    "accountButton": "Account & Privacy",
+    "orderingTitle": "Ordering & Payment",
+    "ordering": {
+      "q1": "How do I place an order?",
+      "a1": {
+        "p1": "Placing an order on {brandName} is simple:",
+        "li1": "Browse our collections and add items to your cart",
+        "li2": "Click on the cart icon to review your items",
+        "li3": "Proceed to checkout",
+        "li4": "Enter your shipping and payment information",
+        "li5": "Review your order and submit",
+        "p2": "You'll receive an order confirmation email once your purchase is complete."
+      },
+      "q2": "What payment methods do you accept?",
+      "a2": {
+        "p1": "We accept the following payment methods:",
+        "li1": "Credit/Debit Cards (Visa, Mastercard, American Express, Discover)",
+        "li2": "PayPal",
+        "li3": "Apple Pay",
+        "li4": "Google Pay",
+        "li5": "Shop Pay",
+        "p2": "All transactions are secure and encrypted for your protection."
+      },
+      "q3": "Can I modify or cancel my order?",
+      "a3": "You can request to modify or cancel your order within 1 hour of placing it by contacting our customer service team. Once an order has been processed, we cannot make changes or cancel it. If your order has already been processed, you can return the items once received following our <returnPolicyLink>return policy</returnPolicyLink>.",
+      "q4": "Do you offer gift cards?",
+      "a4": "Yes, we offer digital gift cards in various denominations. Gift cards are delivered via email and can be redeemed during checkout. They make perfect gifts for friends and family who appreciate elegant fashion.",
+      "q5": "Are there any discounts or promotions available?",
+      "a5": {
+        "p1": "We regularly offer seasonal promotions and special discounts. To stay updated on our latest offers:",
+        "li1": "Subscribe to our newsletter",
+        "li2": "Follow us on social media",
+        "li3": "Create an account to receive personalized offers",
+        "p2": "We also offer a 10% discount on your first order when you subscribe to our newsletter."
+      }
+    },
+    "shippingTitle": "Shipping & Delivery",
+    "shipping": {
+      "q1": "What are your shipping options and costs?",
+      "a1": {
+        "p1": "We offer several shipping options:",
+        "li1": "Standard Shipping (3-5 business days): $9.99 (Free on orders over $100)",
+        "li2": "Express Shipping (1-2 business days): $12.99",
+        "li3": "Overnight Shipping (Next business day): $24.99",
+        "p2": "For more detailed information, please visit our <shippingLink>Shipping & Returns page</shippingLink>."
+      },
+      "q2": "How long will it take to receive my order?",
+      "a2": "Orders are typically processed within 1-2 business days. Delivery times depend on your chosen shipping method and location. After your order ships, you'll receive a confirmation email with tracking information so you can monitor your package's progress.",
+      "q3": "Do you ship internationally?",
+      "a3": "Currently, we ship to the United States and Canada. For international shipping inquiries, please <contactLink>contact us</contactLink> directly, and we'll do our best to accommodate your request.",
+      "q4": "How can I track my order?",
+      "a4": {
+        "p1": "You can track your order by:",
+        "li1": "Clicking the tracking link in your shipping confirmation email",
+        "li2": "Visiting the \"Order History\" section in your account",
+        "li3": "Contacting our customer service team with your order number"
+      }
+    },
+    "returnsTitle": "Returns & Exchanges",
+    "returns": {
+      "q1": "What is your return policy?",
+      "a1": "We offer a 30-day return policy for all unworn items in their original condition with tags attached. Sale items and accessories (jewelry, scarves, etc.) are final sale and cannot be returned unless defective. For more details, please visit our <shippingLink>Shipping & Returns page</shippingLink>.",
+      "q2": "How do I return an item?",
+      "a2": {
+        "li1": "Log into your account and go to \"Order History\" or contact our customer service team",
+        "li2": "Select the items you wish to return and follow the prompts",
+        "li3": "Package your items in their original condition with tags attached",
+        "li4": "Include your order number or the return form",
+        "li5": "Ship your return to the address provided using a trackable shipping method",
+        "p1": "Once we receive and process your return, you'll receive a confirmation email, and your refund will be issued."
+      },
+      "q3": "Do you offer exchanges?",
+      "a3": "We currently do not offer direct exchanges. If you would like to exchange an item, please return the original item for a refund and place a new order for the desired item. This ensures you get the exact item you want as quickly as possible.",
+      "q4": "How long will it take to receive my refund?",
+      "a4": "Once we receive and process your return, refunds typically take 5-7 business days to appear on your original payment method. The timing may vary depending on your financial institution."
+    },
+    "productsTitle": "Products & Sizing",
+    "products": {
+      "q1": "How do I find my size?",
+      "a1": {
+        "p1": "We provide detailed size guides for all our products. For general sizing information, please visit our <sizeGuideLink>Size Guide page</sizeGuideLink>. Each product page also includes specific sizing information for that item.",
+        "p2": "If you're between sizes, we generally recommend sizing up for a more comfortable fit."
+      },
+      "q2": "What materials do you use in your products?",
+      "a2": "We carefully select high-quality materials for all our products. Each product page lists the specific materials used, along with care instructions. We prioritize both quality and sustainability in our material choices.",
+      "q3": "How should I care for my {brandName} items?",
+      "a3": {
+        "p1": "Care instructions are provided on each product page and on the care label of each item. Generally, we recommend:",
+        "li1": "Following the specific care instructions for each item",
+        "li2": "Hand washing delicate items or using a gentle cycle",
+        "li3": "Air drying when possible to maintain shape and fabric integrity",
+        "li4": "Storing items properly to maintain their quality"
+      },
+      "q4": "Are your products sustainable?",
+      "a4": {
+        "p1": "Sustainability is important to us. We're continuously working to improve our practices by:",
+        "li1": "Sourcing sustainable and ethical materials when possible",
+        "li2": "Reducing waste in our packaging and production processes",
+        "li3": "Working with manufacturers who maintain fair labor practices",
+        "li4": "Developing more sustainable product lines"
+      }
+    },
+    "accountTitle": "Account & Privacy",
+    "account": {
+      "q1": "How do I create an account?",
+      "a1": {
+        "p1": "Creating an account is easy:",
+        "li1": "Click on the account icon in the top right corner of our website",
+        "li2": "Select \"Create Account\"",
+        "li3": "Enter your email address and create a password",
+        "li4": "Fill in your personal information",
+        "li5": "Click \"Create Account\" to complete the process",
+        "p2": "Having an account allows you to track orders, save favorites, and enjoy a faster checkout experience."
+      },
+      "q2": "How is my personal information protected?",
+      "a2": "We take your privacy seriously. All personal information is encrypted and securely stored. We never share your information with third parties without your consent. For more details, please review our <privacyLink>Privacy Policy</privacyLink>.",
+      "q3": "Can I unsubscribe from emails?",
+      "a3": {
+        "p1": "Yes, you can unsubscribe from our emails at any time by:",
+        "li1": "Clicking the \"Unsubscribe\" link at the bottom of any email",
+        "li2": "Updating your communication preferences in your account settings",
+        "li3": "Contacting our customer service team"
+      }
+    },
+    "notFoundText": "Couldn't find the answer you're looking for?",
+    "contactButton": "Contact Our Customer Service Team"
   }
 }

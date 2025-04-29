@@ -1,18 +1,19 @@
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Button from "@/components/ui/Button";
 import { BRAND_NAME, SUPPORT_CONTACT } from "@/lib/constants";
+import { getTranslations } from "next-intl/server"; // Import getTranslations
 
-export default function CustomerServicePage() {
+export default async function CustomerServicePage() { // Make component async
+  const t = await getTranslations("customerService"); // Get translations
+
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Customer Service</h1>
+      <h1 className="g-heading text-3xl mb-6">{t("title")}</h1>
 
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
-        <h2 className="text-xl font-medium mb-4">How Can We Help You?</h2>
+        <h2 className="text-xl font-medium mb-4">{t("helpTitle")}</h2>
         <p className="text-neutral-700 mb-6">
-          At {BRAND_NAME}, we're committed to providing exceptional customer
-          service. Our dedicated team is here to assist you with any questions
-          or concerns you may have.
+          {t("helpDescription", { brandName: BRAND_NAME })}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -33,9 +34,9 @@ export default function CustomerServicePage() {
                 />
               </svg>
             </div>
-            <h3 className="font-medium mb-2">Email Us</h3>
+            <h3 className="font-medium mb-2">{t("emailUsTitle")}</h3>
             <p className="text-neutral-600 mb-4">
-              Send us an email and we'll respond within 24 hours.
+              {t("emailUsDescription")}
             </p>
             <a
               href={`mailto:${SUPPORT_CONTACT}`}
@@ -62,12 +63,12 @@ export default function CustomerServicePage() {
                 />
               </svg>
             </div>
-            <h3 className="font-medium mb-2">Call Us</h3>
+            <h3 className="font-medium mb-2">{t("callUsTitle")}</h3>
             <p className="text-neutral-600 mb-4">
-              Our customer service team is available Monday-Friday, 9am-5pm EST.
+              {t("callUsDescription")}
             </p>
-            <a href="tel:+18001234567" className="text-primary hover:underline">
-              1-800-123-4567
+            <a href={`tel:${t("phoneNumber")}`} className="text-primary hover:underline">
+              {t("phoneNumber")}
             </a>
           </div>
 
@@ -88,80 +89,86 @@ export default function CustomerServicePage() {
                 />
               </svg>
             </div>
-            <h3 className="font-medium mb-2">Live Chat</h3>
+            <h3 className="font-medium mb-2">{t("liveChatTitle")}</h3>
             <p className="text-neutral-600 mb-4">
-              Chat with our customer service team in real-time.
+              {t("liveChatDescription")}
             </p>
             <Button variant="outline" size="sm">
-              Start Chat
+              {t("startChatButton")}
             </Button>
           </div>
         </div>
 
-        <h2 className="text-xl font-medium mb-4">Frequently Asked Questions</h2>
+        <h2 className="text-xl font-medium mb-4">{t("faqTitle")}</h2>
         <p className="text-neutral-700 mb-6">
-          Find quick answers to our most commonly asked questions. For more
-          detailed information, please visit our{" "}
-          <LocalizedLink href="/faq" className="text-primary hover:underline">
-            FAQ page
-          </LocalizedLink>
-          .
+          {t.rich("faqDescription", {
+            faqLink: (chunks) => (
+              <LocalizedLink href="/faq" className="text-primary hover:underline">
+                {chunks}
+              </LocalizedLink>
+            ),
+          })}
         </p>
 
         <div className="space-y-4 mb-8">
           <div className="border border-neutral-200 rounded-md p-4">
             <h3 className="font-medium mb-2">
-              What are your shipping options?
+              {t("shippingQuestion")}
             </h3>
             <p className="text-neutral-600">
-              We offer standard shipping (3-5 business days), express shipping
-              (1-2 business days), and overnight shipping. Free standard
-              shipping is available on all orders over $100. For more
-              information, please visit our{" "}
-              <LocalizedLink href="/shipping" className="text-primary hover:underline">
-                Shipping & Returns page
-              </LocalizedLink>
-              .
+              {t.rich("shippingAnswer", {
+                shippingLink: (chunks) => (
+                  <LocalizedLink href="/shipping" className="text-primary hover:underline">
+                    {chunks}
+                  </LocalizedLink>
+                ),
+              })}
             </p>
           </div>
 
           <div className="border border-neutral-200 rounded-md p-4">
-            <h3 className="font-medium mb-2">What is your return policy?</h3>
+            <h3 className="font-medium mb-2">{t("returnPolicyQuestion")}</h3>
             <p className="text-neutral-600">
-              We offer a 30-day return policy for all unworn items in their
-              original condition with tags attached. For more information,
-              please visit our{" "}
-              <LocalizedLink href="/shipping" className="text-primary hover:underline">
-                Shipping & Returns page
-              </LocalizedLink>
-              .
+              {t.rich("returnPolicyAnswer", {
+                shippingLink: (chunks) => (
+                  <LocalizedLink href="/shipping" className="text-primary hover:underline">
+                    {chunks}
+                  </LocalizedLink>
+                ),
+              })}
             </p>
           </div>
 
           <div className="border border-neutral-200 rounded-md p-4">
-            <h3 className="font-medium mb-2">How do I find my size?</h3>
+            <h3 className="font-medium mb-2">{t("sizeGuideQuestion")}</h3>
             <p className="text-neutral-600">
-              We provide detailed size guides for all our products. For general
-              sizing information, please visit our{" "}
-              <LocalizedLink href="/size-guide" className="text-primary hover:underline">
-                Size Guide page
-              </LocalizedLink>
-              .
+              {t.rich("sizeGuideAnswer", {
+                sizeGuideLink: (chunks) => (
+                  <LocalizedLink href="/size-guide" className="text-primary hover:underline">
+                    {chunks}
+                  </LocalizedLink>
+                ),
+              })}
             </p>
           </div>
         </div>
 
         <div className="text-center">
           <p className="text-neutral-700 mb-4">
-            Can't find what you're looking for? Contact us directly or visit our
-            comprehensive FAQ page.
+            {t.rich("notFoundDescription", {
+              faqLink: (chunks) => (
+                <LocalizedLink href="/faq" className="text-primary hover:underline">
+                  {chunks}
+                </LocalizedLink>
+              ),
+            })}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button variant="primary" href="/contact">
-              Contact Us
+              {t("contactUsButton")}
             </Button>
             <Button variant="secondary" href="/faq">
-              View All FAQs
+              {t("viewAllFaqsButton")}
             </Button>
           </div>
         </div>
