@@ -3,7 +3,7 @@ import { getRequestConfig } from "next-intl/server";
 import { headers } from "next/headers";
 import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
-import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, LOCALES } from "./constants";
+import { DEFAULT_LOCALE, LOCALES } from "./constants";
 import { getLocaleFromCookie } from "./selector";
 
 // Function to get locale from headers
