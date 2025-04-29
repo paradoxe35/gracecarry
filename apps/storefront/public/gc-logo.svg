@@ -1,0 +1,35 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Circle gradient - softer -->
+    <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF0F5" />
+      <stop offset="100%" stop-color="#FFEEF3" />
+    </linearGradient>
+    
+    <!-- Text gradient - softer -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8A9BC" />
+      <stop offset="100%" stop-color="#D87093" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Single background circle with subtle gradient -->
+  <circle cx="60" cy="60" r="55" fill="url(#circleGradient)" stroke="#E8A9BC" stroke-width="1.5" />
+  
+  <!-- G&C Text with softer gradient -->
+  <text 
+    x="60" 
+    y="65" 
+    dominant-baseline="middle" 
+    text-anchor="middle" 
+    font-family="Georgia, serif" 
+    font-size="42" 
+    fill="url(#textGradient)" 
+    font-weight="normal"
+    letter-spacing="1">
+      G<tspan font-size="36" dy="-2">&amp;</tspan>C
+  </text>
+  
+  <!-- Single subtle flourish -->
+  <path d="M40 80 Q 60 85, 80 80" stroke="#E8A9BC" stroke-width="0.8" fill="none" />
+</svg>
