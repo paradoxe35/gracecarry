@@ -1,5 +1,10 @@
 {
     "workbench.editorAssociations": {
         "*.svg": "default"
-    }
+    },
+    "i18n-ally.localesPaths": [
+        "apps/storefront/messages",
+        "apps/storefront/public/locales",
+        "apps/storefront/src/i18n"
+    ]
 }
