@@ -1,71 +1,89 @@
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-// Sample featured products data
-const featuredProducts = [
+// Sample featured products data (will use keys now)
+const featuredProductsData = [
   {
     id: 1,
-    name: "Silk Wrap Dress",
+    nameKey: "productSilkWrapDress",
     price: 189.99,
     image:
       "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=1000&auto=format&fit=crop",
-    category: "Dresses",
+    categoryKey: "categoryDresses",
   },
   {
     id: 2,
-    name: "Leather Tote Bag",
+    nameKey: "productLeatherToteBag",
     price: 149.99,
     image:
       "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=1000&auto=format&fit=crop",
-    category: "Accessories",
+    categoryKey: "categoryAccessories",
   },
   {
     id: 3,
-    name: "Cashmere Sweater",
+    nameKey: "productCashmereSweater",
     price: 129.99,
     image:
       "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=1000&auto=format&fit=crop",
-    category: "Clothing",
+    categoryKey: "categoryClothing",
   },
   {
     id: 4,
-    name: "Leather Ankle Boots",
+    nameKey: "productLeatherAnkleBoots",
     price: 219.99,
     image:
       "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-    category: "Footwear",
+    categoryKey: "categoryFootwear",
   },
 ];
 
-// Sample categories data
-const categories = [
+// Sample categories data (will use keys now)
+const categoriesData = [
   {
-    name: "Clothing",
+    nameKey: "categoryClothing",
     image:
       "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?q=80&w=1000&auto=format&fit=crop",
     href: "/category/clothing",
   },
   {
-    name: "Footwear",
+    nameKey: "categoryFootwear",
     image:
       "https://images.unsplash.com/photo-1518049362265-d5b2a6467637?q=80&w=1000&auto=format&fit=crop",
     href: "/category/footwear",
   },
   {
-    name: "Accessories",
+    nameKey: "categoryAccessories",
     image:
       "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1000&auto=format&fit=crop",
     href: "/category/accessories",
   },
   {
-    name: "Beauty",
+    nameKey: "categoryBeauty",
     image:
       "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1000&auto=format&fit=crop",
     href: "/category/beauty",
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations("HomePage");
+  const tHeader = await getTranslations("Header"); // For category names
+  const tFooter = await getTranslations("Footer"); // For newsletter
+
+  // Map data with translations
+  const categories = categoriesData.map(cat => ({
+    ...cat,
+    name: tHeader(cat.nameKey as any),
+  }));
+
+  const featuredProducts = featuredProductsData.map(prod => ({
+    ...prod,
+    name: t(prod.nameKey as any),
+    category: t(prod.categoryKey as any) || tHeader(prod.categoryKey as any), // Check both namespaces
+  }));
+
+
   return (
     <div>
       {/* Hero section */}
@@ -73,7 +91,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop"
-            alt="Hero image"
+            alt={t("heroImageAlt")}
             fill
             style={{ objectFit: "cover" }}
             priority
@@ -84,24 +102,23 @@ export default function Home() {
         <div className="g-container relative z-10 text-white">
           <div className="max-w-xl">
             <h1 className="g-heading text-4xl md:text-5xl lg:text-6xl mb-4">
-              Elegance in Every Detail
+              {t("heroHeading")}
             </h1>
             <p className="text-lg md:text-xl mb-8">
-              Discover our new collection of sophisticated styles for the modern
-              woman.
+              {t("heroParagraph")}
             </p>
             <div className="flex flex-wrap gap-4">
               <LocalizedLink
                 href="/category/new-arrivals"
                 className="g-button-primary"
               >
-                Shop New Arrivals
+                {tHeader("categoryNewArrivals")}
               </LocalizedLink>
               <LocalizedLink
                 href="/collections"
                 className="bg-transparent text-white border border-white px-6 py-3 rounded-md hover:bg-white hover:text-neutral-900 transition-colors duration-300 font-medium"
               >
-                Explore Collections
+                {t("heroExploreCollectionsButton")}
               </LocalizedLink>
             </div>
           </div>
@@ -112,11 +129,10 @@ export default function Home() {
       <section className="py-16 bg-neutral-100">
         <div className="g-container">
           <h2 className="g-heading text-3xl text-center mb-4">
-            Shop by Category
+            {t("categoriesHeading")}
           </h2>
           <p className="text-neutral-700 text-center mb-8">
-            Explore our products by category to find exactly what you're looking
-            for.
+            {t("categoriesParagraph")}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
@@ -139,7 +155,7 @@ export default function Home() {
                       {category.name}
                     </h3>
                     <p className="text-white/80 group-hover:text-white mt-2 flex items-center">
-                      Shop Now
+                      {t("categoryShopNowLink")}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
@@ -167,12 +183,12 @@ export default function Home() {
       <section className="py-16">
         <div className="g-container">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="g-heading text-3xl">Featured Products</h2>
+            <h2 className="g-heading text-3xl">{t("featuredProductsHeading")}</h2>
             <LocalizedLink
               href="/products"
               className="text-primary hover:text-primary-dark flex items-center"
             >
-              View All
+              {t("featuredProductsViewAllLink")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 ml-1"
@@ -206,7 +222,7 @@ export default function Home() {
                     className="group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 right-4 z-10">
-                    <button className="bg-white rounded-full p-2 shadow-soft hover:shadow-medium transition-shadow">
+                    <button className="bg-white rounded-full p-2 shadow-soft hover:shadow-medium transition-shadow" aria-label={t("featuredProductWishlistAriaLabel")}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 text-neutral-700 hover:text-primary"
@@ -233,7 +249,7 @@ export default function Home() {
                     <span className="font-medium text-neutral-900">
                       ${product.price.toFixed(2)}
                     </span>
-                    <button className="text-primary hover:text-primary-dark">
+                    <button className="text-primary hover:text-primary-dark" aria-label={t("featuredProductAddToCartAriaLabel")}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
@@ -263,24 +279,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="g-heading text-3xl mb-4">
-                Summer Collection 2025
+                {t("collectionBannerHeading")}
               </h2>
               <p className="text-neutral-700 mb-6">
-                Discover our latest summer collection featuring lightweight
-                fabrics, breathable designs, and vibrant colors perfect for the
-                season.
+                {t("collectionBannerParagraph")}
               </p>
               <LocalizedLink
                 href="/collections/summer"
                 className="g-button-primary inline-block"
               >
-                Explore Collection
+                {t("collectionBannerButton")}
               </LocalizedLink>
             </div>
             <div className="relative h-96 rounded-md overflow-hidden">
               <Image
                 src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
-                alt="Summer Collection"
+                alt={t("collectionBannerImageAlt")}
                 fill
                 style={{ objectFit: "cover" }}
               />
@@ -292,16 +306,15 @@ export default function Home() {
       {/* Newsletter section */}
       <section className="py-16 bg-primary text-white">
         <div className="g-container text-center">
-          <h2 className="g-heading text-3xl mb-4">Join Our Community</h2>
+          <h2 className="g-heading text-3xl mb-4">{t("newsletterHeading")}</h2>
           <p className="text-white/90 max-w-2xl mx-auto mb-8">
-            Subscribe to our newsletter for exclusive offers, style tips, and
-            first access to new collections.
+            {tFooter("newsletterDescription")} {/* Reusing from Footer */}
           </p>
           <form className="max-w-md mx-auto">
             <div className="flex">
               <input
                 type="email"
-                placeholder="Your email address"
+                placeholder={tFooter("newsletterPlaceholder")}
                 className="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-neutral-800"
                 required
               />
@@ -309,7 +322,7 @@ export default function Home() {
                 type="submit"
                 className="bg-neutral-900 text-white px-6 py-3 rounded-r-md hover:bg-neutral-800 transition-colors"
               >
-                Subscribe
+                {tFooter("newsletterButton")}
               </button>
             </div>
           </form>
@@ -319,9 +332,9 @@ export default function Home() {
       {/* Instagram feed section */}
       <section className="py-16">
         <div className="g-container text-center">
-          <h2 className="g-heading text-3xl mb-4">Follow Us on Instagram</h2>
+          <h2 className="g-heading text-3xl mb-4">{t("instagramHeading")}</h2>
           <p className="text-neutral-700 max-w-2xl mx-auto mb-8">
-            @graceandcarry
+            {t("instagramHandle")}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -334,7 +347,7 @@ export default function Home() {
               >
                 <Image
                   src={`https://source.unsplash.com/random/300x300?fashion&sig=${item}`}
-                  alt="Instagram post"
+                  alt={t("instagramImageAlt")}
                   fill
                   style={{ objectFit: "cover" }}
                   className="group-hover:scale-110 transition-transform duration-500"

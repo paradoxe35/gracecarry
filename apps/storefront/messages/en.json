@@ -253,5 +253,41 @@
     "submitButtonLoading": "Sending Reset Link...",
     "signInPrompt": "Remember your password?",
     "signInLink": "Sign in"
+  },
+  "HomePage": {
+    "heroImageAlt": "Hero image",
+    "heroHeading": "Elegance in Every Detail",
+    "heroParagraph": "Discover our new collection of sophisticated styles for the modern woman.",
+    "heroExploreCollectionsButton": "Explore Collections",
+    "categoriesHeading": "Shop by Category",
+    "categoriesParagraph": "Explore our products by category to find exactly what you're looking for.",
+    "categoryShopNowLink": "Shop Now",
+    "featuredProductsHeading": "Featured Products",
+    "featuredProductsViewAllLink": "View All",
+    "featuredProductWishlistAriaLabel": "Add to wishlist",
+    "featuredProductAddToCartAriaLabel": "Add to cart",
+    "productSilkWrapDress": "Silk Wrap Dress",
+    "productLeatherToteBag": "Leather Tote Bag",
+    "productCashmereSweater": "Cashmere Sweater",
+    "productLeatherAnkleBoots": "Leather Ankle Boots",
+    "categoryDresses": "Dresses",
+    "collectionBannerHeading": "Summer Collection 2025",
+    "collectionBannerParagraph": "Discover our latest summer collection featuring lightweight fabrics, breathable designs, and vibrant colors perfect for the season.",
+    "collectionBannerButton": "Explore Collection",
+    "collectionBannerImageAlt": "Summer Collection",
+    "newsletterHeading": "Join Our Community",
+    "instagramHeading": "Follow Us on Instagram",
+    "instagramHandle": "@graceandcarry",
+    "instagramImageAlt": "Instagram post"
+  },
+  "NotFoundPage": {
+    "heading": "Page Not Found",
+    "message": "Oops! It seems the page you were looking for doesn't exist or has been moved. Let's get you back on track.",
+    "homepageButton": "Go to Homepage",
+    "contactButton": "Contact Support"
+  },
+  "ProductCard": {
+    "newBadge": "New",
+    "wishlistAddAriaLabel": "Add to wishlist"
   }
 }

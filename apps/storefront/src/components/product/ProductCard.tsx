@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import LocalizedLink from "@/components/ui/LocalizedLink";
+import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   product: {
@@ -17,6 +18,8 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const t = useTranslations('ProductCard');
+  const tAccount = useTranslations('AccountPage'); // For shared keys
   const [isHovered, setIsHovered] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
@@ -51,7 +54,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
             {product.isNew && (
               <span className="bg-primary text-white text-xs font-medium px-2 py-1 rounded">
-                New
+                {t('newBadge')}
               </span>
             )}
             {hasDiscount && (
@@ -66,9 +69,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <button 
               onClick={toggleWishlist}
               className="bg-white rounded-full p-2 shadow-soft hover:shadow-medium transition-shadow"
-              aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+              aria-label={isWishlisted ? tAccount('wishlistRemoveAriaLabel') : t('wishlistAddAriaLabel')}
             >
-              <svg 
+              <svg
                 xmlns="http://www.w3.org/2000/svg" 
                 className={`h-5 w-5 ${isWishlisted ? 'text-primary fill-primary' : 'text-neutral-700'}`} 
                 fill="none" 
@@ -92,7 +95,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             }`}
           >
             <button className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-dark transition-colors">
-              Add to Cart
+              {tAccount('wishlistAddToCartButton')}
             </button>
           </div>
         </div>
