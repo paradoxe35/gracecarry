@@ -4,6 +4,7 @@ import { useState } from "react";
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from "next/image";
 import { BRAND_NAME } from "@/lib/constants";
+import LanguageSelector from "./LanguageSelector"; // Import the new component
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -79,6 +80,9 @@ const Header = () => {
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
+            {/* Language Selector */}
+            <LanguageSelector />
+
             {/* Search */}
             <button
               onClick={toggleSearch}
