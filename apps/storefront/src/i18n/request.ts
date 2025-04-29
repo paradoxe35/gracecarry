@@ -10,7 +10,6 @@ function getLocale(requestHeaders: Headers): string {
   // 1. Check custom header first
   const customLocale = requestHeaders.get(LOCALE_COOKIE_NAME);
   if (customLocale && LOCALES.includes(customLocale as any)) {
-    console.log(`Using custom locale from X-User-Locale: ${customLocale}`);
     return customLocale;
   }
 
@@ -24,10 +23,10 @@ function getLocale(requestHeaders: Headers): string {
     const languages = new Negotiator({
       headers: negotiatorHeaders,
     }).languages();
+
     try {
       // Use intl-localematcher to find the best match
       const matchedLocale = match(languages, [...LOCALES], DEFAULT_LOCALE);
-      console.log(`Using locale from Accept-Language: ${matchedLocale}`);
       return matchedLocale;
     } catch (e) {
       // Log error but fallback to default
@@ -35,8 +34,6 @@ function getLocale(requestHeaders: Headers): string {
     }
   }
 
-  // 3. Fallback to default locale
-  console.log(`Falling back to default locale: ${DEFAULT_LOCALE}`);
   return DEFAULT_LOCALE;
 }
 
