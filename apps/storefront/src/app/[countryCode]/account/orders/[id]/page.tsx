@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 // Define the type for order items
 interface OrderItem {
   id: number;
-  name: string;
+  name: string; // Product names might need separate translation if dynamic
   price: number;
   quantity: number;
   image: string;
@@ -20,18 +21,18 @@ interface Address {
   city: string;
   state: string;
   zipCode: string;
-  country: string;
+  country: string; // Country names might need translation
 }
 
 // Define the type for order data
 interface Order {
   id: string;
   date: string;
-  status: string;
+  status: string; // Keep status key for logic
   shippingAddress: Address;
   billingAddress: Address;
-  paymentMethod: string;
-  shippingMethod: string;
+  paymentMethod: string; // Payment method details might need translation
+  shippingMethod: string; // Shipping method names might need translation
   total: number;
   items: OrderItem[];
 }
@@ -153,6 +154,10 @@ const defaultOrder: Order = {
 };
 
 export default function OrderDetailsPage({ params: paramsPromise }: Props) {
+  const t = useTranslations('OrderDetailsPage');
+  const tAccount = useTranslations('AccountPage');
+  const tCart = useTranslations('CartPage');
+  const tCheckout = useTranslations('CheckoutPage'); // Add CheckoutPage hook
   const params = React.use(paramsPromise);
 
   const [order, setOrder] = useState<Order>(defaultOrder);
@@ -169,25 +174,36 @@ export default function OrderDetailsPage({ params: paramsPromise }: Props) {
     setIsLoading(false);
   }, [params.id]);
 
+  const getStatusTranslationKey = (status: string) => {
+    switch (status) {
+      case 'Delivered': return 'orderStatusDelivered';
+      case 'Processing': return 'orderStatusProcessing';
+      case 'Shipped': return 'orderStatusShipped';
+      default: return ''; // Handle unknown status if necessary
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="g-container py-12 text-center">
-        <p>Loading order details...</p>
+        <p>{t('loadingMessage')}</p>
       </div>
     );
   }
 
+  const statusKey = getStatusTranslationKey(order.status);
+
   return (
     <div className="g-container py-12">
-      <h1 className="g-heading text-3xl mb-6">Order Details</h1>
+      <h1 className="g-heading text-3xl mb-6">{t('pageHeading')}</h1>
 
       <div className="bg-white rounded-md shadow-soft p-8 mb-8">
         <div className="md:flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-xl font-medium mb-1">Order #{order.id}</h2>
+            <h2 className="text-xl font-medium mb-1">{t('orderNumberPrefix')}{order.id}</h2>
             <p className="text-neutral-600">
-              Placed on{" "}
-              {new Date(order.date).toLocaleDateString("en-US", {
+              {t('placedOnPrefix')}{" "}
+              {new Date(order.date).toLocaleDateString("en-US", { // Consider locale for date formatting later
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -195,17 +211,24 @@ export default function OrderDetailsPage({ params: paramsPromise }: Props) {
             </p>
           </div>
           <div className="mt-4 md:mt-0">
-            <span
-              className={`px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium`}
-            >
-              {order.status}
-            </span>
+            {statusKey && (
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  order.status === 'Delivered' ? 'bg-success/20 text-success' :
+                  order.status === 'Processing' ? 'bg-info/20 text-info' :
+                  order.status === 'Shipped' ? 'bg-primary/20 text-primary' :
+                  'bg-neutral-200 text-neutral-700'
+                }`}
+              >
+                {tAccount(statusKey)}
+              </span>
+            )}
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div>
-            <h3 className="font-medium mb-3">Shipping Information</h3>
+            <h3 className="font-medium mb-3">{tCheckout('shippingInfoHeading')}</h3> {/* Use tCheckout */}
             <div className="text-neutral-700">
               <p className="font-medium">{order.shippingAddress.name}</p>
               <p>{order.shippingAddress.street}</p>
@@ -213,12 +236,12 @@ export default function OrderDetailsPage({ params: paramsPromise }: Props) {
                 {order.shippingAddress.city}, {order.shippingAddress.state}{" "}
                 {order.shippingAddress.zipCode}
               </p>
-              <p>{order.shippingAddress.country}</p>
+              <p>{order.shippingAddress.country}</p> {/* Country might need translation */}
             </div>
           </div>
 
           <div>
-            <h3 className="font-medium mb-3">Billing Information</h3>
+            <h3 className="font-medium mb-3">{t('billingInfoHeading')}</h3>
             <div className="text-neutral-700">
               <p className="font-medium">{order.billingAddress.name}</p>
               <p>{order.billingAddress.street}</p>
@@ -226,12 +249,12 @@ export default function OrderDetailsPage({ params: paramsPromise }: Props) {
                 {order.billingAddress.city}, {order.billingAddress.state}{" "}
                 {order.billingAddress.zipCode}
               </p>
-              <p>{order.billingAddress.country}</p>
+              <p>{order.billingAddress.country}</p> {/* Country might need translation */}
             </div>
           </div>
         </div>
 
-        <h3 className="font-medium mb-4">Order Items</h3>
+        <h3 className="font-medium mb-4">{t('orderItemsHeading')}</h3>
         <div className="border border-neutral-200 rounded-md overflow-hidden mb-6">
           {order.items.map((item) => (
             <div
@@ -241,18 +264,18 @@ export default function OrderDetailsPage({ params: paramsPromise }: Props) {
               <div className="relative w-16 h-16 flex-shrink-0">
                 <Image
                   src={item.image}
-                  alt={item.name}
+                  alt={item.name} // Alt text might need translation if product names are translated
                   fill
                   style={{ objectFit: "cover" }}
                   className="rounded-md"
                 />
               </div>
               <div className="ml-4 flex-grow">
-                <h4 className="font-medium">{item.name}</h4>
-                <p className="text-sm text-neutral-600">Qty: {item.quantity}</p>
+                <h4 className="font-medium">{item.name}</h4> {/* Product names might need translation */}
+                <p className="text-sm text-neutral-600">{tAccount('orderQuantityPrefix')} {item.quantity}</p>
               </div>
               <div className="text-right">
-                <p className="font-medium">${item.price.toFixed(2)}</p>
+                <p className="font-medium">${item.price.toFixed(2)}</p> {/* Currency formatting */}
               </div>
             </div>
           ))}
@@ -261,39 +284,40 @@ export default function OrderDetailsPage({ params: paramsPromise }: Props) {
         <div className="bg-neutral-50 p-4 rounded-md">
           <div className="space-y-2">
             <div className="flex justify-between">
-              <span className="text-neutral-600">Subtotal</span>
-              <span className="font-medium">${order.total.toFixed(2)}</span>
+              <span className="text-neutral-600">{tCart('summarySubtotalLabel')}</span>
+              <span className="font-medium">${order.total.toFixed(2)}</span> {/* Currency formatting */}
             </div>
 
             <div className="flex justify-between">
-              <span className="text-neutral-600">Shipping</span>
-              <span className="font-medium">Free</span>
+              <span className="text-neutral-600">{tCart('summaryShippingLabel')}</span>
+              <span className="font-medium">{tCart('summaryShippingFree')}</span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-neutral-600">Tax</span>
-              <span className="font-medium">$0.00</span>
+              <span className="text-neutral-600">{tCheckout('summaryTaxLabel')}</span> {/* Use tCheckout */}
+              <span className="font-medium">$0.00</span> {/* Currency formatting */}
             </div>
 
             <div className="border-t border-neutral-200 pt-2 mt-2">
               <div className="flex justify-between">
-                <span className="font-medium">Total</span>
-                <span className="font-medium">${order.total.toFixed(2)}</span>
+                <span className="font-medium">{tCart('summaryTotalLabel')}</span>
+                <span className="font-medium">${order.total.toFixed(2)}</span> {/* Currency formatting */}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center">
-        <Button variant="primary" href="/account/orders">
-          Back to Order History
+      <div className="flex justify-center space-x-4"> {/* Added space-x-4 for button spacing */}
+        <Button variant="outline" href="/account/orders"> {/* Changed variant to outline */}
+          {t('backToHistoryButton')}
         </Button>
         <Button
-          variant="secondary"
-          href="https://www.example.com/track-package"
+          variant="primary" // Changed variant to primary
+          href="https://www.example.com/track-package" // Example tracking link
+          // target and rel removed as they are not supported by the Button component
         >
-          Track Package
+          {tAccount('orderTrackPackageButton')}
         </Button>
       </div>
     </div>

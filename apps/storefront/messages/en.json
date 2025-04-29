@@ -208,6 +208,15 @@
     "orderNumberPrefix": "Order #",
     "estimatedDeliveryPrefix": "Estimated delivery:"
   },
+  "OrderDetailsPage": {
+    "loadingMessage": "Loading order details...",
+    "pageHeading": "Order Details",
+    "orderNumberPrefix": "Order #",
+    "placedOnPrefix": "Placed on",
+    "billingInfoHeading": "Billing Information",
+    "orderItemsHeading": "Order Items",
+    "backToHistoryButton": "Back to Order History"
+  },
   "LoginPage": {
     "heading": "Welcome Back",
     "subheading": "Sign in to your account",
@@ -297,10 +306,29 @@
     "label": "Sort by:",
     "latestArrivals": "Latest Arrivals",
     "priceAsc": "Price: Low -> High",
-    "priceDesc": "Price: High -> Low"
+    "priceDesc": "Price: High -> Low",
+    "newest": "Newest",
+    "bestSelling": "Best Selling"
   },
   "CategoryCard": {
     "productCount": "{count, plural, one {# product} other {# products}}"
+  },
+  "CategoryPage": {
+    "notFoundHeading": "Category Not Found",
+    "notFoundDescription": "The category you are looking for does not exist.",
+    "breadcrumbHome": "Home",
+    "mobileFilterButton": "Filter & Sort",
+    "filtersHeading": "Filters",
+    "clearAllButton": "Clear All",
+    "subcategoriesHeading": "Subcategories",
+    "priceRangeHeading": "Price Range",
+    "priceMinPlaceholder": "Min",
+    "priceToSeparator": "to",
+    "priceMaxPlaceholder": "Max",
+    "applyFiltersButton": "Apply Filters",
+    "noProductsHeading": "No products found",
+    "noProductsDescription": "Try adjusting your filters or browse our other categories.",
+    "clearFiltersButton": "Clear Filters"
   },
   "ContactPage": {
     "getIntouchHeading": "Get in Touch",
