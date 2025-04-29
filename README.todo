@@ -1,7 +1,10 @@
-[] Ensure that all storefront Medusa code is functioning correctly and can communicate with the server.
 [] Generate a logo using ClaudeAI.
 [] Work on authentication with Medusa.
 [] Copy the Graph SEO code from Ever Projects.
-[] Add multi language support.
 [] Work on the homepage to make it dynamic.
 [] At this stage, ensure that all core functionalities (cache, SEO base, etc.) are working properly.
+
+Archive:
+  ✔ Add multi language support. @done(25-04-29 19:31)
+  ✔ Ensure that all storefront Medusa code is functioning correctly and can communicate with the server. @done(25-04-29 19:29)
+  ✔ Add i18n and translate all text (fr,en,rw) @done(25-04-29 19:29)
