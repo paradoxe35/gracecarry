@@ -1,0 +1,36 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for icon -->
+     <linearGradient id="iconGradShort" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8E0E6" /> <!-- Light Pink -->
+      <stop offset="100%" stop-color="#E8A9BC" /> <!-- Light Rose -->
+    </linearGradient>
+    <!-- Gradient for text -->
+    <linearGradient id="textGradShort" x1="0%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#D87093" /> <!-- Medium Pink -->
+      <stop offset="100%" stop-color="#C25B7C" /> <!-- Darker Pink -->
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle (optional, can be removed for transparency) -->
+  <circle cx="60" cy="60" r="55" fill="#FFF0F5" fill-opacity="0.8"/>
+  <circle cx="60" cy="60" r="55" stroke="#E8A9BC" stroke-width="1.5" />
+
+  <!-- Elegant Icon Element integrated -->
+  <path d="M45 50 Q 55 30, 70 50 T 45 50 Z" fill="url(#iconGradShort)" transform="translate(-5, 5) scale(0.8)"/>
+  <path d="M48 52 C 55 65, 65 65, 72 52" stroke="#D87093" stroke-width="1.5" fill="none" stroke-linecap="round" transform="translate(-5, 5) scale(0.8)"/>
+
+  <!-- G&C Initials -->
+  <text 
+    x="60" 
+    y="68" 
+    dominant-baseline="middle" 
+    text-anchor="middle" 
+    font-family="'Playfair Display', serif" 
+    font-size="48" 
+    fill="url(#textGradShort)" 
+    font-weight="600">
+      G<tspan font-family="'Great Vibes', cursive" font-size="42" dy="-3">&amp;</tspan>C
+  </text>
+
+</svg>

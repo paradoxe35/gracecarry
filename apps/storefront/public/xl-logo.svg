@@ -1,0 +1,45 @@
+<svg width="350" height="80" viewBox="0 0 350 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Gradient for text -->
+      <linearGradient id="boutiqueTextGrad" x1="0%" y1="0%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#C25B7C" /> <!-- Darker Pink -->
+        <stop offset="100%" stop-color="#D87093" /> <!-- Medium Pink -->
+      </linearGradient>
+      <!-- Gradient for icon -->
+      <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F8E0E6" /> <!-- Light Pink -->
+        <stop offset="100%" stop-color="#E8A9BC" /> <!-- Light Rose -->
+      </linearGradient>
+    </defs>
+  
+    <!-- Elegant Icon Element (e.g., stylized leaf/petal) -->
+    <path d="M25 40 Q 35 20, 50 40 T 25 40 Z" fill="url(#iconGrad)" />
+    <path d="M28 42 C 35 55, 45 55, 52 42" stroke="#D87093" stroke-width="1.5" fill="none"
+      stroke-linecap="round" />
+  
+    <!-- Boutique Name Text -->
+    <text
+      x="60"
+      y="45"
+      dominant-baseline="middle"
+      text-anchor="start"
+      font-family="'Playfair Display', serif"
+      font-size="32"
+      fill="url(#boutiqueTextGrad)"
+      font-weight="600"> Grace <tspan font-family="'Great Vibes', cursive" font-size="34"
+        fill="#D87093">&amp;</tspan> Carry </text>
+  
+    <!-- Optional Tagline -->
+    <text
+      x="62"
+      y="65"
+      dominant-baseline="middle"
+      text-anchor="start"
+      font-family="'Lato', sans-serif"
+      font-size="10"
+      fill="#A0A0A0"
+      letter-spacing="1">
+      ELEGANT ESSENTIALS
+    </text>
+  
+  </svg>
