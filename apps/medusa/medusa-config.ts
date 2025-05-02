@@ -5,6 +5,13 @@ loadEnv(process.env.NODE_ENV || "development", process.cwd());
 module.exports = defineConfig({
   admin: {
     storefrontUrl: process.env.STOREFRONT_URL,
+    vite: () => {
+      return {
+        optimizeDeps: {
+          include: ["qs"],
+        },
+      };
+    },
   },
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
@@ -16,4 +23,10 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
+  plugins: [
+    {
+      resolve: "@techlabi/medusa-marketplace-plugin",
+      options: {},
+    },
+  ],
 });
