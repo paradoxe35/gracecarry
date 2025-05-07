@@ -54,19 +54,19 @@ export default async function FAQPage() {
           </p>
 
           <div className="flex flex-wrap gap-4 mb-8">
-            <Button variant="outline" href="#ordering">
+            <Button variant="outline" href="/faq#ordering">
               {t("orderingButton")}
             </Button>
-            <Button variant="outline" href="#shipping">
+            <Button variant="outline" href="/faq#shipping">
               {t("shippingButton")}
             </Button>
-            <Button variant="outline" href="#returns">
+            <Button variant="outline" href="/faq#returns">
               {t("returnsButton")}
             </Button>
-            <Button variant="outline" href="#products">
+            <Button variant="outline" href="/faq#products">
               {t("productsButton")}
             </Button>
-            <Button variant="outline" href="#account">
+            <Button variant="outline" href="/faq#account">
               {t("accountButton")}
             </Button>
           </div>
