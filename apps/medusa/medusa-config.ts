@@ -1,4 +1,5 @@
 import { loadEnv, defineConfig } from "@medusajs/framework/utils";
+import { Modules } from "@medusajs/framework/utils";
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
@@ -16,4 +17,12 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
+  modules: [
+    {
+      resolve: "@medusajs/medusa/cache-redis",
+      options: {
+        redisUrl: process.env.CACHE_REDIS_URL,
+      },
+    },
+  ],
 });
