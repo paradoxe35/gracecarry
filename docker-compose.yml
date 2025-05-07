@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpassword}
-      POSTGRES_DB: ${POSTGRES_DB:-medusa-dev}
+      POSTGRES_DB: ${POSTGRES_DB:-medusa-medusa}
     ports:
       - "5432:5432"
     volumes:
