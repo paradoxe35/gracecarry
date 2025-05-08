@@ -7,6 +7,8 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME } from "@/lib/constants";
 import { useTranslations } from "next-intl";
+import Medusa from "@medusajs/js-sdk";
+
 
 export default function LoginPage() {
   const t = useTranslations("LoginPage");
@@ -17,21 +19,32 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const medusa = new Medusa({
+    baseUrl: "http://localhost:9000",
+    publishableKey: process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY,
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-
+    console.log(process, medusa);
     // Simulate API call
     try {
+
       // In a real app, this would be an API call to authenticate the user
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
+      const loginResult = await medusa.auth.login("customer", "emailpass", {
+        email,
+        password,
+        remember_me: rememberMe,
+      });
+      console.log("Login result:", loginResult);
       // For demo purposes, let's just redirect to the account page
-      window.location.href = "/account";
+      // window.location.href = "/account";
     } catch (err) {
       setError(t("errorMessage"));
+      console.log("Login error:", err);
     } finally {
       setIsLoading(false);
     }
