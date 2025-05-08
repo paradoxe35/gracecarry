@@ -7,7 +7,8 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME } from "@/lib/constants";
 import { useTranslations } from "next-intl";
-import Medusa from "@medusajs/js-sdk";
+import loginAction from "./login-action";
+import { set } from "lodash";
 
 
 export default function LoginPage() {
@@ -19,32 +20,24 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const medusa = new Medusa({
-    baseUrl: "http://localhost:9000",
-    publishableKey: process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY,
-  });
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     setIsLoading(true);
-    console.log(process, medusa);
     // Simulate API call
     try {
 
       // In a real app, this would be an API call to authenticate the user
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const loginResult = await medusa.auth.login("customer", "emailpass", {
-        email,
-        password,
-        remember_me: rememberMe,
-      });
-      console.log("Login result:", loginResult);
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
+      await loginAction({email, password, rememberMe});
       // For demo purposes, let's just redirect to the account page
-      // window.location.href = "/account";
+      setSuccess("Login successful! Redirecting...");
+      window.location.href = "/account";
     } catch (err) {
       setError(t("errorMessage"));
-      console.log("Login error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +61,11 @@ export default function LoginPage() {
             {error}
           </div>
         )}
-
+        {success && (
+          <div className="bg-success/10 text-success p-4 rounded-md mb-6">
+            {success}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 mb-6">
             <Input

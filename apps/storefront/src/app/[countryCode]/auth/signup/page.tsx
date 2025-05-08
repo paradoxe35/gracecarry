@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { BRAND_NAME } from "@/lib/constants";
 import { useTranslations } from "next-intl";
+import signupAction from "./signup-action";
 
 export default function SignupPage() {
   const t = useTranslations("SignupPage");
@@ -21,11 +22,12 @@ export default function SignupPage() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
+    setSuccess("");
     // Validate form
     if (password !== confirmPassword) {
       setError(t("errorPasswordMismatch"));
@@ -42,10 +44,12 @@ export default function SignupPage() {
     // Simulate API call
     try {
       // In a real app, this would be an API call to register the user
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // For demo purposes, let's just redirect to the account page
-      window.location.href = "/account";
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Call the signup action here
+      await signupAction({email, password, firstName, lastName, confirmPassword, acceptTerms});
+      setSuccess("Account created successfully! Redirecting...");
+      // then redirect to login page
+      window.location.href = "/auth/login";
     } catch (err) {
       setError(t("errorRegistrationFailed"));
     } finally {
@@ -71,6 +75,11 @@ export default function SignupPage() {
         {error && (
           <div className="bg-error/10 text-error p-4 rounded-md mb-6">
             {error}
+          </div>
+        )}
+        {success && (
+          <div className="bg-success/10 text-success p-4 rounded-md mb-6">
+            {success}
           </div>
         )}
 
