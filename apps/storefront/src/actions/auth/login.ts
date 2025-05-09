@@ -2,8 +2,10 @@
 
 import { sdk } from "@/lib/config";
 import { getCacheTag, setAuthToken } from "@/lib/data/cookies";
+import { each } from "lodash";
 import { revalidateTag } from "next/cache";
 import { z } from "zod";
+import getZErrors from "../getZErrors";
 
 export default async function login(__currentState: unknown, formData: FormData) {
     
@@ -11,26 +13,27 @@ export default async function login(__currentState: unknown, formData: FormData)
     const password = formData.get("password") as string;
     const rememberMe = formData.get("rememberMe") as string;
 
+    const loginSchema = z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+    });
     // Validate input
-    if (z.string().email().safeParse(email).success === false) {
-        return {error: "Invalid email format"};
-    }
-    if (z.string().min(6).safeParse(password).success === false) {
-        return {error: "Password must be at least 6 characters long"};
-    }
-
+    const validData = loginSchema.safeParse({email, password, rememberMe});
+    if (validData.success !== true)
+        return {error: getZErrors(validData)};
     try {
         // Perform login logic here
         await sdk.auth.login("customer", "emailpass", {
             email, password, remember_me: rememberMe})
                 .then(async (token) => {
                     await setAuthToken(token as string);
-                    revalidateTag(await getCacheTag("customer"));
+                    const cache = await getCacheTag("customers");
+                    revalidateTag(cache);
                 });
         return {success: "Login successful!"};
     }
     catch (error) {
-        console.error("Login failed:", error);
+        // console.error("Login failed:", error);
         return {error: "Login failed. Please try again."};
     }
 }

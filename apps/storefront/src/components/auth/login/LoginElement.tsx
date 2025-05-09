@@ -13,13 +13,10 @@ export default function LoginElement() {
     const t = useTranslations("LoginPage");
     const tAccount = useTranslations("AccountPage"); // For shared keys 
     const tHeader = useTranslations("Header"); // For shared keys
-    const tFooter = useTranslations("Footer"); // For shared keys
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
     const [message, formAction] = useActionState(login, null);
 
     return (
