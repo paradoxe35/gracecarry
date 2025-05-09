@@ -1,6 +1,6 @@
 "use server";
 
-import { medusa } from "../../../../../medusa-client";
+import { sdk } from "@/lib/config";
 
 export default async function loginAction({email, password, rememberMe}: {email: string, password: string, rememberMe: boolean}) {
     // Validate input
@@ -9,7 +9,7 @@ export default async function loginAction({email, password, rememberMe}: {email:
   }
 
   // Simulate API call
-    const loginResult = await medusa.auth.login("customer", "emailpass", {
+    const loginResult = await sdk.auth.login("customer", "emailpass", {
       email, password, remember_me: rememberMe,
     });
     return loginResult;

@@ -1,6 +1,7 @@
 "use server";
 
-import { medusa } from "../../../../../medusa-client";
+import { sdk } from "@/lib/config";
+
 
 export default async function signupAction({email, password, firstName, lastName, confirmPassword, acceptTerms}: {email: string, password: string, firstName: string, lastName: string, confirmPassword: string, acceptTerms: boolean}) {
     // Validate input
@@ -15,11 +16,11 @@ export default async function signupAction({email, password, firstName, lastName
   }
 
   // Simulate API call
-    const signupResult = await medusa.auth.register("customer", "emailpass", {
+    const signupResult = await sdk.auth.register("customer", "emailpass", {
       email, password, 
     });
 
-    medusa.store.customer.create({
+    sdk.store.customer.create({
       first_name: firstName,
       last_name: lastName,
       email

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
@@ -109,6 +109,11 @@ export default function AccountPage() {
     confirmPassword: '',
   });
   
+  useEffect(() => {
+    // fetch user data from the server
+    return
+    },[]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
