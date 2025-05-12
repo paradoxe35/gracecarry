@@ -6,15 +6,11 @@ import { sdk } from "@/lib/config";
 import { getAuthHeaders, getCacheTag, setAuthToken } from "@/lib/data/cookies";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import getFormFields from "../getFormFields";
 
 export default async function register(__currentState: unknown, formData: FormData) {
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const firstName = formData.get("firstName") as string;
-    const lastName = formData.get("lastName") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
-    const phone = formData.get("phone") as string;
-    const acceptTerms = formData.get("acceptTerms")?? "" as string;
+    
+    const data = getFormFields(formData);
 
     const registerSchema = z.object({
         email: z.string().email(),
@@ -23,18 +19,19 @@ export default async function register(__currentState: unknown, formData: FormDa
         firstName: z.string().min(1),
         lastName: z.string().min(1),
         confirmPassword: z.string(),
-        acceptTerms: z.string().min(1, "You need to accept the terms and conditions"),}).
-        refine((data) => data.password === data.confirmPassword, {
+        acceptTerms: z.literal("on", { errorMap: () => ({ message: "You must accept the terms and conditions" }) }),
+    }).refine((data) => data.password === data.confirmPassword, {
         message: "Passwords do not match", 
         path: ["confirmPassword"],});
 
-    const validData = registerSchema.safeParse({email, password, firstName, lastName, confirmPassword, acceptTerms});
+    const validData = registerSchema.safeParse(data);
     if (validData.success !== true) {
-        return {error: getZErrors(validData)};
+        return {error: getZErrors(validData), data};
     }
     
     try {
         // Perform registration logic here
+        const {email, password, firstName, lastName, phone} = data;
         const registerResult = await sdk.auth.register("customer", "emailpass", {
             email, password, 
         });
@@ -57,7 +54,7 @@ export default async function register(__currentState: unknown, formData: FormDa
             });
     } catch (error: any) {
         // console.error("Registration failed:", error);
-        return {error: error?.message ?? "Registration failed. Please try again."};
+        return {error: error?.message ?? "Registration failed. Please try again.", data};
     }
     redirect("/account");
 }

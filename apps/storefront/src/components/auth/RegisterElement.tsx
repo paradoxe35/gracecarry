@@ -14,17 +14,9 @@ export default function RegisterElement (){
     const tLogin = useTranslations("LoginPage"); // For shared keys
     const tFooter = useTranslations("Footer"); // For shared keys
     const tHeader = useTranslations("Header"); // For shared keys
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [acceptTerms, setAcceptTerms] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+    const [message, formAction, isLoading] = useActionState(register, null);
 
-    const [message, formAction] = useActionState(register, null);
+    console.log("RegisterElement", message);
 
     return (
         <div className="g-container py-12">
@@ -46,11 +38,6 @@ export default function RegisterElement (){
                 {message.error}
               </div>
             )}
-            {message?.success && (
-              <div className="bg-success/10 text-success p-4 rounded-md mb-6">
-                {message.success}
-              </div>
-            )}
     
             <form action={formAction}>
               <div className="space-y-4 mb-6">
@@ -59,22 +46,20 @@ export default function RegisterElement (){
                     label={tAccount("profileFormFirstNameLabel")}
                     type="text"
                     name="firstName"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
                     placeholder={t("firstNamePlaceholder")}
                     required
                     fullWidth
+                    defaultValue={message?.data?.firstName}
                   />
     
                   <Input
                     label={tAccount("profileFormLastNameLabel")}
                     type="text"
                     name="lastName"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
                     placeholder={t("lastNamePlaceholder")}
                     required
                     fullWidth
+                    defaultValue={message?.data?.lastName}
                   />
                 </div>
     
@@ -82,34 +67,31 @@ export default function RegisterElement (){
                   label={tAccount("profileFormEmailLabel")}
                   type="email"
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   placeholder={tLogin("emailPlaceholder")}
                   required
                   fullWidth
+                  defaultValue={message?.data?.email}
                 />
     
                 <Input
                   label={tLogin("passwordLabel")}
                   type="password"
                   name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   placeholder={tLogin("passwordPlaceholder")}
                   helperText={t("passwordHelperText")}
                   required
                   fullWidth
+                  defaultValue={message?.data?.password}
                 />
     
                 <Input
                   label={tAccount("profileFormConfirmPasswordLabel")}
                   type="password"
                   name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder={tLogin("passwordPlaceholder")}
                   required
                   fullWidth
+                  defaultValue={message?.data?.confirmPassword}
                 />
     
                 <div className="flex items-start">
@@ -117,8 +99,6 @@ export default function RegisterElement (){
                     type="checkbox"
                     id="terms"
                     name="acceptTerms"
-                    checked={acceptTerms}
-                    onChange={(e) => setAcceptTerms(e.target.checked)}
                     className="rounded text-primary focus:ring-primary mt-1 mr-2"
                   />
                   <label htmlFor="terms" className="text-sm text-neutral-700">

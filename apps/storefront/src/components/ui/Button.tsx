@@ -24,6 +24,7 @@ const Button = ({
   fullWidth = false,
   className = '',
   type = 'button',
+  disabled = false,
   onClick,
 }: ButtonProps) => {
   // Base classes
@@ -43,11 +44,11 @@ const Button = ({
     outline: 'bg-transparent text-primary border border-primary hover:bg-primary/5',
     text: 'bg-transparent text-primary hover:bg-primary/5 px-2',
   };
-  const {pending} = useFormStatus();
+  // const {pending} = useFormStatus();
 
 
   // Disabled classes
-  const disabledClasses = pending ? 'opacity-50 cursor-not-allowed' : '';
+  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
   
   // Full width class
   const widthClass = fullWidth ? 'w-full' : '';
@@ -62,8 +63,8 @@ const Button = ({
         href={href} 
         className={classes}
         onClick={onClick as any}
-        aria-disabled={pending}
-        tabIndex={pending ? -1 : undefined}
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : undefined}
       >
         {children}
       </LocalizedLink>
@@ -75,7 +76,7 @@ const Button = ({
     <button 
       type={type} 
       className={classes} 
-      disabled={pending}
+      disabled={disabled}
       onClick={onClick}
     >
       {children}

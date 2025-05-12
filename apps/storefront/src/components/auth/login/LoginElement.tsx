@@ -13,11 +13,7 @@ export default function LoginElement() {
     const t = useTranslations("LoginPage");
     const tAccount = useTranslations("AccountPage"); // For shared keys 
     const tHeader = useTranslations("Header"); // For shared keys
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [message, formAction] = useActionState(login, null);
+    const [message, formAction, isLoading] = useActionState(login, null);
 
     return (
         <div className="g-container py-12">
@@ -42,9 +38,8 @@ export default function LoginElement() {
                 <Input
                   label={tAccount("profileFormEmailLabel")}
                   type="email"
-                  value={email}
+                  defaultValue={message?.data?.email}
                   name="email"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                   placeholder={t("emailPlaceholder")}
                   required
                   fullWidth
@@ -54,8 +49,7 @@ export default function LoginElement() {
                   label={t("passwordLabel")}
                   type="password"
                   name="password"
-                  value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  defaultValue={message?.data?.password}
                   placeholder={t("passwordPlaceholder")}
                   required
                   fullWidth
@@ -66,8 +60,7 @@ export default function LoginElement() {
                     <input
                       type="checkbox"
                       name="rememberMe"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
+                      defaultChecked={message?.data?.rememberMe}
                       className="rounded text-primary focus:ring-primary mr-2"
                     />
                     <span className="text-sm text-neutral-700">{t("rememberMeLabel")}</span>
