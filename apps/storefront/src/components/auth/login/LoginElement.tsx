@@ -37,11 +37,6 @@ export default function LoginElement() {
                 {message.error}
               </div>
             )}
-            {message?.success && (
-              <div className="bg-success/10 text-success p-4 rounded-md mb-6">
-                {message.success}
-              </div>
-            )}
             <form action={formAction}>
               <div className="space-y-4 mb-6">
                 <Input

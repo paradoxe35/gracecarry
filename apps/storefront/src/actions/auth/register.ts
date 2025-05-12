@@ -5,6 +5,7 @@ import getZErrors from "../getZErrors";
 import { sdk } from "@/lib/config";
 import { getAuthHeaders, getCacheTag, setAuthToken } from "@/lib/data/cookies";
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 export default async function register(__currentState: unknown, formData: FormData) {
     const email = formData.get("email") as string;
@@ -13,7 +14,7 @@ export default async function register(__currentState: unknown, formData: FormDa
     const lastName = formData.get("lastName") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
     const phone = formData.get("phone") as string;
-    const acceptTerms = formData.get("acceptTerms") as string;
+    const acceptTerms = formData.get("acceptTerms")?? "" as string;
 
     const registerSchema = z.object({
         email: z.string().email(),
@@ -21,15 +22,15 @@ export default async function register(__currentState: unknown, formData: FormDa
         phone: z.string().optional(),
         firstName: z.string().min(1),
         lastName: z.string().min(1),
-        confirmPassword: z.string().min(6),
-        acceptTerms: z.string().min(1, "You must accept the terms and conditions"),}).
+        confirmPassword: z.string(),
+        acceptTerms: z.string().min(1, "You need to accept the terms and conditions"),}).
         refine((data) => data.password === data.confirmPassword, {
         message: "Passwords do not match", 
         path: ["confirmPassword"],});
 
     const validData = registerSchema.safeParse({email, password, firstName, lastName, confirmPassword, acceptTerms});
     if (validData.success !== true) {
-        return {error: getZErrors(validData)+acceptTerms};
+        return {error: getZErrors(validData)};
     }
     
     try {
@@ -39,7 +40,6 @@ export default async function register(__currentState: unknown, formData: FormDa
         });
 
         await setAuthToken(registerResult as string);
-        const cache = await getCacheTag("customers");
         const headers = {...(await getAuthHeaders()),};
 
         await sdk.store.customer.create({
@@ -55,9 +55,9 @@ export default async function register(__currentState: unknown, formData: FormDa
                 const cache = await getCacheTag("customers");
                 revalidateTag(cache);
             });
-        return {success: "Registration successful!"};
-    } catch (error) {
+    } catch (error: any) {
         // console.error("Registration failed:", error);
-        return {error: "Registration failed. Please try again."};
+        return {error: error?.message ?? "Registration failed. Please try again."};
     }
+    redirect("/account");
 }

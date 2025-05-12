@@ -1,3 +1,5 @@
+"use client";
+
 import { BRAND_NAME } from "@/lib/constants";
 import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";

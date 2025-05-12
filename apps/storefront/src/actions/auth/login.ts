@@ -2,10 +2,10 @@
 
 import { sdk } from "@/lib/config";
 import { getCacheTag, setAuthToken } from "@/lib/data/cookies";
-import { each } from "lodash";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import getZErrors from "../getZErrors";
+import { redirect } from "next/navigation";
 
 export default async function login(__currentState: unknown, formData: FormData) {
     
@@ -15,7 +15,7 @@ export default async function login(__currentState: unknown, formData: FormData)
 
     const loginSchema = z.object({
         email: z.string().email(),
-        password: z.string().min(6),
+        password: z.string().min(6, "Password must be at least 6 characters long"),
     });
     // Validate input
     const validData = loginSchema.safeParse({email, password, rememberMe});
@@ -29,11 +29,15 @@ export default async function login(__currentState: unknown, formData: FormData)
                     await setAuthToken(token as string);
                     const cache = await getCacheTag("customers");
                     revalidateTag(cache);
+                    revalidatePath("/login");
                 });
-        return {success: "Login successful!"};
+        
+        // return {success: "Login successful!"};
     }
-    catch (error) {
-        // console.error("Login failed:", error);
-        return {error: "Login failed. Please try again."};
+    catch (error: any) {
+        console.error("Login failed:", error);
+        return {error: error?.message ?? "Login failed. Please try again."};
     }
+
+    redirect("/account");
 }

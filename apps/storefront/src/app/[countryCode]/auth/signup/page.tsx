@@ -1,10 +1,12 @@
-"use client";
-
-import { useState } from "react";
-import { useTranslations } from "next-intl";
-import signupAction from "./signup-action";
+import { StoreCustomerWithOrders } from "@/components/account/AccountElement";
 import RegisterElement from "@/components/auth/RegisterElement";
+import { retrieveCustomer } from "@/lib/data/customer";
+import { redirect } from "next/navigation";
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  const customer = await retrieveCustomer() as StoreCustomerWithOrders;
+  if (customer) {
+    return redirect("/account");
+  }
   return <RegisterElement />;
 }
