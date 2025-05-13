@@ -1,7 +1,7 @@
-export default function getFormFields(data: FormData) {
-    const fields: Record<string, any> = {};
+export default function getFormFields<T = Record<string, any>>(data: FormData): T {
+    const fields: T = {} as T;
     data.forEach((value, key) => {
-        fields[key] = value as string;
+        (fields as Record<string, any>)[key] = value;
     });
     return fields;
 }

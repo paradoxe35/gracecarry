@@ -10,7 +10,7 @@ import getFormFields from "../getFormFields";
 
 export default async function register(__currentState: unknown, formData: FormData) {
     
-    const data = getFormFields(formData);
+    const data = getFormFields<{email: string, firstName: string, lastName: string, password: string, confirmPassword: string, phone: string, acceptTerms?: true}>(formData);
 
     const registerSchema = z.object({
         email: z.string().email(),

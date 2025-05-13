@@ -10,7 +10,7 @@ import getFormFields from "../getFormFields";
 
 export default async function login(__currentState: unknown, formData: FormData) {
     // Convert FormData to a plain object
-    const data = getFormFields(formData);
+    const data = getFormFields<{email:string, password: string, rememberMe?: true}>(formData);
 
     const loginSchema = z.object({
         email: z.string().email(),
