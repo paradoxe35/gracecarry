@@ -4,17 +4,21 @@ import { sdk } from "@/lib/config";
 import { getCacheTag, setAuthToken } from "@/lib/data/cookies";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
-import getZErrors from "../getZErrors";
 import { redirect } from "next/navigation";
-import getFormFields from "../getFormFields";
+import getFormFields from "@/lib/util/getFormFields";
+import getZErrors, { zStrongPasswordSchema } from "@/lib/util/zUtils";
 
 export default async function login(__currentState: unknown, formData: FormData) {
     // Convert FormData to a plain object
-    const data = getFormFields(formData);
+    const data = getFormFields<{
+        email:string, 
+        password: string, 
+        rememberMe?: true
+    }>(formData);
 
     const loginSchema = z.object({
         email: z.string().email(),
-        password: z.string().min(6, "Password must be at least 6 characters long"),
+        password: zStrongPasswordSchema(),
     });
     // Validate input
     const validData = loginSchema.safeParse(data);
@@ -33,7 +37,6 @@ export default async function login(__currentState: unknown, formData: FormData)
                     revalidatePath("/login");
                 });
         
-        // return {success: "Login successful!"};
     }
     catch (error: any) {
         // console.error("Login failed:", error);

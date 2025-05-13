@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Input from "../ui/Input";
 import { StoreCustomer, StoreOrder } from "@medusajs/types";
 import logout from "@/actions/auth/logout";
+import EditProfile from "./EditProfile";
 
 
 // Mock user data
@@ -245,91 +246,7 @@ export default function AccountElement({customer}: { customer: StoreCustomerWith
                     </div>
     
                     {isEditing ? (
-                      <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <Input
-                            label={t('profileFormFirstNameLabel')}
-                            name="firstName"
-                            type="text"
-                            value={formData.firstName}
-                            onChange={handleInputChange}
-                            required
-                          />
-    
-                          <Input
-                            label={t('profileFormLastNameLabel')}
-                            name="lastName"
-                            type="text"
-                            value={formData.lastName}
-                            onChange={handleInputChange}
-                            required
-                          />
-    
-                          <Input
-                            label={t('profileFormEmailLabel')}
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                          />
-    
-                          <Input
-                            label={t('profileFormPhoneLabel')}
-                            name="phone"
-                            type="tel"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-    
-                        <h3 className="font-medium mb-4 mt-8">{t('profileFormChangePasswordHeading')}</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <Input
-                            label={t('profileFormCurrentPasswordLabel')}
-                            name="currentPassword"
-                            type="password"
-                            value={formData.currentPassword}
-                            onChange={handleInputChange}
-                            placeholder="••••••••"
-                          />
-    
-                          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Input
-                              label={t('profileFormNewPasswordLabel')}
-                              name="newPassword"
-                              type="password"
-                              value={formData.newPassword}
-                              onChange={handleInputChange}
-                              placeholder="••••••••"
-                            />
-    
-                            <Input
-                              label={t('profileFormConfirmPasswordLabel')}
-                              name="confirmPassword"
-                              type="password"
-                              value={formData.confirmPassword}
-                              onChange={handleInputChange}
-                              placeholder="••••••••"
-                            />
-                          </div>
-                        </div>
-    
-                        <div className="flex justify-end space-x-4 mt-8">
-                          <Button
-                            variant="secondary"
-                            onClick={() => setIsEditing(false)}
-                          >
-                            {t('profileFormCancelButton')}
-                          </Button>
-                          <Button
-                            variant="primary"
-                            type="submit"
-                          >
-                            {t('profileFormSaveChangesButton')}
-                          </Button>
-                        </div>
-                      </form>
+                      <EditProfile setIsEditing={setIsEditing} userData={userData} />
                     ) : (
                       <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

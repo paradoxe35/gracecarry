@@ -1,16 +1,24 @@
 "use server";
 
 import { z } from "zod";
-import getZErrors from "../getZErrors";
 import { sdk } from "@/lib/config";
 import { getAuthHeaders, getCacheTag, setAuthToken } from "@/lib/data/cookies";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import getFormFields from "../getFormFields";
+import getFormFields from "@/lib/util/getFormFields";
+import getZErrors from "@/lib/util/zUtils";
 
 export default async function register(__currentState: unknown, formData: FormData) {
     
-    const data = getFormFields(formData);
+    const data = getFormFields<{
+        email: string, 
+        firstName: string, 
+        lastName: string, 
+        password: string, 
+        confirmPassword: string, 
+        phone: string, 
+        acceptTerms?: true
+    }>(formData);
 
     const registerSchema = z.object({
         email: z.string().email(),
