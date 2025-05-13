@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { SafeParseError } from "zod";
 
 export function zStrongPasswordSchema(passwordMessage?: string): z.ZodString {
     return z.string()
@@ -9,9 +10,8 @@ export function zStrongPasswordSchema(passwordMessage?: string): z.ZodString {
         .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character");
 }
 
-import { SafeParseError } from "zod";
 
-export default function getZErrors <T=any>(validation: SafeParseError<T>){
+export function getZErrors <T=any>(validation: SafeParseError<T>){
     let errorMSGs: string[] = [];
     validation.error.errors.forEach(error => {
         errorMSGs.push(error.message);

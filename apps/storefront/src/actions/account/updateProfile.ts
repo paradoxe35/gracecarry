@@ -5,8 +5,8 @@ import getFormFields from "@/lib/util/getFormFields";
 import { sdk } from "@/lib/config";
 import { getAuthHeaders, getCacheTag } from "@/lib/data/cookies";
 import { retrieveCustomer } from "@/lib/data/customer";
-import { revalidatePath, revalidateTag } from "next/cache";
-import getZErrors, { zStrongPasswordSchema } from "@/lib/util/zUtils";
+import { revalidateTag } from "next/cache";
+import { getZErrors, zStrongPasswordSchema } from "@/lib/util/zUtils";
 
 export default async function updateProfile(__currentState: unknown, formData: FormData) {
 

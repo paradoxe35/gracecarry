@@ -6,7 +6,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import getFormFields from "@/lib/util/getFormFields";
-import getZErrors, { zStrongPasswordSchema } from "@/lib/util/zUtils";
+import { getZErrors, zStrongPasswordSchema } from "@/lib/util/zUtils";
 
 export default async function login(__currentState: unknown, formData: FormData) {
     // Convert FormData to a plain object
