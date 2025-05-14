@@ -1,5 +1,8 @@
-import React from 'react';
+"use client";
+
+import { useEffect, useState } from 'react';
 import LocalizedLink from "@/components/ui/LocalizedLink";
+import { useFormStatus } from 'react-dom';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -20,8 +23,8 @@ const Button = ({
   href,
   fullWidth = false,
   className = '',
-  disabled = false,
   type = 'button',
+  disabled = false,
   onClick,
 }: ButtonProps) => {
   // Base classes
@@ -41,7 +44,9 @@ const Button = ({
     outline: 'bg-transparent text-primary border border-primary hover:bg-primary/5',
     text: 'bg-transparent text-primary hover:bg-primary/5 px-2',
   };
-  
+  // const {pending} = useFormStatus();
+
+
   // Disabled classes
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
   
