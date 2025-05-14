@@ -4,7 +4,7 @@ import { retrieveCustomer } from "@/lib/data/customer";
 import { redirect } from "next/navigation";
 
 export default async function SignupPage() {
-  const customer = await retrieveCustomer() as StoreCustomerWithOrders;
+  const customer = (await retrieveCustomer()) as StoreCustomerWithOrders;
   if (customer) {
     return redirect("/account");
   }
