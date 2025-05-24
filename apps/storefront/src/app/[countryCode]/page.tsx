@@ -1,6 +1,10 @@
 import LocalizedLink from "@/components/ui/LocalizedLink";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import MainPage from "@/components/home-page/MainPage";
+import { listProducts } from "@/lib/data/products";
+import { listCollections } from "@/lib/data/collections";
+import { listCategories } from "@/lib/data/categories";
 
 // Sample featured products data (will use keys now)
 const featuredProductsData = [
@@ -66,11 +70,32 @@ const categoriesData = [
   },
 ];
 
-export default async function Home() {
+export default async function Home(props: {params: Promise<{countryCode: string}>}) {
   const t = await getTranslations("HomePage");
   const tHeader = await getTranslations("Header"); // For category names
   const tFooter = await getTranslations("Footer"); // For newsletter
 
+  const catList = await listCategories({
+    limit: 4
+  });
+
+  const featuredProdList = await listProducts({
+    pageParam: 0,
+    queryParams: {
+      limit: 4,
+    },
+    countryCode: (await props.params).countryCode,
+  });
+
+  const collectionList = await listCollections({
+    limit: "1"
+  });
+  console.log(
+    "featured products", featuredProdList, 
+    "category list", catList, 
+    "propos", await props.params,
+    "collection", collectionList
+  );
   // Map data with translations
   const categories = categoriesData.map(cat => ({
     ...cat,
@@ -373,6 +398,11 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      
+
+      <div style={{display: ""}}>
+        <MainPage featuredProducts={featuredProdList.response} categories={catList} />
+      </div>
     </div>
   );
 }

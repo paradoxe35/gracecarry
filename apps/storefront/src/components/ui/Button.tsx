@@ -1,12 +1,8 @@
-"use client";
-
-import { useEffect, useState } from 'react';
 import LocalizedLink from "@/components/ui/LocalizedLink";
-import { useFormStatus } from 'react-dom';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'text';
+  variant?: 'primary' | 'secondary' | 'outline' | 'text' | 'neutral';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   fullWidth?: boolean;
@@ -43,8 +39,8 @@ const Button = ({
     secondary: 'bg-secondary text-neutral-800 hover:bg-secondary-dark border border-neutral-300',
     outline: 'bg-transparent text-primary border border-primary hover:bg-primary/5',
     text: 'bg-transparent text-primary hover:bg-primary/5 px-2',
+    neutral: 'bg-neutral-900 text-white px-6 py-3 rounded-r-md hover:bg-neutral-800 transition-colors'
   };
-  // const {pending} = useFormStatus();
 
 
   // Disabled classes
